@@ -1,0 +1,13 @@
+﻿@model StatistinesAtaskaitos.Models.AtaskaitosParametrai
+
+@using (Html.BeginForm("Ataskaita", "StatistineAtaskaita", FormMethod.Get))
+{
+    if (Model.Metai != null)
+    {
+        @Html.EditorFor(m => m.Metai)
+    }
+    
+    @Html.EditorFor(m => m.FormosTipas)
+    @Html.HiddenFor(m => m.ImonesKodas)
+    @Html.HiddenFor(m => m.UploadId)
+}

@@ -1,0 +1,24 @@
+﻿@model StatistinesAtaskaitos.Models.AtaskaitaModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+@Html.Partial("AtaskaitosParametrai", Model.Parametrai)
+@Html.DisplayFor(m => m.Rezultatai, Model.Parametrai.FormosTipas.ToString())
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".metu-pasirinkimas").change(function () {
+                $(this).closest('form').submit();
+            });
+            
+            $(".formos-tipas").change(function () {
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+}

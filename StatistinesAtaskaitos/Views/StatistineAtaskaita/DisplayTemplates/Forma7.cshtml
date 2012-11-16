@@ -1,0 +1,46 @@
+﻿@using MvcContrib.UI.Grid
+@model IEnumerable<StatistinesAtaskaitos.Models.Forma7>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+        <table>
+            <tr>
+                <th>Pavadinimas</th>
+                <th>Kodas</th>
+                <th>MetuPradziosLikutis</th>
+                <th>PajamosPagaminta</th>
+                <th>PajamosPirkta</th>
+                <th>PajamosImportuota</th>
+                <th>IslaidosVisos</th>
+                <th>IslaidosParduota</th>
+                <th>IslaidosPasarui</th>
+                <th>IslaidosSeklai</th>
+                <th>IslaidosDuotaPerdirbti</th>
+                <th>IslaidosProdukcijosNuostoliai</th>
+                <th>IslaidosKitos</th>
+                <th>MetupabaigosLikutis</th>
+            </tr>
+            @foreach(var imones7 in Model)
+            {
+                <tr>   
+                    <td>@imones7.Pavadinimas</td>
+                    <td>@imones7.Kodas</td>
+                    <td>@Html.DisplayFor(x => imones7.MetuPradziosLikutis)</td>
+                    <td>@Html.DisplayFor(x => imones7.PajamosPagaminta)</td>
+                    <td>@Html.DisplayFor(x => imones7.PajamosPirkta)</td>
+                    <td>@Html.DisplayFor(x => imones7.PajamosImportuota)</td>
+                    <td>@Html.DisplayFor(x => imones7.IslaidosVisos)</td>
+                    <td>@Html.DisplayFor(x => imones7.IslaidosParduota)</td>
+                    <td>@Html.DisplayFor(x => imones7.IslaidosPasarui)</td>
+                    <td>@Html.DisplayFor(x => imones7.IslaidosSeklai)</td>
+                    <td>@Html.DisplayFor(x => imones7.IslaidosDuotaPerdirbti)</td>
+                    <td>@Html.DisplayFor(x => imones7.IslaidosProdukcijosNuostoliai)</td>
+                    <td>@Html.DisplayFor(x => imones7.IslaidosKitos)</td>
+                    <td>@Html.DisplayFor(x => imones7.MetupabaigosLikutis)</td>
+
+
+                </tr>       
+            }
+        </table>
+

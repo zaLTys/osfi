@@ -1,0 +1,58 @@
+﻿@using StatistinesAtaskaitos.Models
+@model StatistinesAtaskaitos.Models.DuomenisPateikusiosImonesModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Index", "ImoniuAdministravimas", new { metai = (int?)null }, FormMethod.Get))
+{
+    @Html.LabelFor(x => x.Metai)
+    @Html.EditorFor(x => x.Metai)
+}
+
+<table>
+    <tr>
+        <th>Asmens kodas</th>
+        <th>Pavadinimas</th>
+        <th>Statusas</th>
+        <th></th>
+    </tr>
+    
+    @foreach (var imone in Model.Imones)
+    {
+        var statusoKlase = "good";
+
+        switch (imone.Statusas)
+        {
+            case ImonesStatusas.Atmesta:
+                statusoKlase = "evil";
+                break;
+            case ImonesStatusas.LaukiamaPatvirtinimo:
+                statusoKlase = "so-so";
+                break;
+        }
+        
+        <tr class="@statusoKlase">
+            <td>@imone.AsmensKodas</td>
+            <td>@imone.Pavadinimas</td>
+            <td>@imone.Statusas</td>
+            <td>
+                @Html.ActionLink("Detaliau", "Details", new { id = imone.Id, metai = Model.Metai })
+                @Html.ActionLink("Ataskaita", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Metai, ImonesKodas = imone.AsmensKodas  }, new {})
+            </td>
+        </tr>
+    }
+</table>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".metu-pasirinkimas").change(function () {
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+}

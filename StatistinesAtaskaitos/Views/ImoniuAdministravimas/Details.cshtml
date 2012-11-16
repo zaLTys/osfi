@@ -1,0 +1,61 @@
+﻿@model StatistinesAtaskaitos.Models.ImoneDetailsModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table>
+    <tr>
+        <th>Asmens kodas:</th>
+        <td>@Model.AsmensKodas</td>
+    </tr>
+    <tr>
+        <th>Pavadinimas:</th>
+        <td>@Model.Pavadinimas</td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <th>Metai</th>
+        <th>Data</th>
+        <th>Buklė</th>
+        <th>Būklės data</th>
+        <th></th>
+    </tr>
+    
+    @foreach(var upload in Model.Ikelimai)
+    {
+        var statusoKlase = "good";
+
+        switch (upload.Bukle)
+        {
+            case "Atmestas":
+                statusoKlase = "evil";
+                break;
+            case "Nepatvirtintas":
+                statusoKlase = "so-so";
+                break;
+        }
+        
+        <tr class="@statusoKlase">
+            <td>@upload.Metai</td>
+            <td>@upload.Data</td>
+            <td>@upload.Bukle</td>
+            <td>@upload.BuklesData</td>
+            <td>
+                @Html.ActionLink("Ataskaita", "Ataskaita", "StatistineAtaskaita", new { UploadId = upload.Id }, new {})
+                @if (upload.Bukle != "Patvirtintas")
+                {
+                    @Html.ActionLink("Patvirtinti", "Patvirtinti", new { imoneId = Model.Id, metai = upload.Metai, uploadId = upload.Id })
+                }
+
+                @if (upload.Bukle != "Atmestas")
+                {
+                    @Html.ActionLink("Atmesti", "Atmesti", new { imoneId = Model.Id, metai = upload.Metai, uploadId = upload.Id })
+                }
+            </td>
+        </tr>
+    }
+</table>

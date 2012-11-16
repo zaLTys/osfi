@@ -1,0 +1,28 @@
+﻿@using MvcContrib.UI.Grid
+@model IEnumerable<StatistinesAtaskaitos.Models.Forma9>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+        <table>
+            <tr>
+                <th>Pavadinimas</th>
+                <th>Kodas</th>
+                <th>NuomaIsValstybes</th>
+                <th>NuomaIsFiziniu</th>
+                <th>NuosavaZeme</th>
+            </tr>
+            @foreach(var imones9 in Model)
+            {
+                <tr>   
+                    <td>@imones9.Pavadinimas</td>
+                    <td>@imones9.Kodas</td>
+                    <td>@Html.DisplayFor(x => imones9.NuomaIsValstybes)</td>
+                    <td>@Html.DisplayFor(x => imones9.NuomaIsFiziniu)</td>
+                    <td>@Html.DisplayFor(x => imones9.NuosavaZeme)</td>
+
+
+
+                </tr>       
+            }
+        </table>

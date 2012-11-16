@@ -1,0 +1,16 @@
+﻿@model StatistinesAtaskaitos.Models.UploadModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Index", "Ikelimas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{    
+    <input type="file" name="File" value="Ataskaitos byla" />
+    @Html.EditorFor(m => m.Metai)
+    
+    <input type="submit" value="Įkelti" />
+}

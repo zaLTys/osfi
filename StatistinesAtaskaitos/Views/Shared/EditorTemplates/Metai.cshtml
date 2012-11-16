@@ -1,0 +1,19 @@
+﻿@model int
+
+@{
+    var minMetai = Math.Max(2011, DateTime.Now.Year - 3);
+    var maxMetai = DateTime.Now.Year;
+    
+    var metaiItems = new List<SelectListItem>();
+    for (var metai = minMetai; metai <= maxMetai; metai++)
+    {
+        metaiItems.Add(new SelectListItem
+        {
+            Selected = metai == Model,
+            Text = metai.ToString(),
+            Value = metai.ToString()
+        });
+    }
+}
+
+@Html.DropDownListFor(m => m, metaiItems, new { @class = "metu-pasirinkimas" })

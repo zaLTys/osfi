@@ -1,0 +1,13 @@
+﻿@model FormuTipai
+@using StatistinesAtaskaitos.Models
+@{
+    var selectList = Enum.GetValues(typeof(FormuTipai)).Cast<FormuTipai>()
+        .Select(formosTipas => new SelectListItem
+        {
+            Selected = (formosTipas == Model),
+            Text = formosTipas.ToString(),
+            Value = formosTipas.ToString()
+        });
+}
+
+@Html.DropDownListFor(m => m, selectList, new { @class = "formos-tipas" })
