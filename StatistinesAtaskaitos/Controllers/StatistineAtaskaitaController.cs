@@ -10,6 +10,7 @@ using StatistinesAtaskaitos.Services;
 
 namespace StatistinesAtaskaitos.Controllers
 {
+    [Authorize(Roles = "Administratorius")]
     public class StatistineAtaskaitaController : Controller
     {
         private readonly IStatistiniuAtaskaituService _statistiniuAtaskaituService;

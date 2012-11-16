@@ -149,10 +149,12 @@
     <Compile Include="Controllers\IkelimasController.cs" />
     <Compile Include="Controllers\ImoniuAdministravimasController.cs" />
     <Compile Include="Controllers\StatistineAtaskaitaController.cs" />
+    <Compile Include="Controllers\VartotojaiController.cs" />
     <Compile Include="DecimalMetadataProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HashExtensions.cs" />
     <Compile Include="Models\AtaskaitaModel.cs" />
     <Compile Include="Models\DuomenisPateikusiosImonesModel.cs" />
     <Compile Include="Models\Forma1.cs" />
@@ -171,10 +173,14 @@
     <Compile Include="Models\ImoneDetailsModel.cs" />
     <Compile Include="Models\ImoneGridModel.cs" />
     <Compile Include="Models\AtaskaitosParametrai.cs" />
+    <Compile Include="Models\PrisijungimoForma.cs" />
     <Compile Include="Models\UploadModel.cs" />
     <Compile Include="OracleProvider.cs" />
     <Compile Include="PetaPoco.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AuthenticateAttribute.cs" />
+    <Compile Include="Security\AuthenticatedConstraint.cs" />
+    <Compile Include="Security\FormsAuthenticationProvider.cs" />
     <Compile Include="Services\DummyStatistiniuAtaskaituService.cs" />
     <Compile Include="Services\IImoniuService.cs" />
     <Compile Include="Services\IStatistiniuAtaskaituService.cs" />
@@ -203,6 +209,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\StatistineAtaskaita\Ataskaita.cshtml" />
     <Content Include="Views\StatistineAtaskaita\AtaskaitosParametrai.cshtml" />
+    <Content Include="Views\Vartotojai\Prisijungimas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Ninject;
+using StatistinesAtaskaitos.Security;
 
 namespace StatistinesAtaskaitos
 {
@@ -22,6 +24,14 @@ namespace StatistinesAtaskaitos
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ModelMetadataProviders.Current = new DecimalMetadataProvider();
+
+            PostAuthenticateRequest += Application_PostAuthenticateRequest;
+        }
+
+        void Application_PostAuthenticateRequest(object sender, EventArgs e)
+        {
+            var provider = DependencyResolver.Current.GetService<IAuthenticationProvider>();
+            provider.TryAuthenticate();
         }
     }
 }

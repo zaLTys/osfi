@@ -1,4 +1,5 @@
 using System.Configuration;
+using System.Security.Cryptography;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
@@ -6,6 +7,7 @@ using FluentNHibernate.Conventions.Helpers;
 using NHibernate;
 using Oracle.DataAccess.Client;
 using PetaPoco;
+using StatistinesAtaskaitos.Security;
 using StatistinesAtaskaitos.Services;
 using Vic.ZubStatistika.DataAccess;
 using Vic.ZubStatistika.DataAccess.Mappings;
@@ -70,6 +72,8 @@ namespace StatistinesAtaskaitos.App_Start
 
             kernel.Bind<Database>().ToConstructor(x => new Database(connString, new OracleClientFactory()));
             kernel.Bind<IStatistiniuAtaskaituService>().To<StatistiniuAtaskaituService>();
+            kernel.Bind<IAuthenticationProvider>().To<FormsAuthenticationProvider>();
+            kernel.Bind<HashAlgorithm>().To<SHA256Managed>();
             kernel.Bind<IImoniuService>().To<ImoniuService>();
             kernel.Bind<ISessionFactory>().ToMethod(ctx =>
                                                         {

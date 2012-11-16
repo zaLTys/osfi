@@ -11,6 +11,7 @@ using Vic.ZubStatistika.Entities;
 
 namespace StatistinesAtaskaitos.Controllers
 {
+    [Authorize(Roles = "Administratorius")]
     public class ImoniuAdministravimasController : Controller
     {
         private readonly IImoniuService _imoniuService;
