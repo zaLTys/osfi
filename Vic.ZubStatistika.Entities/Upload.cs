@@ -14,6 +14,7 @@ namespace Vic.ZubStatistika.Entities
         public virtual DateTime Data { get; set; }
         public virtual string Bukle { get; set; }
         public virtual ICollection<IlgalaikisTurtas> IlgalaikisTurtas { get; set; }
+        public virtual ICollection<ImonesDuomenys> ImonesDuomenys { get; set; }
 
         protected virtual void CreateStatus(User user, string bukle, DateTime dataNuo)
         {

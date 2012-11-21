@@ -1,0 +1,25 @@
+﻿@model IEnumerable<StatistinesAtaskaitos.Models.UserModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table>
+    <tr>
+        <th>Vartotojo vardas</th>
+        <th>Rolė</th>
+        <th>Vardas</th>
+        <th>Pavardė</th>
+        <th></th>
+    </tr>
+    @foreach(var user in Model)
+    {
+        <tr>
+            <td>@user.Username</td>
+            <td>@user.Role</td>
+            <td>@user.Vardas</td>
+            <td>@user.Pavarde</td>
+            <td></td>
+        </tr>
+    }
+</table>

@@ -25,31 +25,22 @@ namespace StatistinesAtaskaitos.Services
             using (var session = _sessionFactory.OpenSession())
             using (var transaction = session.BeginTransaction())
             {
-                var imones = from u in session.Query<Upload>()
-                             join bukle in session.Query<UploadStatus>() on u.Id equals bukle.Upload.Id
-                             join imonesDuomenys in session.Query<ImonesDuomenys>() on u.Id equals imonesDuomenys.Upload.Id
-                             where u.Metai == metai
-                              && bukle.DataIki == null
-                              && bukle.Bukle != "Netinkamas"
-                             select new
-                             {
-                                 u.Imone.Id,
-                                 u.Imone.AsmensKodas,
-                                 imonesDuomenys.Pavadinimas,
-                                 bukle.Bukle
-                             };
+                var tuMetuUploudai = from u in session.Query<Upload>()
+                                     where u.Metai == metai
+                                           && u.Bukle != "Netinkamas"
+                                     select u;
 
-                var groupedImones = from i in imones.AsEnumerable()
-                                    group i by new { i.Id, i.AsmensKodas, i.Pavadinimas }
-                                    into g select new
-                                    {
-                                        Id = g.Key.Id,
-                                        AsmensKodas = g.Key.AsmensKodas,
-                                        Pavadinimas = g.Key.Pavadinimas,
-                                        PatvirtintuSkaicius = g.Count(x => x.Bukle == "Patvirtintas"),
-                                        NepatvirtintuSkaicius = g.Count(x => x.Bukle == "Nepatvirtintas"),
-                                        AtmestuSkaicius = g.Count(x => x.Bukle == "Atmestas")
-                                    };
+                var groupedImones = from u in tuMetuUploudai.AsEnumerable()
+                                    group u by new { u.Imone.Id, u.Imone.AsmensKodas, u.ImonesDuomenys.First().Pavadinimas } into g
+                                    select new
+                                        {
+                                            Id = g.Key.Id,
+                                            AsmensKodas = g.Key.AsmensKodas,
+                                            Pavadinimas = g.Key.Pavadinimas,
+                                            PatvirtintuSkaicius = g.Count(x => x.Bukle == "Patvirtintas"),
+                                            NepatvirtintuSkaicius = g.Count(x => x.Bukle == "Nepatvirtintas"),
+                                            AtmestuSkaicius = g.Count(x => x.Bukle == "Atmestas")
+                                        };
 
                 return groupedImones
                     .Select(x => new ImoneGridModel

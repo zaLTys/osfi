@@ -150,6 +150,7 @@
     <Compile Include="Controllers\ImoniuAdministravimasController.cs" />
     <Compile Include="Controllers\StatistineAtaskaitaController.cs" />
     <Compile Include="Controllers\VartotojaiController.cs" />
+    <Compile Include="Controllers\VartotojuAdministravimasController.cs" />
     <Compile Include="DecimalMetadataProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -175,6 +176,8 @@
     <Compile Include="Models\AtaskaitosParametrai.cs" />
     <Compile Include="Models\PrisijungimoForma.cs" />
     <Compile Include="Models\UploadModel.cs" />
+    <Compile Include="Models\UserDetailsModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="OracleProvider.cs" />
     <Compile Include="PetaPoco.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -210,6 +213,8 @@
     <Content Include="Views\StatistineAtaskaita\Ataskaita.cshtml" />
     <Content Include="Views\StatistineAtaskaita\AtaskaitosParametrai.cshtml" />
     <Content Include="Views\Vartotojai\Prisijungimas.cshtml" />
+    <Content Include="Views\VartotojuAdministravimas\Index.cshtml" />
+    <Content Include="Views\VartotojuAdministravimas\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
