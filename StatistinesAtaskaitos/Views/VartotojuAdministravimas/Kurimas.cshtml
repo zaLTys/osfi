@@ -1,0 +1,47 @@
+﻿@model StatistinesAtaskaitos.Models.UserCreateModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x => x.Id)
+    <table>
+        <tr>
+            <th>Vartotojo vardas</th>
+            <td>@Html.EditorFor(x => x.Username)</td>
+            <td>@Html.ValidationMessageFor(x => x.Username)</td>
+        </tr>
+        <tr>
+            <th>Slaptažodis</th>
+            <td>@Html.EditorFor(x => x.Password)</td>
+            <td>@Html.ValidationMessageFor(x => x.Password)</td>
+        </tr>
+        <tr>
+            <th>Pakartokite slaptažodį</th>
+            <td>@Html.EditorFor(x => x.RepeatPassword)</td>
+            <td>@Html.ValidationMessageFor(x => x.RepeatPassword)</td>
+        </tr>
+        <tr>
+            <th>Rolė</th>
+            <td>@Html.EditorFor(x => x.Role)</td>
+            <td>@Html.ValidationMessageFor(x => x.Role)</td>
+        </tr>
+        <tr>
+            <th>Vardas</th>
+            <td>@Html.EditorFor(x => x.Vardas)</td>
+            <td>@Html.ValidationMessageFor(x => x.Vardas)</td>
+        </tr>
+        <tr>
+            <th>Pavardė</th>
+            <td>@Html.EditorFor(x => x.Pavarde)</td>
+            <td>@Html.ValidationMessageFor(x => x.Pavarde)</td>
+        </tr>
+    </table> 
+    
+    <input type="submit" value="Išsaugoti">  
+}
+
+

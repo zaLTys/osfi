@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using NHibernate;
 using NHibernate.Linq;
 using StatistinesAtaskaitos.Models;
+using StatistinesAtaskaitos.Security;
 using StatistinesAtaskaitos.Services;
 using Vic.ZubStatistika.Entities;
 
@@ -16,11 +17,13 @@ namespace StatistinesAtaskaitos.Controllers
     {
         private readonly IImoniuService _imoniuService;
         private readonly ISessionFactory _sessionFactory;
+        private readonly UserInformation _loggedInUser;
 
-        public ImoniuAdministravimasController(IImoniuService imoniuService, ISessionFactory sessionFactory)
+        public ImoniuAdministravimasController(IImoniuService imoniuService, ISessionFactory sessionFactory, [LoggedIn] UserInformation loggedInUser)
         {
             _imoniuService = imoniuService;
             _sessionFactory = sessionFactory;
+            _loggedInUser = loggedInUser;
         }
 
         //
@@ -51,7 +54,7 @@ namespace StatistinesAtaskaitos.Controllers
             using (var tx = session.BeginTransaction())
             {
                 var imone = session.Query<Imone>().First(x => x.Id == imoneId);
-                var user = session.Query<User>().First(x => x.Id == 1);
+                var user = session.Query<User>().First(x => x.Id == _loggedInUser.Id);
                 imone.PatvirtintiUploada(user, uploadId, DateTime.Now);
 
                 session.Save(imone);
@@ -67,7 +70,7 @@ namespace StatistinesAtaskaitos.Controllers
             using (var tx = session.BeginTransaction())
             {
                 var imone = session.Query<Imone>().First(x => x.Id == imoneId);
-                var user = session.Query<User>().First(x => x.Id == 1);
+                var user = session.Query<User>().First(x => x.Id == _loggedInUser.Id);
                 
                 imone.AtmestiUploada(user, uploadId, DateTime.Now);
 

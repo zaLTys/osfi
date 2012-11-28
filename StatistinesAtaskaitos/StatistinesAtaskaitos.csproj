@@ -47,6 +47,12 @@
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.1.2.0.712\lib\FluentNHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\packages\FluentValidation.3.4.6.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.Mvc">
+      <HintPath>..\packages\FluentValidation.MVC3.3.4.6.0\lib\Net40\FluentValidation.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.3.1.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -144,6 +150,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InjectionAttributes.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IkelimasController.cs" />
@@ -175,9 +182,12 @@
     <Compile Include="Models\ImoneGridModel.cs" />
     <Compile Include="Models\AtaskaitosParametrai.cs" />
     <Compile Include="Models\PrisijungimoForma.cs" />
+    <Compile Include="Models\RoliuTipai.cs" />
     <Compile Include="Models\UploadModel.cs" />
     <Compile Include="Models\UserDetailsModel.cs" />
+    <Compile Include="Models\UserCreateModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="NinjectValidatorFactory.cs" />
     <Compile Include="OracleProvider.cs" />
     <Compile Include="PetaPoco.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -191,6 +201,7 @@
     <Compile Include="Services\ImoniuService.cs" />
     <Compile Include="Services\StatistiniuAtaskaituService.cs" />
     <Compile Include="Services\TheRealStatistiniuAtaskaituService.cs" />
+    <Compile Include="Validators\UserCreateValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -214,7 +225,9 @@
     <Content Include="Views\StatistineAtaskaita\AtaskaitosParametrai.cshtml" />
     <Content Include="Views\Vartotojai\Prisijungimas.cshtml" />
     <Content Include="Views\VartotojuAdministravimas\Index.cshtml" />
-    <Content Include="Views\VartotojuAdministravimas\Details.cshtml" />
+    <Content Include="Views\VartotojuAdministravimas\Redagavimas.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\RoliuTipai.cshtml" />
+    <Content Include="Views\VartotojuAdministravimas\Kurimas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

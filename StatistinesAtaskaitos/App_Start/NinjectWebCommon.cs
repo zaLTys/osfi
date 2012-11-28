@@ -4,11 +4,15 @@ using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using FluentNHibernate.Conventions.Helpers;
+using FluentValidation;
+using FluentValidation.Mvc;
 using NHibernate;
 using Oracle.DataAccess.Client;
 using PetaPoco;
+using StatistinesAtaskaitos.Models;
 using StatistinesAtaskaitos.Security;
 using StatistinesAtaskaitos.Services;
+using StatistinesAtaskaitos.Validators;
 using Vic.ZubStatistika.DataAccess;
 using Vic.ZubStatistika.DataAccess.Mappings;
 using Vic.ZubStatistika.Entities;
@@ -55,6 +59,7 @@ namespace StatistinesAtaskaitos.App_Start
         private static IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
+            kernel.Settings.AllowNullInjection = true;
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
@@ -91,6 +96,18 @@ namespace StatistinesAtaskaitos.App_Start
 
                                                                 return config.BuildSessionFactory();
                                                         }).InSingletonScope();
+            kernel.Bind<UserInformation>()
+                .ToMethod(ctx =>
+                              {
+                                  var user = HttpContext.Current.User as OsfiPrincipal;
+                                  if (user == null) return null;
+                                  return user.User;
+                              })
+                .WhenTargetHas<LoggedInAttribute>();
+
+            FluentValidationModelValidatorProvider.Configure(x => x.ValidatorFactory = new NinjectValidatorFactory(kernel));
+
+            kernel.Bind<IValidator<UserCreateModel>>().To<UserCreateValidator>();
         }
     }
 }

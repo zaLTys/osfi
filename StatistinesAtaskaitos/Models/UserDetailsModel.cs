@@ -9,7 +9,7 @@ namespace StatistinesAtaskaitos.Models
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public string Role { get; set; }
+        public RoliuTipai Role { get; set; }
         public string Vardas { get; set; }
         public string Pavarde { get; set; }
     }

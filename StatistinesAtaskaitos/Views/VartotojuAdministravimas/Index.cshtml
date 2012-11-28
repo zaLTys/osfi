@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+        @Html.ActionLink("Naujas Vartotojas", "Kurimas")
 <table>
     <tr>
         <th>Vartotojo vardas</th>
@@ -14,12 +15,17 @@
     </tr>
     @foreach(var user in Model)
     {
+        
         <tr>
             <td>@user.Username</td>
             <td>@user.Role</td>
             <td>@user.Vardas</td>
             <td>@user.Pavarde</td>
-            <td></td>
+            <td>
+                @Html.ActionLink("Redaguoti", "Redagavimas", new { id = @user.Id })
+                @Html.ActionLink("Trinti", "Trinti", new { id = @user.Id })
+            </td>
         </tr>
+
     }
 </table>

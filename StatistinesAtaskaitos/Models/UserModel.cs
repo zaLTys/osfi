@@ -7,10 +7,10 @@ namespace StatistinesAtaskaitos.Models
 {
     public class UserModel
     {
-        public virtual int Id { get; set; }
-        public virtual string Username { get; set; }
-        public virtual string Role { get; set; }
-        public virtual string Vardas { get; set; }
-        public virtual string Pavarde { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public RoliuTipai Role { get; set; }
+        public string Vardas { get; set; }
+        public string Pavarde { get; set; }
     }
 }

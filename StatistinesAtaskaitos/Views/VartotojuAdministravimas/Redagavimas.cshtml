@@ -1,0 +1,32 @@
+﻿@model StatistinesAtaskaitos.Models.UserEditModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x => x.Id)
+    <table>
+        <tr>
+            <th>Vartotojo vardas</th>
+            <td>@Model.Username</td>
+        </tr>
+        <tr>
+            <th>Rolė</th>
+            <td>@Html.EditorFor(x => x.Role)</td>
+        </tr>
+        <tr>
+            <th>Vardas</th>
+            <td>@Html.EditorFor(x => x.Vardas)</td>
+        </tr>
+        <tr>
+            <th>Pavardė</th>
+            <td>@Html.EditorFor(x => x.Pavarde)</td>
+        </tr>
+    </table> 
+    
+    <input type="submit" value="Išsaugoti">  
+}
+
+
