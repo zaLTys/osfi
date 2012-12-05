@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FluentNHibernate.Automapping;
+using FluentNHibernate.Automapping.Alterations;
 using FluentNHibernate.Mapping;
 using Vic.ZubStatistika.Entities;
 
 namespace Vic.ZubStatistika.DataAccess.Mappings
 {
-    public class AugalininkysteMap : ClassMap<Augalininkyste>
+    public class KlaidosAprasasMap : IAutoMappingOverride<KlaidosAprasas>
     {
-        public AugalininkysteMap()
+        public void Override(AutoMapping<KlaidosAprasas> mapping)
         {
-            
+            mapping.Table("Klaidos");
+            mapping.CompositeId()
+                .KeyProperty(x => x.FormosTipas)
+                .KeyProperty(x => x.IrasoId)
+                .KeyProperty(x => x.Stulpelis);
         }
     }
 

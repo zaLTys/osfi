@@ -15,6 +15,17 @@ namespace Vic.ZubStatistika.Entities
         public virtual string Bukle { get; set; }
         public virtual ICollection<IlgalaikisTurtas> IlgalaikisTurtas { get; set; }
         public virtual ICollection<ImonesDuomenys> ImonesDuomenys { get; set; }
+        public virtual ICollection<Augalininkyste> Augalininkyste { get; set; }
+        public virtual ICollection<Darbuotojai> Darbuotojai { get; set; }
+        public virtual ICollection<DotacijosSubsidijos> DotacijosSubsidijos { get; set; }
+        public virtual ICollection<FormosPildymoLaikas> FormosPildymoLaikas { get; set; }
+        public virtual ICollection<Gyvulininkyste> Gyvulininkyste { get; set; }
+        public virtual ICollection<GyvuliuSkaicius> GyvuliuSkaicius { get; set; }
+        public virtual ICollection<ProdukcijosKaita> ProdukcijosKaita { get; set; }
+        public virtual ICollection<ProduktuPardavimas> ProduktuPardavimas { get; set; }
+        public virtual ICollection<Sanaudos> Sanaudos { get; set; }
+        public virtual ICollection<ZemesPlotai> ZemesPlotai { get; set; }
+
 
         protected virtual void CreateStatus(User user, string bukle, DateTime dataNuo)
         {
