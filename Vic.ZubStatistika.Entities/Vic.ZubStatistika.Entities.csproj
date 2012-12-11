@@ -54,6 +54,7 @@
     <Compile Include="IExcelioLentele.cs" />
     <Compile Include="IKlasifikatorius.cs" />
     <Compile Include="IStatistineAtaskaita.cs" />
+    <Compile Include="IUploadValidator.cs" />
     <Compile Include="KlaidosAprasas.cs" />
     <Compile Include="ProdukcijosKaita.cs" />
     <Compile Include="ProdukcijosKaitosRusis.cs" />

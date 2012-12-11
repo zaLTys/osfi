@@ -14,10 +14,6 @@ namespace Vic.ZubStatistika.DataAccess.Mappings
         public void Override(AutoMapping<KlaidosAprasas> mapping)
         {
             mapping.Table("Klaidos");
-            mapping.CompositeId()
-                .KeyProperty(x => x.FormosTipas)
-                .KeyProperty(x => x.IrasoId)
-                .KeyProperty(x => x.Stulpelis);
         }
     }
 

@@ -9,6 +9,7 @@ using FluentValidation.Mvc;
 using NHibernate;
 using Oracle.DataAccess.Client;
 using PetaPoco;
+using StatistikosFormos.FormuValidavimas;
 using StatistinesAtaskaitos.Models;
 using StatistinesAtaskaitos.Security;
 using StatistinesAtaskaitos.Services;
@@ -108,6 +109,7 @@ namespace StatistinesAtaskaitos.App_Start
             FluentValidationModelValidatorProvider.Configure(x => x.ValidatorFactory = new NinjectValidatorFactory(kernel));
 
             kernel.Bind<IValidator<UserCreateModel>>().To<UserCreateValidator>();
+            kernel.Bind<IUploadValidator>().To<UploadValidator>();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.OleDb;
 using System.Data;
 using NHibernate.Linq;
+using StatistikosFormos.FormuValidavimas;
 using Vic.ZubStatistika.DataAccess;
 using Vic.ZubStatistika.Entities;
 using System.Collections.ObjectModel;
@@ -17,10 +18,12 @@ namespace StatistikosFormos
         private static log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly ISessionFactory _sessionFactory;
+        private readonly IUploadValidator _uploadValidator;
 
-        public ExcelImporter(ISessionFactory sessionFactory)
+        public ExcelImporter(ISessionFactory sessionFactory, IUploadValidator uploadValidator)
         {
             _sessionFactory = sessionFactory;
+            _uploadValidator = uploadValidator;
         }
 
         public void Import(string excelFile, int metai)
@@ -59,25 +62,20 @@ namespace StatistikosFormos
                         };
                     }
 
-                    session.SaveOrUpdate(imone);
-
                     var now = DateTime.Now;
+                    var imonesDuomenys = new ImonesDuomenys
+                                         {
+                                             Adresas = imonesRekvizitai.Adresas,
+                                             AtaskaitosDuomenys = imonesRekvizitai.AtaskaitosDuomenys,
+                                             ElPastas = imonesRekvizitai.ElPastas,
+                                             FormuPildymoData = imonesRekvizitai.FormuPildymoData,
+                                             ImonesFinansininkas = imonesRekvizitai.ImonesFinansininkas,
+                                             ImonesVadovas = imonesRekvizitai.ImonesVadovas,
+                                             Pavadinimas = imonesRekvizitai.Pavadinimas,
+                                             Telefonas = imonesRekvizitai.Telefonas,
+                                         };
 
-                    var upload = imone.CreateNepatvirtintasUpload(metai, now);
-                    imone.AddImonesDuomenys(upload, new ImonesDuomenys
-                                                       {
-                                                           Adresas = imonesRekvizitai.Adresas,
-                                                           AtaskaitosDuomenys = imonesRekvizitai.AtaskaitosDuomenys,
-                                                           ElPastas = imonesRekvizitai.ElPastas,
-                                                           FormuPildymoData = imonesRekvizitai.FormuPildymoData,
-                                                           ImonesFinansininkas = imonesRekvizitai.ImonesFinansininkas,
-                                                           ImonesVadovas = imonesRekvizitai.ImonesVadovas,
-                                                           Pavadinimas = imonesRekvizitai.Pavadinimas,
-                                                           Telefonas = imonesRekvizitai.Telefonas,                                                           
-                                                       });
-                    session.Save(imone);
-
-                    ImportExcelioLentele<IlgalaikisTurtas, IlgalaikioTurtoRusis>(session, excelConnection, imone, upload, (stulpelis, turtas) =>
+                    var ilgalaikisTurtas = ImportExcelioLentele<IlgalaikisTurtas, IlgalaikioTurtoRusis>(session, excelConnection, imone, (stulpelis, turtas) =>
                     {
                         int i = 1;
 
@@ -105,7 +103,7 @@ namespace StatistikosFormos
                         }
                     }, "Forma1");
 
-                    ImportExcelioLentele<Augalininkyste, AugalininkystesRusis>(session, excelConnection, imone, upload, (stulpelis, augal) =>
+                    var augalininkyste = ImportExcelioLentele<Augalininkyste, AugalininkystesRusis>(session, excelConnection, imone, (stulpelis, augal) =>
                     {
                         try
                         {
@@ -129,7 +127,7 @@ namespace StatistikosFormos
                         }
                     }, "Forma5");
 
-                    ImportExcelioLentele<Darbuotojai, DarbuotojuRusis>(session, excelConnection, imone, upload, (stulpelis, darbuot) =>
+                    var darbuotojai = ImportExcelioLentele<Darbuotojai, DarbuotojuRusis>(session, excelConnection, imone, (stulpelis, darbuot) =>
                     {
                         try
                         {
@@ -142,7 +140,7 @@ namespace StatistikosFormos
                         }
                     }, "Forma2");
 
-                    ImportExcelioLentele<Sanaudos, SanauduRusis>(session, excelConnection, imone, upload, (stulpelis, sanaud) =>
+                    var sanaudos = ImportExcelioLentele<Sanaudos, SanauduRusis>(session, excelConnection, imone, (stulpelis, sanaud) =>
                     {
                         try
                         {
@@ -157,7 +155,7 @@ namespace StatistikosFormos
                         }
                     }, "Forma3");
 
-                    ImportExcelioLentele<ProduktuPardavimas, ProduktuPardavimoRusis>(session, excelConnection, imone, upload, (stulpelis, prodpard) =>
+                    var produktuPardavimas = ImportExcelioLentele<ProduktuPardavimas, ProduktuPardavimoRusis>(session, excelConnection, imone, (stulpelis, prodpard) =>
                     {
                         try
                         {
@@ -175,7 +173,7 @@ namespace StatistikosFormos
 
                     }, "Forma41augalai", "Forma41Gyvunai", "Forma41Kita");
 
-                    ImportExcelioLentele<DotacijosSubsidijos, DotacijuSubsidijuRusis>(session, excelConnection, imone, upload, (stulpelis, dota) =>
+                    var dotacijosSubsidijos = ImportExcelioLentele<DotacijosSubsidijos, DotacijuSubsidijuRusis>(session, excelConnection, imone, (stulpelis, dota) =>
                     {
                         try
                         {
@@ -189,7 +187,7 @@ namespace StatistikosFormos
 
                     }, "Forma42straipsniai");
 
-                    ImportExcelioLentele<Gyvulininkyste, GyvulininkystesRusis>(session, excelConnection, imone, upload, (stulpelis, gyvul) =>
+                    var gyvulininkyste = ImportExcelioLentele<Gyvulininkyste, GyvulininkystesRusis>(session, excelConnection, imone, (stulpelis, gyvul) =>
                     {
                         try
                         {
@@ -211,7 +209,7 @@ namespace StatistikosFormos
                         }
                     }, "Forma6");
 
-                    ImportExcelioLentele<ProdukcijosKaita, ProdukcijosKaitosRusis>(session, excelConnection, imone, upload, (stulpelis, prodkait) =>
+                    var produkcijosKaita = ImportExcelioLentele<ProdukcijosKaita, ProdukcijosKaitosRusis>(session, excelConnection, imone, (stulpelis, prodkait) =>
                     {
                         try
                         {
@@ -235,7 +233,7 @@ namespace StatistikosFormos
                         }
                     }, "Forma7");
 
-                    ImportExcelioLentele<GyvuliuSkaicius, GyvuliuSkaiciausRusis>(session, excelConnection, imone, upload, (stulpelis, gyvsk) =>
+                    var gyvuliuSkaicius = ImportExcelioLentele<GyvuliuSkaicius, GyvuliuSkaiciausRusis>(session, excelConnection, imone, (stulpelis, gyvsk) =>
                     {
                         try
                         {
@@ -250,7 +248,7 @@ namespace StatistikosFormos
                         }
                     }, "Forma8");
 
-                    ImportExcelioLentele<ZemesPlotai, ZemesPlotuRusis>(session, excelConnection, imone, upload, (stulpelis, zem) =>
+                    var zemesPlotai = ImportExcelioLentele<ZemesPlotai, ZemesPlotuRusis>(session, excelConnection, imone, (stulpelis, zem) =>
                     {
                         try
                         {
@@ -265,7 +263,10 @@ namespace StatistikosFormos
                         }
                     }, "Forma9");
 
-                    ImportLaikai(session, excelConnection, imone, upload);
+                    var formosPildymoLaikas = ImportLaikai(session, excelConnection, imone);
+
+                    imone.CreateUpload(metai, now, ilgalaikisTurtas, imonesDuomenys, augalininkyste, darbuotojai, dotacijosSubsidijos, formosPildymoLaikas, gyvulininkyste, gyvuliuSkaicius, produkcijosKaita, produktuPardavimas, sanaudos, zemesPlotai, _uploadValidator);
+                    session.SaveOrUpdate(imone);
 
                     try
                     {
@@ -306,7 +307,7 @@ namespace StatistikosFormos
             }
         }
 
-        private static void ImportExcelioLentele<TLentele, TKlasifikatorius>(ISession session, OleDbConnection excelConnection, Imone imone, Upload upload, Action<DataRow, TLentele> importoVeiksmas, params string[] namedBlocks)
+        private static IEnumerable<TLentele> ImportExcelioLentele<TLentele, TKlasifikatorius>(ISession session, OleDbConnection excelConnection, Imone imone, Action<DataRow, TLentele> importoVeiksmas, params string[] namedBlocks)
             where TLentele : class, IExcelioLentele<TKlasifikatorius>, new()
             where TKlasifikatorius : class, IKlasifikatorius
         {
@@ -318,29 +319,28 @@ namespace StatistikosFormos
 
                 var irasuTipai = session.Query<TKlasifikatorius>().ToList();
 
-                foreach (DataRow stulpelis in dataTable.Rows)
+                foreach (DataRow dataRow in dataTable.Rows)
                 {
-                    if (stulpelis[0] == DBNull.Value) continue;
-                    var teisingasTipas = irasuTipai.Single(x => x.Kodas == stulpelis[0].ToString());
+                    if (dataRow[0] == DBNull.Value) continue;
+                    var teisingasTipas = irasuTipai.Single(x => x.Kodas == dataRow[0].ToString());
                     Log.DebugFormat("Irasome lenteles irasa tipo {0}", teisingasTipas);
 
                     var irasas = new TLentele()
                     {
-                        Upload = upload,
                         Rusis = teisingasTipas,
                         Imone = imone,
                     };
 
                     int i = 1;
 
-                    importoVeiksmas(stulpelis, irasas);
+                    importoVeiksmas(dataRow, irasas);
 
-                    session.Save(irasas);
+                    yield return irasas;
                 }
             }
         }
 
-        private static void ImportLaikai(ISession session, OleDbConnection excelConnection, Imone imone, Upload upload)
+        private static FormosPildymoLaikas ImportLaikai(ISession session, OleDbConnection excelConnection, Imone imone)
         {
             try
             {
@@ -350,13 +350,12 @@ namespace StatistikosFormos
 
                 var irasas = new FormosPildymoLaikas()
                 {
-                    Upload = upload,
                     Imone = imone,
                     Minutes = dataTable.Rows[0][1].AsInt(),
                     Valandos = dataTable.Rows[0][0].AsInt()
                 };
 
-                session.Save(irasas);
+                return irasas;
             }
             catch (Exception ex)
             {

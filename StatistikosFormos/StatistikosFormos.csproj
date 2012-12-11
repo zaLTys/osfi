@@ -75,9 +75,11 @@
   <ItemGroup>
     <Compile Include="ConversionExtensions.cs" />
     <Compile Include="ExcelImporter.cs" />
+    <Compile Include="FormuValidavimas\KlaidaSuRusiesKodu.cs" />
+    <Compile Include="FormuValidavimas\ReiksmeSuKodu.cs" />
+    <Compile Include="FormuValidavimas\UploadValidator.cs" />
     <Compile Include="ImonesRekvizitai.cs" />
     <Compile Include="ImportException.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

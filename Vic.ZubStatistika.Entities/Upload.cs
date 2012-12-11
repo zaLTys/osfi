@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -25,7 +26,7 @@ namespace Vic.ZubStatistika.Entities
         public virtual ICollection<ProduktuPardavimas> ProduktuPardavimas { get; set; }
         public virtual ICollection<Sanaudos> Sanaudos { get; set; }
         public virtual ICollection<ZemesPlotai> ZemesPlotai { get; set; }
-
+        public virtual ICollection<KlaidosAprasas> Klaidos { get; set; }
 
         protected virtual void CreateStatus(User user, string bukle, DateTime dataNuo)
         {

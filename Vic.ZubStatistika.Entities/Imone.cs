@@ -12,38 +12,74 @@ namespace Vic.ZubStatistika.Entities
         public virtual ICollection<ImonesDuomenys> Duomenys { get; set; }
         public virtual ICollection<Upload> Uploads { get; set; }
 
-        protected virtual Upload CreateUpload(int metai, DateTime data, string bukle)
+        public virtual void CreateUpload(
+            int metai, 
+            DateTime data, 
+            IEnumerable<IlgalaikisTurtas> ilgalaikisTurtas,
+            ImonesDuomenys imonesDuomenys,
+            IEnumerable<Augalininkyste> augalininkyste,
+            IEnumerable<Darbuotojai> darbuotojai,
+            IEnumerable<DotacijosSubsidijos> dotacijosSubsidijos,
+            FormosPildymoLaikas formosPildymoLaikas,
+            IEnumerable<Gyvulininkyste> gyvulininkyste,
+            IEnumerable<GyvuliuSkaicius> gyvuliuSkaicius,
+            IEnumerable<ProdukcijosKaita> produkcijosKaita,
+            IEnumerable<ProduktuPardavimas> produktuPardavimas,
+            IEnumerable<Sanaudos> sanaudos,
+            IEnumerable<ZemesPlotai> zemesPlotai,
+            IUploadValidator validator)
         {
+            Duomenys.Add(imonesDuomenys);
+
             var upload = new Upload()
-            {
-                Metai = metai,
-                Data = data,
-                Bukle = bukle,
-                Bukles = new List<UploadStatus>(),
-                Imone = this
-            };
+                         {
+                             Metai = metai,
+                             Data = data,
+                             Bukles = new List<UploadStatus>(),
+                             Imone = this,
+                             IlgalaikisTurtas = ilgalaikisTurtas.ToList(),
+                             ImonesDuomenys = new List<ImonesDuomenys> {imonesDuomenys},
+                             Augalininkyste = augalininkyste.ToList(),
+                             Darbuotojai = darbuotojai.ToList(),
+                             DotacijosSubsidijos = dotacijosSubsidijos.ToList(),
+                             FormosPildymoLaikas = new List<FormosPildymoLaikas> {formosPildymoLaikas},
+                             Gyvulininkyste = gyvulininkyste.ToList(),
+                             GyvuliuSkaicius = gyvuliuSkaicius.ToList(),
+                             ProdukcijosKaita = produkcijosKaita.ToList(),
+                             ProduktuPardavimas = produktuPardavimas.ToList(),
+                             Sanaudos = sanaudos.ToList(),
+                             ZemesPlotai = zemesPlotai.ToList()
+                         };
+
+            foreach (var irasas in upload.IlgalaikisTurtas) irasas.Upload = upload;
+            foreach (var irasas in upload.ImonesDuomenys) irasas.Upload = upload;
+            foreach (var irasas in upload.Augalininkyste) irasas.Upload = upload;
+            foreach (var irasas in upload.Darbuotojai) irasas.Upload = upload;
+            foreach (var irasas in upload.DotacijosSubsidijos) irasas.Upload = upload;
+            foreach (var irasas in upload.FormosPildymoLaikas) irasas.Upload = upload;
+            foreach (var irasas in upload.Gyvulininkyste) irasas.Upload = upload;
+            foreach (var irasas in upload.GyvuliuSkaicius) irasas.Upload = upload;
+            foreach (var irasas in upload.ProdukcijosKaita) irasas.Upload = upload;
+            foreach (var irasas in upload.ProduktuPardavimas) irasas.Upload = upload;
+            foreach (var irasas in upload.Sanaudos) irasas.Upload = upload;
+            foreach (var irasas in upload.ZemesPlotai) irasas.Upload = upload;
+
+            var klaidos = validator.Validate(upload).ToArray();
+
+            var bukle = "Nepatvirtintas";
+            if (klaidos.Any()) bukle = "Netinkamas";
+            upload.Klaidos = klaidos.ToList();
+
+            upload.Bukle = bukle;
 
             upload.Bukles.Add(new UploadStatus
             {
-                Bukle = bukle,
                 DataNuo = data,
                 Upload = upload,
+                Bukle = bukle
             });
 
             Uploads.Add(upload);
-
-            return upload;
-        }
-
-        public virtual Upload CreateNepatvirtintasUpload(int metai, DateTime data)
-        {
-            AtmestiUploaudus(Uploads, metai, data);
-            return CreateUpload(metai, data, "Nepatvirtintas");
-        }
-
-        public virtual Upload CreateNetinkamasUpload(int metai, DateTime data)
-        {
-            return CreateUpload(metai, data, "Netinkamas");
         }
 
         protected virtual void AtmestiUploaudus(IEnumerable<Upload> kandidatai, int metai, DateTime data)
