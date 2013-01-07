@@ -1,26 +1,32 @@
 ﻿@using StatistinesAtaskaitos.Security
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/SSall.css")" />
-        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/style.css")" />
-        <title>@ViewBag.Title</title>
-    </head>
+<head>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/SSall.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/style.css")" />
+    <title>@ViewBag.Title</title>
+</head>
 
-    <body>
-        @{
-            var user = HttpContext.Current.User as OsfiPrincipal;
-        }
 
-        @if (user != null)
-        {
-            <div>
-                @Html.ActionLink(user.User.Name, "Atsijungti", "Vartotojai")
-            </div>
-        }
+<body>
+    
 
-        @RenderBody()
-        
-        <script src="@Url.Content("~/Scripts/jquery-1.8.2.js")"></script>
-        @RenderSection("Scripts", false)
-    </body>
+    @{
+        var user = HttpContext.Current.User as OsfiPrincipal;
+    }
+
+    @if (user != null)
+    {
+        <div>
+            @Html.ActionLink(user.User.Name, "Atsijungti", "Vartotojai")
+        </div>
+    }
+
+    @RenderBody()
+
+    <script src="@Url.Content("~/Scripts/jquery-1.8.2.js")"></script>
+    @RenderSection("Scripts", false)
+</body>
+
+
+
 </html>

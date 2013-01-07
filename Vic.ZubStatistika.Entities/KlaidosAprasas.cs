@@ -29,7 +29,8 @@ namespace Vic.ZubStatistika.Entities
         Neneigiamas,
         IsJu,
         NeNulis,
-        Rezis
+        Rezis,
+        DarboDienosTrukme
     }
 
     public enum FormosTipas
