@@ -1,0 +1,8 @@
+﻿@model MenuHelperModel
+
+<ul>
+    @foreach (var menuItem in Model.Nodes)
+    {
+        <li class="@(menuItem.IsCurrentNode || menuItem.IsInCurrentPath ? "active" : "")">@Html.DisplayFor(x => menuItem)</li>
+    }
+</ul>

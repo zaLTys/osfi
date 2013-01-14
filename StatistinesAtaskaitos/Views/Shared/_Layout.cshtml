@@ -1,32 +1,50 @@
 ﻿@using StatistinesAtaskaitos.Security
-<html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/SSall.css")" />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/style.css")" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/style.css")" rel="stylesheet" />
 </head>
-
-
 <body>
-    
+    <div class="kaire-puse">
+        <div class="logo-background">
+            <div class="logo">
+                <img src="@Url.Content("~/Content/img/logo.png")" alt="" />
+            </div>
 
-    @{
-        var user = HttpContext.Current.User as OsfiPrincipal;
-    }
-
-    @if (user != null)
-    {
-        <div>
-            @Html.ActionLink(user.User.Name, "Atsijungti", "Vartotojai")
         </div>
-    }
+        <div class="menu-wrapper content-box">
+            <div class="menu">
+                @Html.MvcSiteMap().Menu("Meniu", false)
+            </div>
+        </div>
 
-    @RenderBody()
+    </div>
 
-    <script src="@Url.Content("~/Scripts/jquery-1.8.2.js")"></script>
-    @RenderSection("Scripts", false)
+    <div class="desine-puse">
+        <div class="top-bar">
+            <div class="user-zone">
+                @{
+                    var user = HttpContext.Current.User as OsfiPrincipal;
+                }
+                @if (user != null)
+                {
+                    <a href="@Url.Action("Atsijungti", "Vartotojai")" title="" class="user">@user.User.Name</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Prisijungimas", "Vartotojai")">Prisijungti</a>
+                }
+            </div>
+        </div>
+        <div class="content-wrapper content content-box">
+                @RenderBody()
+              <script src="@Url.Content("~/Scripts/jquery-1.8.2.js")"></script>
+            @RenderSection("Scripts", false)
+        </div>
+    </div>
+
 </body>
-
-
-
 </html>
+

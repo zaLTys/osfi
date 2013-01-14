@@ -67,11 +67,27 @@ namespace StatistikosFormos.FormuValidavimas
         {
             foreach (var produktuPardavimas in upload.ProduktuPardavimas)
             {
-                if (produktuPardavimas.ParduotaNatura < produktuPardavimas.ParduotaEksportui) yield return new KlaidosAprasas(FormosTipas.Augalininkyste, upload, produktuPardavimas.Rusis.Kodas, 1, KlaidosKodas.IsJu);
+                if (produktuPardavimas.ParduotaNatura < produktuPardavimas.ParduotaEksportui) yield return new KlaidosAprasas(FormosTipas.ProduktuPardavimas, upload, produktuPardavimas.Rusis.Kodas, 1, KlaidosKodas.IsJu);
+
+
+                var isskyrus = new[] {"110", "330", "340", "360"};
+                if (!isskyrus.Contains(produktuPardavimas.Rusis.Kodas))
+                {
+                    if (produktuPardavimas.ParduotaNatura < produktuPardavimas.ParduotaIskaitomuojuSvoriu) yield return new KlaidosAprasas(FormosTipas.ProduktuPardavimas, upload, produktuPardavimas.Rusis.Kodas, 1, KlaidosKodas.IsJu);
+                }
+                else if (produktuPardavimas.Rusis.Kodas == "340")
+                {
+                    if (produktuPardavimas.ParduotaNatura <= produktuPardavimas.ParduotaIskaitomuojuSvoriu) yield return new KlaidosAprasas(FormosTipas.ProduktuPardavimas, upload, produktuPardavimas.Rusis.Kodas, 1, KlaidosKodas.IsJu);
+                }
+                else
+                {
+                    if (produktuPardavimas.ParduotaNatura != produktuPardavimas.ParduotaIskaitomuojuSvoriu) yield return new KlaidosAprasas(FormosTipas.ProduktuPardavimas, upload, produktuPardavimas.Rusis.Kodas, 1, KlaidosKodas.IsJu);
+                }
             }
 
             var blogosSumos = ValidateProduktuPardavimasVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "200", new[] { "210","220","230","240","250","260","270","280","290","300","310","320" }));
             foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
+
 
         }
 

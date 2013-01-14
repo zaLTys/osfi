@@ -1,0 +1,84 @@
+﻿@using StatistinesAtaskaitos.Security
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
+    @*<link rel="stylesheet" media="screen" href="/Content/themes/bootstrap-theme/jquery-ui-1.8.16.custom.css" type="text/css" />*@
+    <link rel="stylesheet" media="screen" href="/Content/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen" href="/Content/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" media="screen" href="/Content/style2.css" type="text/css" />
+</head>
+<body>
+    <div id="main-content">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container clearfix">
+                    <table class="wf">
+                        <tr>
+                            <td>
+                                <div class="user-zone fr">
+                                    <a class="agent-download" href="http://www.vic.lt" title="">www.vic.lt</a>
+                                    @{
+                                        var user = HttpContext.Current.User as OsfiPrincipal;
+                                    }
+                                    @if (user != null)
+                                    {
+                                        <a href="@Url.Action("Atsijungti", "Vartotojai")" title="" class="user">@user.User.Name</a>
+                                    }
+                                </div>
+                                <div class="brand ">
+                                    <div>
+                                        <a href="/" title=""><span>3m Viewer</span> </a>
+                                    </div>
+                                </div>
+                                <ul class="nav">
+
+                                    <li><a href="/Dashboard">Parsisiųsti Formas</a></li>
+                                    <li><a href="/Equipment">Įkelti Formas</a></li>
+                                    <li><a href="/Settings">Ataskaitos</a></li>
+                                    <li><a href="/Account">Vartotojai</a></li>
+                                </ul>
+                                <div class="min-width-1">
+                                    &nbsp;
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <table class="whf">
+                <tr class="hf">
+                    <td class="left-side-1">
+                        <div class="bg">
+                            @RenderSection("LeftSide", false)
+                        </div>
+                    </td>
+                    <td class="right-side-1">
+                        <div class="top-grad">
+                            <div class="grad">
+                                <div class="grad-corner">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="paddings-1">
+                            @RenderBody()
+                        </div>
+                        <div class="min-width-2">
+                            &nbsp;
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <script src="@Url.Content("~/Scripts/jquery-1.8.2.js")"></script>
+            @RenderSection("Scripts", false)
+        </div>
+    </div>
+</body>
+</html>
+
