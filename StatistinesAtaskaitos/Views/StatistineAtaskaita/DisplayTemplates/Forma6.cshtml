@@ -1,37 +1,57 @@
 ﻿@using MvcContrib.UI.Grid
 @model IEnumerable<StatistinesAtaskaitos.Models.Forma6>
-    <table>
+<table>
+    <tr>
+        <th rowspan="3">Produkcijos pavadinimas</th>
+        <th rowspan="3">Kodas</th>
+        <th rowspan="3">Vidutinis metinis gyvulių skaičius</th>
+        <th rowspan="3">Produkcijos kiekis t</th>
+        <th colspan="7">Išlaidos, tūkst. Lt</th>
+        <th rowspan="3">Produkcijos vieneto savikaina, Lt</th>
+    </tr>
+    <tr>
+        <th rowspan="2">darbo apmokėjimas su atsiskaitymais valstyb. soc. ir sveikatos dramdimui</th>
+        <th rowspan="2">pašarai</th>
+        <th rowspan="2">naftos produktai ir dujos</th>
+        <th rowspan="2">elektros energija</th>
+        <th rowspan="2">kitos išlaidos</th>
+        <th rowspan="2">iš viso išlaidų</th>
+        <th>iš jų</th>
+    </tr>
+    <tr>
+        <th>išlaidos pagrindinei produkcijai</th>
+    </tr>
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th>
+        <th>9</th>
+        <th>10</th>
+    </tr>
+    @foreach (var imones6 in Model)
+    {
         <tr>
-            <th>Pavadinimas</th>
-            <th>Kodas</th>
-            <th>Vidutinis gyvuliu skaicius</th>
-            <th>Produkcijos Kiekis</th>
-            <th>Darbo apmokėjimas</th>
-            <th>Pasarai</th>
-            <th>Naftai</th>
-            <th>Elektrai</th>
-            <th>Kitos Islaidos</th>
-            <th>Visos Islaidos</th>
-            <th>Islaidos Pagrindinei Produkcijai</th>
-            <th>Produkcijos savikaina</th>
-        </tr>
-        @foreach(var imones6 in Model)
-        {
-            <tr>   
-                <td>@imones6.Pavadinimas</td>
-                <td>@imones6.Kodas</td>
-                <td>@Html.DisplayFor(x => imones6.VidutinisGyvuliuSk)</td>
-                <td>@Html.DisplayFor(x => imones6.ProdukcijosKiekis)</td>
-                <td>@Html.DisplayFor(x => imones6.IslaidosDarboApmokejimas)</td>
-                <td>@Html.DisplayFor(x => imones6.IslaidosPasarai)</td>
-                <td>@Html.DisplayFor(x => imones6.IslaidosNafta)</td>
-                <td>@Html.DisplayFor(x => imones6.IslaidosElektra)</td>
-                <td>@Html.DisplayFor(x => imones6.IslaidosKitos)</td>
-                <td>@Html.DisplayFor(x => imones6.IslaidosVisos)</td>
-                <td>@Html.DisplayFor(x => imones6.IslaidosPagrindinei)</td>
-                <td>@Html.DisplayFor(x => imones6.ProdukcijosSavikaina)</td>
+            <th>@imones6.Pavadinimas</th>
+            <th>@imones6.Kodas</th>
+            <td class="@(imones6.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.VidutinisGyvuliuSk)</td>
+            <td class="@(imones6.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.ProdukcijosKiekis)</td>
+            <td class="@(imones6.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosDarboApmokejimas)</td>
+            <td class="@(imones6.Klaidos[4].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[4].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosPasarai)</td>
+            <td class="@(imones6.Klaidos[5].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[5].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosNafta)</td>
+            <td class="@(imones6.Klaidos[6].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[6].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosElektra)</td>
+            <td class="@(imones6.Klaidos[7].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[7].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosKitos)</td>
+            <td class="@(imones6.Klaidos[8].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[8].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosVisos)</td>
+            <td class="@(imones6.Klaidos[9].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[9].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosPagrindinei)</td>
+            <td class="@(imones6.Klaidos[10].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[10].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.ProdukcijosSavikaina)</td>
 
 
-            </tr>       
-        }
-    </table>
+        </tr>       
+    }
+</table>

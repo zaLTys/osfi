@@ -3,29 +3,58 @@
 
 <table>
     <tr>
-        <th>Produkcijos pavadinimas</th>
-        <th>Produkcijos kodas</th>
-        <th>Likutis Pradzioje Ilgalaikio</th>
-        <th>Gauta</th>
-        <th>Iš jų naujų</th>
-        <th>VertesPadidejimas</th>
-        <th>NurasytaIlgalaikio</th>
-        <th>LikviduotaIlgalaikio</th>
-        <th>ParduotaIlgalainio</th>
-        <th>Nukainota</th>
-        <th>LikutisPabaigojeIlgalaikio</th>
-        <th>LikutisPradziojeNusidevejimo</th>
-        <th>Priskaiciuota</th>
-        <th>Pasikeitimas</th>
-        <th>NurasytaNusidevejimo</th>
-        <th>LikviduotaNusidevejimo</th>
-        <th>LikutisPabaigojeNusidevejimo</th>
+        <th rowspan="3">Turto grupė ir rūšys</th>
+        <th rowspan="3">Kodas</th>
+        <th colspan="9">Ilgalaikis turtas (pradinė vertė), tūkst.Lt</th>
+        <th colspan="6">Nusidėvėjimas (amortizacija), tūkst. Lt</th>
     </tr>
-    @foreach(var imones in Model)
+    <tr>
+        <th rowspan="2">likutis metų pradžioje</th>
+        <th rowspan="2">gauta</th>
+        <th>iš jų</th>
+        <th rowspan="2">vertės padidėjimas dėl perkainojimo</th>
+        <th rowspan="2">nurašyta</th>
+        <th colspan="2">iš jų</th>
+        <th rowspan="2">nukainota</th>
+        <th rowspan="2">likutis metų pabaigoje (1+2+4-5-8)</th>
+        <th rowspan="2">likutis metų pradžioje</th>
+        <th rowspan="2">priskaičiuota</th>
+        <th rowspan="2">pasikeitimas dėl perkainojimo</th>
+        <th rowspan="2">nurašyta</th>
+        <th>iš jų</th>
+        <th rowspan="2">likutis metų pabaigoje (10+11+12-13)</th>
+    </tr>
+    <tr>
+        <th>naujų</th>
+        <th>likviduota</th>
+        <th>parduota</th>
+        <th>likviduota</th>
+    </tr>
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th>
+        <th>9</th>
+        <th>10</th>
+        <th>11</th>
+        <th>12</th>
+        <th>13</th>
+        <th>14</th>
+        <th>15</th>
+    </tr>
+
+    @foreach (var imones in Model)
     {
-        <tr>   
-            <td>@imones.Pavadinimas</td>
-            <td>@imones.Kodas</td>
+        <tr>
+            <th>@imones.Pavadinimas</th>
+            <th>@imones.Kodas</th>
             <td class="@(imones.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones.LikutisPradziojeIlgalaikio.ToString("0.00")</td>
             <td class="@(imones.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@imones.Gauta.ToString("0.00")</td>
             <td class="@(imones.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@imones.IsJuNauju.ToString("0.00")</td>

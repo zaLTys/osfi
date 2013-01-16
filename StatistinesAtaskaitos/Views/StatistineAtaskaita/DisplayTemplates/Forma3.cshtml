@@ -1,21 +1,35 @@
 ﻿@model IEnumerable<StatistinesAtaskaitos.Models.Forma3>
 
-    <table>
+<table>
+    <tr>
+        <th colspan="5">Tūkst. Lt</thcolspan>
+            <!--kas daryt?/-->
+    </tr>
+    <tr>
+        <th rowspan="2"></th>
+        <th rowspan="2">Kodas</th>
+        <th rowspan="2">Iš viso</th>
+        <th colspan="2">iš jų</th>
+    </tr>
+    <tr>
+        <th>augalininkystė</th>
+        <th>gyvulininkystė</th>
+    </tr>
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+    </tr>
+    @foreach (var imones3 in Model)
+    {
         <tr>
-            <th>Pavadinimas</th>
-            <th>Kodas</th>
-            <th>Is Viso</th>
-            <th>Augalininkyste</th>
-            <th>Gyvulininkyste</th>
-        </tr>
-        @foreach(var imones3 in Model)
-        {
-            <tr>   
-                <td>@imones3.Pavadinimas</td>
-                <td>@imones3.Kodas</td>
-                <td>@imones3.IsViso</td>
-                <td>@imones3.Augalininkyste</td>
-                <td>@imones3.Gyvulininkyste</td>
-            </tr>       
-        }
-    </table> 
+            <th>@imones3.Pavadinimas</th>
+            <th>@imones3.Kodas</th>
+            <td class="@(imones3.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones3.IsViso</td>
+            <td class="@(imones3.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@imones3.Augalininkyste</td>
+            <td class="@(imones3.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@imones3.Gyvulininkyste</td>
+        </tr>       
+    }
+</table>

@@ -1,24 +1,34 @@
 ﻿@using MvcContrib.UI.Grid
 @model IEnumerable<StatistinesAtaskaitos.Models.Forma8>
-        <table>
-            <tr>
-                <th>Pavadinimas</th>
-                <th>Kodas</th>
-                <th>MetuPradzioje</th>
-                <th>MetuPabaigojeVnt</th>
-                <th>MetuPabaigojeVerte</th>
-            </tr>
-            @foreach(var imones8 in Model)
-            {
-                <tr>   
-                    <td>@imones8.Pavadinimas</td>
-                    <td>@imones8.Kodas</td>
-                    <td>@Html.DisplayFor(x => imones8.MetuPradzioje)</td>
-                    <td>@Html.DisplayFor(x => imones8.MetuPabaigojeVnt)</td>
-                    <td>@Html.DisplayFor(x => imones8.MetuPabaigojeVerte)</td>
+<table>
+    <tr>
+        <th rowspan="2">Gyvulių grupės</th>
+        <th rowspan="2">Kodas</th>
+        <th rowspan="2">Metų pradžioje, vnt.</th>
+        <th colspan="2">Metų pabaigoje</th>
+    </tr>
+    <tr>
+        <th>vnt.</th>
+        <th>vertė, tūkst. Lt</th>
+    </tr>
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+    </tr>
+    @foreach (var imones8 in Model)
+    {
+        <tr>
+            <th>@imones8.Pavadinimas</th>
+            <th>@imones8.Kodas</th>
+            <td class="@(imones8.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones8.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones8.MetuPradzioje)</td>
+            <td class="@(imones8.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones8.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones8.MetuPabaigojeVnt)</td>
+            <td class="@(imones8.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones8.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones8.MetuPabaigojeVerte)</td>
 
 
 
-                </tr>       
-            }
-        </table>
+        </tr>       
+    }
+</table>

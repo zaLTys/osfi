@@ -1,24 +1,34 @@
 ﻿@using MvcContrib.UI.Grid
 @model IEnumerable<StatistinesAtaskaitos.Models.Forma9>
-        <table>
-            <tr>
-                <th>Pavadinimas</th>
-                <th>Kodas</th>
-                <th>NuomaIsValstybes</th>
-                <th>NuomaIsFiziniu</th>
-                <th>NuosavaZeme</th>
-            </tr>
-            @foreach(var imones9 in Model)
-            {
-                <tr>   
-                    <td>@imones9.Pavadinimas</td>
-                    <td>@imones9.Kodas</td>
-                    <td>@Html.DisplayFor(x => imones9.NuomaIsValstybes)</td>
-                    <td>@Html.DisplayFor(x => imones9.NuomaIsFiziniu)</td>
-                    <td>@Html.DisplayFor(x => imones9.NuosavaZeme)</td>
+<table>
+    <tr>
+        <th rowspan="2"></th>
+        <th rowspan="2">Kodas</th>
+        <th colspan="2">Nuomojama žemė, ha</th>
+        <th rowspan="2">Nuosava žemė, ha</th>
+    </tr>
+    <tr>
+        <th>iš valstybės</th>
+        <th>iš fizinių asmenų</th>
+    </tr>
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+    </tr>
+    @foreach (var imones9 in Model)
+    {
+        <tr>
+            <th>@imones9.Pavadinimas</th>
+            <th>@imones9.Kodas</th>
+            <td class="@(imones9.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones9.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones9.NuomaIsValstybes)</td>
+            <td class="@(imones9.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones9.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones9.NuomaIsFiziniu)</td>
+            <td class="@(imones9.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones9.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones9.NuosavaZeme)</td>
 
 
 
-                </tr>       
-            }
-        </table>
+        </tr>       
+    }
+</table>

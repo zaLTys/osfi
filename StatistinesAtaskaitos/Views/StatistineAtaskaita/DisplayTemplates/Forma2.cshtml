@@ -1,18 +1,23 @@
 ﻿@using MvcContrib.UI.Grid
 @model IEnumerable<StatistinesAtaskaitos.Models.Forma2>
 
-    <table>
+<table>
+    <tr>
+        <th>Rodikliai</th>
+        <th>Kodas</th>
+        <th></th>
+    </tr>
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>1</th>
+    </tr>
+    @foreach (var imones2 in Model)
+    {
         <tr>
-            <th>Pavadinimas</th>
-            <th>Kodas</th>
-            <th>Kiekis</th>
-        </tr>
-        @foreach(var imones2 in Model)
-        {
-            <tr>   
-                <td>@imones2.Pavadinimas</td>
-                <td>@imones2.Kodas</td>
-                <td>@Html.DisplayFor(x => imones2.Kiekis)</td>
-            </tr>       
-        }
-    </table>
+            <th>@imones2.Pavadinimas</th>
+            <th>@imones2.Kodas</th>
+            <td class="@(imones2.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones2.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones2.Kiekis)</td>
+        </tr>       
+    }
+</table>
