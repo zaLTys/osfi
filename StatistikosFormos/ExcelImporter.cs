@@ -26,7 +26,7 @@ namespace StatistikosFormos
             _uploadValidator = uploadValidator;
         }
 
-        public void Import(string excelFile, int metai)
+        public Upload Import(string excelFile, int metai)
         {
 
             var excelConnectonString = string.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties=\"Excel 8.0;IMEX=1;MAXSCANROWS=0;HDR=No\"", excelFile);
@@ -265,7 +265,7 @@ namespace StatistikosFormos
 
                     var formosPildymoLaikas = ImportLaikai(session, excelConnection, imone);
 
-                    imone.CreateUpload(metai, now, ilgalaikisTurtas, imonesDuomenys, augalininkyste, darbuotojai, dotacijosSubsidijos, formosPildymoLaikas, gyvulininkyste, gyvuliuSkaicius, produkcijosKaita, produktuPardavimas, sanaudos, zemesPlotai, _uploadValidator);
+                    var upload = imone.CreateUpload(metai, now, ilgalaikisTurtas, imonesDuomenys, augalininkyste, darbuotojai, dotacijosSubsidijos, formosPildymoLaikas, gyvulininkyste, gyvuliuSkaicius, produkcijosKaita, produktuPardavimas, sanaudos, zemesPlotai, _uploadValidator);
                     session.SaveOrUpdate(imone);
 
                     try
@@ -276,6 +276,8 @@ namespace StatistikosFormos
                     {
                         throw new ImportException("Nepavyko išsaugoti informacijos duomenų bazėje.", ex);
                     }
+
+                    return upload;
                 }
             }
         }

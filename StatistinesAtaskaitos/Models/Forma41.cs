@@ -14,5 +14,7 @@ namespace StatistinesAtaskaitos.Models
         public decimal? ParduotaIskaitomuojuSvoriu { get; set; }
         public decimal ProdukcijosSavikaina { get; set; }
         public decimal PardavimuPajamos { get; set; }
+
+        public IDictionary<int, List<FormosKlaida>> Klaidos { get; set; }
     }
 }

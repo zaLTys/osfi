@@ -49,16 +49,17 @@ namespace StatistinesAtaskaitos.Controllers
                     rezultatai = _statistiniuAtaskaituService.GetForma3(model.Metai, model.ImonesKodas, model.UploadId);
                     break;
                 case FormuTipai.Forma41:
-                    var imones41 = _statistiniuAtaskaituService.GetForma41(model.Metai, model.ImonesKodas, model.UploadId);
-                    var pildymolaikas = _statistiniuAtaskaituService.GetFormosPildymoLaikas(model.Metai, model.ImonesKodas, model.UploadId);
-                    rezultatai = new Forma41IrFormuPildymoLaikas
-                                     {
-                                         Forma41 = imones41,
-                                         FormosPildymoLaikas = pildymolaikas,
-                                     };
+                    rezultatai = _statistiniuAtaskaituService.GetForma41(model.Metai, model.ImonesKodas, model.UploadId);
                     break;
                 case FormuTipai.Forma42:
-                    rezultatai = _statistiniuAtaskaituService.GetForma42(model.Metai, model.ImonesKodas, model.UploadId);
+                    var forma42 = _statistiniuAtaskaituService.GetForma42(model.Metai, model.ImonesKodas, model.UploadId);
+                    var pildymolaikas = _statistiniuAtaskaituService.GetFormosPildymoLaikas(model.Metai, model.ImonesKodas, model.UploadId);
+
+                    rezultatai = new Forma42IrFormuPildymoLaikas()
+                    {
+                        Forma42 = forma42,
+                        FormosPildymoLaikas = pildymolaikas,
+                    };
                     break;
                 case FormuTipai.Forma5:
                     rezultatai = _statistiniuAtaskaituService.GetForma5(model.Metai, model.ImonesKodas, model.UploadId);

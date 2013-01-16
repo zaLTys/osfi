@@ -12,5 +12,7 @@ namespace StatistinesAtaskaitos.Models
         public decimal MetuPradzioje { get; set; }
         public decimal MetuPabaigojeVnt { get; set; }
         public decimal MetuPabaigojeVerte { get; set; }
+
+        public IDictionary<int, List<FormosKlaida>> Klaidos { get; set; }
     }
 }

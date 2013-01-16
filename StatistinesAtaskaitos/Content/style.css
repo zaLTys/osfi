@@ -200,7 +200,7 @@ tr.good {
     background-color: #FFFFFF;
 }
 
-tr.evil {
+.evil {
     background-color: #fedfe5;
 }
 
@@ -243,6 +243,25 @@ tr:hover a {
     color: #000000;
 }
 
+table.kurimas {
+    font-size: 14px;
+    text-align: left;
+    padding: 4px;
+    background-color: #FFFFFF;
+    color: #206227;
+    border: none;
+}
+
+table.kurimas td {
+    padding: 2px;
+    font-size: 12px;
+    border: none;
+}
+table.kurimas th {
+    padding: 2px;
+    font-size: 12px;
+    border: none;
+}
 
 label {
     font-size: 16px;

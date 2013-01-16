@@ -12,5 +12,7 @@ namespace StatistinesAtaskaitos.Models
         public decimal NuomaIsValstybes { get; set; }
         public decimal NuomaIsFiziniu { get; set; }
         public decimal NuosavaZeme { get; set; }
+
+        public IDictionary<int, List<FormosKlaida>> Klaidos { get; set; }
     }
 }

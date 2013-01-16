@@ -39,7 +39,25 @@ namespace StatistinesAtaskaitos.Controllers
                 var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
                 model.File.SaveAs(path);
 
-                _excelImporter.Import(path, model.Metai);
+                var upload = _excelImporter.Import(path, model.Metai);
+
+                if (upload.Bukle == "Netinkamas")
+                {
+                    Session["lastUpload"] = upload.Id;
+                    return RedirectToAction("LastUpload");
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult LastUpload()
+        {
+            var lastUpload = Session["lastUpload"];
+            int uploadId;
+            if (lastUpload != null && int.TryParse((string)lastUpload, out uploadId))
+            {
+                return View();
             }
 
             return RedirectToAction("Index");

@@ -167,18 +167,20 @@
     </Compile>
     <Compile Include="HashExtensions.cs" />
     <Compile Include="Models\AtaskaitaModel.cs" />
+    <Compile Include="Models\DefaultableDictionary.cs" />
     <Compile Include="Models\DuomenisPateikusiosImonesModel.cs" />
     <Compile Include="Models\Forma1.cs" />
     <Compile Include="Models\Forma2.cs" />
     <Compile Include="Models\Forma3.cs" />
     <Compile Include="Models\Forma41.cs" />
-    <Compile Include="Models\Forma41IrFormuPildymoLaikas.cs" />
     <Compile Include="Models\Forma42.cs" />
+    <Compile Include="Models\Forma42IrFormuPildymoLaikas.cs" />
     <Compile Include="Models\Forma5.cs" />
     <Compile Include="Models\Forma6.cs" />
     <Compile Include="Models\Forma7.cs" />
     <Compile Include="Models\Forma8.cs" />
     <Compile Include="Models\Forma9.cs" />
+    <Compile Include="Models\FormosKlaida.cs" />
     <Compile Include="Models\FormosPildymoLaikasModel.cs" />
     <Compile Include="Models\FormuTipai.cs" />
     <Compile Include="Models\ImoneDetailsModel.cs" />
@@ -503,6 +505,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Meniu.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml" />
+    <Content Include="Views\Ikelimas\LastUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

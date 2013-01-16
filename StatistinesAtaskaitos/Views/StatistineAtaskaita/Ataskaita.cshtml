@@ -1,4 +1,5 @@
-﻿@model StatistinesAtaskaitos.Models.AtaskaitaModel
+﻿@using StatistinesAtaskaitos.Models
+@model StatistinesAtaskaitos.Models.AtaskaitaModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,6 +7,19 @@
 }
 
 @Html.Partial("AtaskaitosParametrai", Model.Parametrai)
+
+<ul class="formu-tipai">
+    <li>@Html.ActionLink("Ilgalaikis turtas", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma1, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
+    <li>@Html.ActionLink("Darbuotojai", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma2, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
+    <li>@Html.ActionLink("Sąnaudos", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma3, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
+    <li>@Html.ActionLink("Produktų pardavimas", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma41, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
+    <li>@Html.ActionLink("Dotacijos / subsidijos", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma42, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
+    <li>@Html.ActionLink("Augalininkystė", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma5, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
+    <li>@Html.ActionLink("Gyvulininkystė", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma6, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
+    <li>@Html.ActionLink("Produkcijos kaita", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma7, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
+    <li>@Html.ActionLink("Gyvulių skaičius", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma8, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
+    <li>@Html.ActionLink("Žemės plotai", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma9, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
+</ul>
 @Html.DisplayFor(m => m.Rezultatai, Model.Parametrai.FormosTipas.ToString())
 
 @section Scripts

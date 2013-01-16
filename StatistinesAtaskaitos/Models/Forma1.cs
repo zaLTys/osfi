@@ -25,6 +25,8 @@ namespace StatistinesAtaskaitos.Models
         public decimal? Pasikeitimas { get; set; }
         public decimal? NurasytaNusidevejimo { get; set; }
         public decimal? LikviduotaNusidevejimo { get; set; }
-        public decimal? LikutisPabaigojeNusidevejimo { get; set; } 
+        public decimal? LikutisPabaigojeNusidevejimo { get; set; }
+
+        public IDictionary<int, List<FormosKlaida>> Klaidos { get; set; }
     }
 }

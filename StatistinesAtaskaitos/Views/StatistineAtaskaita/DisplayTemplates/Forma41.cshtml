@@ -1,5 +1,5 @@
 ﻿@using MvcContrib.UI.Grid
-@model StatistinesAtaskaitos.Models.Forma41IrFormuPildymoLaikas
+@model IEnumerable<StatistinesAtaskaitos.Models.Forma41>
 <table>
     <tr>
         <th>Pavadinimas</th>
@@ -10,7 +10,7 @@
         <th>Produkcijos Savikaina</th>
         <th>Pardavimu Pajamos</th>
     </tr>
-    @foreach (var imones41 in Model.Forma41)
+    @foreach (var imones41 in Model)
     {
         <tr>
             <td>@imones41.Pavadinimas</td>
@@ -23,16 +23,5 @@
         </tr>       
     }
 </table>
-<table>
-    <tr>
-        <th>Valandos</th>
-        <th>Minutės</th>
-    </tr>
 
-    <tr>
-        <td>@Model.FormosPildymoLaikas.Valandos</td>
-        <td>@Model.FormosPildymoLaikas.Minutes</td>
-    </tr>
-
-</table>
 

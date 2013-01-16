@@ -26,21 +26,21 @@
         <tr>   
             <td>@imones.Pavadinimas</td>
             <td>@imones.Kodas</td>
-            <td>@imones.LikutisPradziojeIlgalaikio.ToString("0.00")</td>
-            <td>@imones.Gauta.ToString("0.00")</td>
-            <td>@imones.IsJuNauju.ToString("0.00")</td>
-            <td>@imones.VertesPadidejimas.ToString("0.00")</td>
-            <td>@imones.NurasytaIlgalaikio.ToString("0.00")</td>
-            <td>@imones.LikviduotaIlgalaikio.ToString("0.00")</td>
-            <td>@imones.ParduotaIlgalaikio.ToString("0.00")</td>
-            <td>@imones.Nukainota.ToString("0.00")</td>
-            <td>@imones.LikutisPabaigojeIlgalaikio.ToString("0.00")</td>
-            <td>@Html.DisplayFor(x => imones.LikutisPradziojeNusidevejimo)</td>
-            <td>@Html.DisplayFor(x => imones.Priskaiciuota)</td>
-            <td>@Html.DisplayFor(x => imones.Pasikeitimas)</td>
-            <td>@Html.DisplayFor(x => imones.NurasytaNusidevejimo)</td>
-            <td>@Html.DisplayFor(x => imones.LikviduotaNusidevejimo)</td>
-            <td>@Html.DisplayFor(x => imones.LikutisPabaigojeNusidevejimo)</td>
+            <td class="@(imones.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones.LikutisPradziojeIlgalaikio.ToString("0.00")</td>
+            <td class="@(imones.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@imones.Gauta.ToString("0.00")</td>
+            <td class="@(imones.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@imones.IsJuNauju.ToString("0.00")</td>
+            <td class="@(imones.Klaidos[4].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[4].Select(x => x.KlaidosPranesimas)))">@imones.VertesPadidejimas.ToString("0.00")</td>
+            <td class="@(imones.Klaidos[5].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[5].Select(x => x.KlaidosPranesimas)))">@imones.NurasytaIlgalaikio.ToString("0.00")</td>
+            <td class="@(imones.Klaidos[6].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[6].Select(x => x.KlaidosPranesimas)))">@imones.LikviduotaIlgalaikio.ToString("0.00")</td>
+            <td class="@(imones.Klaidos[7].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[7].Select(x => x.KlaidosPranesimas)))">@imones.ParduotaIlgalaikio.ToString("0.00")</td>
+            <td class="@(imones.Klaidos[8].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[8].Select(x => x.KlaidosPranesimas)))">@imones.Nukainota.ToString("0.00")</td>
+            <td class="@(imones.Klaidos[9].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[9].Select(x => x.KlaidosPranesimas)))">@imones.LikutisPabaigojeIlgalaikio.ToString("0.00")</td>
+            <td class="@(imones.Klaidos[10].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[10].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones.LikutisPradziojeNusidevejimo)</td>
+            <td class="@(imones.Klaidos[11].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[11].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones.Priskaiciuota)</td>
+            <td class="@(imones.Klaidos[12].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[12].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones.Pasikeitimas)</td>
+            <td class="@(imones.Klaidos[13].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[13].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones.NurasytaNusidevejimo)</td>
+            <td class="@(imones.Klaidos[14].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[14].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones.LikviduotaNusidevejimo)</td>
+            <td class="@(imones.Klaidos[15].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[15].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones.LikutisPabaigojeNusidevejimo)</td>
         </tr>
     }
 </table>

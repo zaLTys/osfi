@@ -1,18 +1,31 @@
 ﻿@using MvcContrib.UI.Grid
-@model IEnumerable<StatistinesAtaskaitos.Models.Forma42>
-    <table>
-        <tr>
-            <th>Pavadinimas</th>
-            <th>Kodas</th>
-            <th>Suma</th>
-        </tr>
-        @foreach(var imones42 in Model)
-        {
-            <tr>   
-                <td>@imones42.Pavadinimas</td>
-                <td>@imones42.Kodas</td>
-                <td>@Html.DisplayFor(x => imones42.Suma)</td>
+@model StatistinesAtaskaitos.Models.Forma42IrFormuPildymoLaikas
+<table>
+    <tr>
+        <th>Pavadinimas</th>
+        <th>Kodas</th>
+        <th>Suma</th>
+    </tr>
+    @foreach(var imones42 in Model.Forma42)
+    {
+        <tr>   
+            <td>@imones42.Pavadinimas</td>
+            <td>@imones42.Kodas</td>
+            <td>@Html.DisplayFor(x => imones42.Suma)</td>
 
-            </tr>       
-        }
-    </table>
+        </tr>       
+    }
+</table>
+
+<table>
+    <tr>
+        <th>Valandos</th>
+        <th>Minutės</th>
+    </tr>
+
+    <tr>
+        <td>@Model.FormosPildymoLaikas.Valandos</td>
+        <td>@Model.FormosPildymoLaikas.Minutes</td>
+    </tr>
+
+</table>

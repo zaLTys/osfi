@@ -21,5 +21,7 @@ namespace StatistinesAtaskaitos.Models
         public decimal IslaidosProdukcijosNuostoliai { get; set; }
         public decimal IslaidosKitos { get; set; }
         public decimal MetupabaigosLikutis { get; set; }
+
+        public IDictionary<int, List<FormosKlaida>> Klaidos { get; set; }
     }
 }

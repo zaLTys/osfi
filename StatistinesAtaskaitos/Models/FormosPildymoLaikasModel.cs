@@ -9,5 +9,7 @@ namespace StatistinesAtaskaitos.Models
     {
         public int Valandos { get; set; }
         public int Minutes { get; set; }
+
+        public IDictionary<int, List<FormosKlaida>> Klaidos { get; set; }
     }
 }

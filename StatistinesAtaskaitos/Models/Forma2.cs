@@ -11,5 +11,7 @@ namespace StatistinesAtaskaitos.Models
         public string Pavadinimas { get; set; }
         public string Kodas { get; set; }
         public decimal Kiekis { get; set; }
+
+        public IDictionary<int, List<FormosKlaida>> Klaidos { get; set; }
     }
 }

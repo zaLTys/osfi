@@ -12,7 +12,7 @@ namespace Vic.ZubStatistika.Entities
         public virtual ICollection<ImonesDuomenys> Duomenys { get; set; }
         public virtual ICollection<Upload> Uploads { get; set; }
 
-        public virtual void CreateUpload(
+        public virtual Upload CreateUpload(
             int metai, 
             DateTime data, 
             IEnumerable<IlgalaikisTurtas> ilgalaikisTurtas,
@@ -80,6 +80,8 @@ namespace Vic.ZubStatistika.Entities
             });
 
             Uploads.Add(upload);
+
+            return upload;
         }
 
         protected virtual void AtmestiUploaudus(IEnumerable<Upload> kandidatai, int metai, DateTime data)
