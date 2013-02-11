@@ -1,21 +1,29 @@
 ﻿@model StatistinesAtaskaitos.Models.PrisijungimoForma
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Prisijungimas</h2>
-
 @using(Html.BeginForm())
 {
-    @Html.LabelFor(x => x.VartotojoVardas)
-    @Html.EditorFor(x => x.VartotojoVardas)
-    @Html.LabelFor(x => x.Slaptazodis)
-    @Html.EditorFor(x => x.Slaptazodis)
-    @Html.CheckBoxFor(x => x.Prisiminti)
-    @Html.LabelFor(x => x.Prisiminti)
+    <table class="form-table">
+        <tr>
+            <th>@Html.LabelFor(x => x.VartotojoVardas)</th>
+            <td>@Html.EditorFor(x => x.VartotojoVardas)</td>
+        </tr>
+        <tr>
+            <th>@Html.LabelFor(x => x.Slaptazodis)</th>
+            <td>@Html.EditorFor(x => x.Slaptazodis)</td>
+        </tr>
+        <tr>
+            <th colspan="2">
+                @Html.CheckBoxFor(x => x.Prisiminti)
+                @Html.LabelFor(x => x.Prisiminti)
+            </th>
+        </tr>
+    </table>
+
     @Html.HiddenFor(x => x.ReturnUrl)
 
-    <input type="submit" value="Prisijungti" />
+    <input type="submit" value="Prisijungti" class="button" />
 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -12,8 +13,15 @@ namespace Vic.ZubStatistika.Entities
         public virtual ICollection<ImonesDuomenys> Duomenys { get; set; }
         public virtual ICollection<Upload> Uploads { get; set; }
 
+        public Imone()
+        {
+            Duomenys = new Collection<ImonesDuomenys>();
+            Uploads = new Collection<Upload>();
+        }
+
         public virtual Upload CreateUpload(
             int metai, 
+            Guid fileId,
             DateTime data, 
             IEnumerable<IlgalaikisTurtas> ilgalaikisTurtas,
             ImonesDuomenys imonesDuomenys,
@@ -35,6 +43,7 @@ namespace Vic.ZubStatistika.Entities
                          {
                              Metai = metai,
                              Data = data,
+                             FileId = fileId.ToString("N"),
                              Bukles = new List<UploadStatus>(),
                              Imone = this,
                              IlgalaikisTurtas = ilgalaikisTurtas.ToList(),

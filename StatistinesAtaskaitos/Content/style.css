@@ -19,6 +19,13 @@ img {
     border: 0 none;
 }
 
+select {
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #206227;
+    padding: 2px 4px;
+}
+
 map {
     display: none;
 }
@@ -32,7 +39,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 hr {
-    display: none;
+    margin: 4px 0px;
 }
 
 * {
@@ -213,7 +220,16 @@ h1 {
     color: #206227;
     font-weight: bold;
     margin-top: 0px;
+    margin-bottom: 10px;
     font-size: 22px;
+}
+
+h2 {
+    color: #206227;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
 }
 
 th {
@@ -229,6 +245,10 @@ td {
     padding: 2px;
     font-size: 12px;
     border: 1px solid #afafaf;
+}
+
+table.wide th, table.wide td {
+    padding: 7px 15px;
 }
 
 tr:hover {
@@ -265,13 +285,124 @@ table.kurimas th {
 }
 
 label {
-    font-size: 16px;
+}
+
+ul.formu-tipai {
+    list-style-type: none;
+    overflow: hidden;
+    padding: 0px;
+}
+
+ul.formu-tipai li {
+    display: inline-block;
+    float: left;
+    background-color: #9FBBA2;
+    overflow: hidden;
+}
+
+ul.formu-tipai li.active {
+    background-color: #FFFFFF;
+}
+
+ul.formu-tipai span.error-count {
     font-weight: bold;
-    color: #206227;
+    color: #FF0000;
 }
 
-ul.formu-tipai li{
-    display: inline;
+ul.formu-tipai li a {
+    width: 85px;
+    height: 32px;
+    padding: 4px 8px;
+    display: inline-block;
+    text-align: center;
+}
+
+ul.formu-tipai li a:hover {
+    text-decoration: none;
 }
 
 
+.ataskaita tr:hover {
+    background-color: transparent;
+}
+
+table.form-table {
+    text-align: left;
+}
+
+table.form-table th, table.form-table td {
+    padding: 2px 6px;
+    border: none;
+    background: none;
+}
+
+table.form-table th {
+    font-weight: normal;
+    text-align: left;
+}
+
+table.form-table tr:hover {
+    background: none;
+}
+/*
+.button {
+	background:url(img/button-1.png) 0 0 repeat-x;
+	border:1px solid #C9C9C9;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	height:21px !important;
+	padding:0 15px;
+	font-size:11px;
+	color:#3F3F3F;
+	cursor:pointer;
+	display:block;
+}
+.button:hover { background:url(img/button-1.png) 0 -19px repeat-x; }
+.button:active { background:url(img/button-1.png) 0 -38px repeat-x; }
+    */
+/*
+.button {
+	background:url(img/button-2.png) 0 0 repeat-x;
+	border:1px solid #C9C9C9;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	height:25px !important;
+	font-weight:bold;
+	padding:0 15px;
+	font-size:12px;
+	color:#3F3F3F;
+	cursor:pointer;
+	display:block;
+}
+.button:hover { background:url(img/button-2.png) 0 -23px repeat-x; }
+.button:active { background:url(img/button-2.png) 0 -46px repeat-x; }
+.button.disabled { background:url(img/button-2.png) 0 -69px repeat-x; }*/
+
+.button {
+	background:url(img/button.png) 0 0 repeat-x;
+	border:0 solid #C9C9C9;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	height:26px;
+    line-height: 26px;
+	padding:0 15px;
+	font-size:13px;
+	color:#FFF;
+	cursor:pointer;
+    display: inline-block;
+    margin: 2px 4px;
+}
+.button:hover { background:url(img/button.png) 0 -32px repeat-x; }
+a.button:hover { text-decoration: none; }
+.button:active { background:url(img/button.png) 0 -64px repeat-x; }
+
+table.vartotojai {
+    margin-top: 10px;
+}
+
+.px-widget span.ui-button-text {
+    padding: 0px 10px 0px 30px;
+    height: 42px;
+    line-height: 42px;
+    display: inline-block;
+}

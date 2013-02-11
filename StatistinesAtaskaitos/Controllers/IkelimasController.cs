@@ -6,16 +6,22 @@ using System.Web;
 using System.Web.Mvc;
 using StatistikosFormos;
 using StatistinesAtaskaitos.Models;
+using StatistinesAtaskaitos.Services;
+using Vic.ZubStatistika.Entities;
 
 namespace StatistinesAtaskaitos.Controllers
 {
     public class IkelimasController : Controller
     {
-        private readonly ExcelImporter _excelImporter;
+        private static log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public IkelimasController(ExcelImporter excelImporter)
+        private readonly ExcelImporter _excelImporter;
+        private readonly IStatistiniuAtaskaituService _statistiniuAtaskaituService;
+
+        public IkelimasController(ExcelImporter excelImporter, IStatistiniuAtaskaituService statistiniuAtaskaituService)
         {
             _excelImporter = excelImporter;
+            _statistiniuAtaskaituService = statistiniuAtaskaituService;
         }
 
         [HttpGet]
@@ -30,34 +36,50 @@ namespace StatistinesAtaskaitos.Controllers
         [HttpPost]
         public ActionResult Index(UploadModel model)
         {
-            // Verify that the user selected a file
-            if (model.File != null && model.File.ContentLength > 0)
+            try
             {
-                // extract only the fielname
-                var fileName = Path.GetFileName(model.File.FileName);
-                // store the file inside ~/App_Data/uploads folder
-                var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-                model.File.SaveAs(path);
-
-                var upload = _excelImporter.Import(path, model.Metai);
-
-                if (upload.Bukle == "Netinkamas")
+                // Verify that the user selected a file
+                if (model.File != null && model.File.ContentLength > 0)
                 {
-                    Session["lastUpload"] = upload.Id;
-                    return RedirectToAction("LastUpload");
-                }
-            }
+                    // extract only the fielname
+                    var taskoIndexas = model.File.FileName.LastIndexOf('.');
+                    if (taskoIndexas < 0) return View("UploadError", model: "Byla privalo turėti išplėtimą 'xls' arba 'xlsx'");
 
-            return RedirectToAction("Index");
+                    var extension = model.File.FileName.Substring(taskoIndexas + 1);
+                    var fileName = model.Id.ToString("N") + '.' + extension;
+                    // store the file inside ~/App_Data/uploads folder
+                    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                    model.File.SaveAs(path);
+
+                    var upload = _excelImporter.Import(path, model.Metai, model.Id);
+                    Session["lastUpload"] = upload.Id;
+
+                    return View("UploadSuccess");
+                }
+
+                return View("UploadError", model: "Klaida įkeliant bylą");
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Klaida įkeliant bylą", ex);
+                return View("UploadError", model: "Klaida įkeliant bylą");
+            }
         }
 
-        public ActionResult LastUpload()
+        public ActionResult LastUpload(FormuTipai? formosTipas)
         {
+            formosTipas = formosTipas ?? FormuTipai.Forma1;
             var lastUpload = Session["lastUpload"];
             int uploadId;
-            if (lastUpload != null && int.TryParse((string)lastUpload, out uploadId))
+            if (lastUpload != null && int.TryParse(lastUpload.ToString(), out uploadId))
             {
-                return View();
+                var ataskaitosParametrai = new AtaskaitosParametrai
+                                           {
+                                               UploadId = uploadId,
+                                               FormosTipas = formosTipas.Value
+                                           };
+
+                return View(_statistiniuAtaskaituService.GetStatistineAtaskaita(ataskaitosParametrai));
             }
 
             return RedirectToAction("Index");

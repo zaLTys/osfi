@@ -26,10 +26,11 @@ namespace StatistikosFormos
             _uploadValidator = uploadValidator;
         }
 
-        public Upload Import(string excelFile, int metai)
+        public Upload Import(string excelFile, int metai, Guid fileId)
         {
-
-            var excelConnectonString = string.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties=\"Excel 8.0;IMEX=1;MAXSCANROWS=0;HDR=No\"", excelFile);
+            var excelVersion = "Excel 8.0";
+            if (excelFile.EndsWith(".xlsx")) excelVersion = "Excel 12.0 Xml";
+            var excelConnectonString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"{1};IMEX=1;MAXSCANROWS=0;HDR=No\"", excelFile, excelVersion);
 
             using (var excelConnection = new OleDbConnection(excelConnectonString))
             {
@@ -265,7 +266,7 @@ namespace StatistikosFormos
 
                     var formosPildymoLaikas = ImportLaikai(session, excelConnection, imone);
 
-                    var upload = imone.CreateUpload(metai, now, ilgalaikisTurtas, imonesDuomenys, augalininkyste, darbuotojai, dotacijosSubsidijos, formosPildymoLaikas, gyvulininkyste, gyvuliuSkaicius, produkcijosKaita, produktuPardavimas, sanaudos, zemesPlotai, _uploadValidator);
+                    var upload = imone.CreateUpload(metai, fileId, now, ilgalaikisTurtas, imonesDuomenys, augalininkyste, darbuotojai, dotacijosSubsidijos, formosPildymoLaikas, gyvulininkyste, gyvuliuSkaicius, produkcijosKaita, produktuPardavimas, sanaudos, zemesPlotai, _uploadValidator);
                     session.SaveOrUpdate(imone);
 
                     try

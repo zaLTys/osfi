@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-        @Html.ActionLink("Naujas Vartotojas", "Kurimas")
-<table class="vartotojai">
+        @Html.ActionLink("Naujas Vartotojas", "Kurimas", new {}, new { @class = "button" })
+<table class="wide vartotojai">
     <tr>
         <th>Vartotojo vardas</th>
         <th>Rolė</th>

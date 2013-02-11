@@ -1,16 +1,66 @@
 ﻿@model StatistinesAtaskaitos.Models.UploadModel
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h2>Nuo ko pradėti?</h2>
+<ul>
+    <li>
+        Parsisiųskite oficialiosios statistokos formų pildymo bylą. Ją rasite 
+        <a href="~/Content/xls/formos2012.xls"><b>čia</b></a>.
+    </li>
+    <li>Atsidarę bylą atidžiai perskaitykite pildymo instrukciją.</li>
+    <li>Užpildykite formas ir bylą išsaugokite.</li>
+    <li>Paspauskite žemiau esantį mygtuką "Pasirinkti ataskaitos bylą" ir pasirinkite savo išsaugotą bylą.</li>
+    <li>Pasirinkite einamuosius metus (2013), arba, jei norite pateikti duomenis už ankstesnius laikotarpius - ankstesnius metus.</li>
+    <li>Paspauskite dešinėje pusėje esantį įkėlimo mygtuką.</li>
+    <li>Jei sistema įkėlimo metu ras klaidų, jos bus atvaizduotos  ir pažymėtos rausvai. <br />
+        Matysite klaidų atsiradimo priežastis, pataisę bylą galėsite pakartoti įkėlimo procedūrą.
+    </li>
+    <li>Jei sistema įkėlimo metu klaidų neras, matysite sėkmingo įkėlimo pranešimą.</li>
+</ul>
+@{
+    var lastUpload = Session["lastUpload"];
+    var uploadId = -1;
+    if (lastUpload != null)
+    {
+        int.TryParse(lastUpload.ToString(), out uploadId);
+    }
+}
 
-<h2>Index</h2>
+@if (uploadId != -1)
+{
+    @Html.ActionLink("Paskutinis įkėlimas", "LastUpload")
+}
 
 @using (Html.BeginForm("Index", "Ikelimas", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{    
-    <input type="file" name="File" value="Ataskaitos byla" />
+{   
+    @Html.HiddenFor(x => x.Id)
+    <input type="file" name="File" class="fileUpload" value="Ataskaitos byla" />
+    @Html.LabelFor(m => m.Metai)
     @Html.EditorFor(m => m.Metai)
-    
-    <input type="submit" value="Įkelti" />
+}
+
+@section Css
+{
+    <link href="@Url.Content("~/Content/ui-lightness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/fileUploader.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.fileUploader.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.fileUpload').fileUploader({
+                limit: 1,
+                selectFileLabel: 'Pasirinkti ataskaitos bylą',
+                allowedExtension: 'xls|xlsx',
+                afterEachUpload: function (data, status, formContainer) {
+                   if (status == 'success')  window.location.href = '@Url.Action("LastUpload")';
+                }
+            });
+        });
+    </script>
 }

@@ -27,7 +27,6 @@ namespace StatistinesAtaskaitos.Services
             {
                 var tuMetuUploudai = from u in session.Query<Upload>()
                                      where u.Metai == metai
-                                           && u.Bukle != "Netinkamas"
                                      select u;
 
                 var groupedImones = from u in tuMetuUploudai.AsEnumerable()
@@ -68,7 +67,6 @@ namespace StatistinesAtaskaitos.Services
                                    where u.Metai == metai
                                          && u.Imone.Id == imonesId
                                          && bukle.DataIki == null
-                                         && bukle.Bukle != "Netinkamas"
                                    orderby bukle.DataNuo
                                    select new ImoneDetailsUploadModel
                                               {

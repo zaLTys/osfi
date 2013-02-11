@@ -8,22 +8,50 @@
 
 @Html.Partial("AtaskaitosParametrai", Model.Parametrai)
 
+@{
+    var formuPavadinimai = new Dictionary<FormuTipai, string>();
+    formuPavadinimai[FormuTipai.Forma1] = "Ilgalaikis turtas";
+    formuPavadinimai[FormuTipai.Forma2] = "Darbuotojai";
+    formuPavadinimai[FormuTipai.Forma3] = "Sąnaudos";
+    formuPavadinimai[FormuTipai.Forma41] = "Produktų pardavimas";
+    formuPavadinimai[FormuTipai.Forma42] = "Dotacijos / subsidijos";
+    formuPavadinimai[FormuTipai.Forma5] = "Augalininkystė";
+    formuPavadinimai[FormuTipai.Forma6] = "Gyvulininkystė";
+    formuPavadinimai[FormuTipai.Forma7] = "Produkcijos kaita";
+    formuPavadinimai[FormuTipai.Forma8] = "Gyvulių skaičius";
+    formuPavadinimai[FormuTipai.Forma9] = "Žemės plotai";
+}
+
 <ul class="formu-tipai">
-    <li>@Html.ActionLink("Ilgalaikis turtas", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma1, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
-    <li>@Html.ActionLink("Darbuotojai", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma2, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
-    <li>@Html.ActionLink("Sąnaudos", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma3, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
-    <li>@Html.ActionLink("Produktų pardavimas", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma41, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
-    <li>@Html.ActionLink("Dotacijos / subsidijos", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma42, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
-    <li>@Html.ActionLink("Augalininkystė", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma5, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
-    <li>@Html.ActionLink("Gyvulininkystė", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma6, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
-    <li>@Html.ActionLink("Produkcijos kaita", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma7, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
-    <li>@Html.ActionLink("Gyvulių skaičius", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma8, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
-    <li>@Html.ActionLink("Žemės plotai", "Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = FormuTipai.Forma9, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId }, new {})</li>
+    @foreach(var forma in Enum.GetValues(typeof(FormuTipai)).Cast<FormuTipai>())
+    {
+        var classes = "";
+        if (Model.Parametrai.FormosTipas == forma)
+        {
+            classes += "active";
+        }
+
+        if (Model.KlaiduSkaicius[forma] > 0)
+        {
+            classes = (classes + " evil").Trim();
+        }
+        
+        <li class="@classes">
+            <a href="@Url.Action("Ataskaita", "StatistineAtaskaita", new { Metai = Model.Parametrai.Metai, FormosTipas = forma, ImonesKodas = Model.Parametrai.ImonesKodas, UploadId = Model.Parametrai.UploadId })">
+                @formuPavadinimai[forma]
+                @if (Model.KlaiduSkaicius[forma] > 0)
+                {
+                    <span class="error-count">(@Model.KlaiduSkaicius[forma])</span>
+                }
+            </a>
+        </li>
+    }
 </ul>
 @Html.DisplayFor(m => m.Rezultatai, Model.Parametrai.FormosTipas.ToString())
 
 @section Scripts
 {
+    <script src="@Url.Content("~/Scripts/jquery.tooltip.js")"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $(".metu-pasirinkimas").change(function () {
@@ -32,6 +60,25 @@
             
             $(".formos-tipas").change(function () {
                 $(this).closest('form').submit();
+            });
+
+            $('.ataskaita td.evil').tooltip({
+                bodyHandler: function () {
+                    var klaidos = $(this).attr('data-error-messages').split(';');
+
+                    var output = '<ul>';
+
+                    $.each(klaidos, function(index, klaida) {
+                        output += '<li>';
+                        output += klaida;
+                        output += '</li>';
+                    });
+
+                    output += '</ul>';
+
+                    return output;
+                },
+                showURL: false
             });
         });
     </script>

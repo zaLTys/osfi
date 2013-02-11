@@ -14,6 +14,7 @@ namespace Vic.ZubStatistika.Entities
         public virtual int Metai { get; set; }
         public virtual DateTime Data { get; set; }
         public virtual string Bukle { get; set; }
+        public virtual string FileId { get; set; }
         public virtual ICollection<IlgalaikisTurtas> IlgalaikisTurtas { get; set; }
         public virtual ICollection<ImonesDuomenys> ImonesDuomenys { get; set; }
         public virtual ICollection<Augalininkyste> Augalininkyste { get; set; }

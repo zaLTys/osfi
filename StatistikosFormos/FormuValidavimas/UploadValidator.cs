@@ -47,7 +47,7 @@ namespace StatistikosFormos.FormuValidavimas
 
             foreach (var sanaudos in upload.Sanaudos)
             {
-                if (sanaudos.IsViso != (sanaudos.Augalininkyste + sanaudos.Gyvulininkyste)) yield return new KlaidosAprasas(FormosTipas.Augalininkyste, upload, sanaudos.Rusis.Kodas, 1, KlaidosKodas.F03K02);
+                if (sanaudos.IsViso != ((sanaudos.Augalininkyste ?? 0) + (sanaudos.Gyvulininkyste ?? 0))) yield return new KlaidosAprasas(FormosTipas.Sanaudos, upload, sanaudos.Rusis.Kodas, 1, KlaidosKodas.F03K02);
             }
 
             var blogosSumos = ValidateSanaudosVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "010", new[] { "011" }, KlaidosKodas.F03K03));

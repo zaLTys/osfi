@@ -1,6 +1,6 @@
 ﻿@using MvcContrib.UI.Grid
 @model StatistinesAtaskaitos.Models.Forma42IrFormuPildymoLaikas
-<table>
+<table class="ataskaita">
     <tr>
         <th>Straipsnių pavadinimas</th>
         <th>Kodas</th>
@@ -22,13 +22,13 @@
     }
 </table>
 <br />
-<table>
+<table class="ataskaita">
     <tr>
         <!--GOOBY HALB ME-->
         <th>Formos pildymo laikas :</th>
-        <td class="@(Model.FormosPildymoLaikas.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", Model.FormosPildymoLaikas.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@Model.FormosPildymoLaikas.Valandos</th>
+        <td class="@(Model.FormosPildymoLaikas.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", Model.FormosPildymoLaikas.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@Model.FormosPildymoLaikas.Valandos</td>
         <th>valandos</th>
-        <td class="@(Model.FormosPildymoLaikas.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", Model.FormosPildymoLaikas.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@Model.FormosPildymoLaikas.Minutes</th>
+        <td class="@(Model.FormosPildymoLaikas.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", Model.FormosPildymoLaikas.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@Model.FormosPildymoLaikas.Minutes</td>
         <th>minutės</th>
     </tr>
 

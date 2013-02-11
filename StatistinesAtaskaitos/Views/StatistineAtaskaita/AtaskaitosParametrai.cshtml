@@ -4,10 +4,16 @@
 {
     if (Model.Metai != null)
     {
+        @Html.LabelFor(x => x.Metai)
         @Html.EditorFor(m => m.Metai)
     }
     
     @Html.HiddenFor(m => m.FormosTipas)
     @Html.HiddenFor(m => m.ImonesKodas)
     @Html.HiddenFor(m => m.UploadId)
+}
+
+@if (Model.Metai != null)
+{
+    <hr/>
 }

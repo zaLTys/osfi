@@ -9,6 +9,7 @@ namespace StatistinesAtaskaitos.Models
     public class AtaskaitosParametrai
     {
         [DataType("Metai")]
+        [Display(Name = "Metai:")]
         public int? Metai { get; set; }
         public FormuTipai FormosTipas { get; set; }
         public long? ImonesKodas { get; set; }

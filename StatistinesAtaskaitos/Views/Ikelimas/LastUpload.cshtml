@@ -1,6 +1,81 @@
-﻿@{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+﻿@using StatistinesAtaskaitos.Models
+@model StatistinesAtaskaitos.Models.AtaskaitaModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
 }
 
-<h2>title</h2>
+@{
+    var formuPavadinimai = new Dictionary<FormuTipai, string>();
+    formuPavadinimai[FormuTipai.Forma1] = "Ilgalaikis turtas";
+    formuPavadinimai[FormuTipai.Forma2] = "Darbuotojai";
+    formuPavadinimai[FormuTipai.Forma3] = "Sąnaudos";
+    formuPavadinimai[FormuTipai.Forma41] = "Produktų pardavimas";
+    formuPavadinimai[FormuTipai.Forma42] = "Dotacijos / subsidijos";
+    formuPavadinimai[FormuTipai.Forma5] = "Augalininkystė";
+    formuPavadinimai[FormuTipai.Forma6] = "Gyvulininkystė";
+    formuPavadinimai[FormuTipai.Forma7] = "Produkcijos kaita";
+    formuPavadinimai[FormuTipai.Forma8] = "Gyvulių skaičius";
+    formuPavadinimai[FormuTipai.Forma9] = "Žemės plotai";
+}
+
+@if (Model.KlaiduSkaicius.Sum(x => x.Value) == 0)
+{
+    <p>Įkėlimas sėkmingas - klaidų nerasta.</p>
+}
+
+<ul class="formu-tipai">
+    @foreach(var forma in Enum.GetValues(typeof(FormuTipai)).Cast<FormuTipai>())
+    {
+        var classes = "";
+        if (Model.Parametrai.FormosTipas == forma)
+        {
+            classes += "active";
+        }
+
+        if (Model.KlaiduSkaicius[forma] > 0)
+        {
+            classes = (classes + " evil").Trim();
+        }
+        
+        <li class="@classes">
+            <a href="@Url.Action("LastUpload", "Ikelimas", new { formosTipas = forma })">
+                @formuPavadinimai[forma] 
+                @if (Model.KlaiduSkaicius[forma] > 0)
+                {
+                    <span class="error-count">(@Model.KlaiduSkaicius[forma])</span>
+                }
+            </a>
+        </li>
+    }
+</ul>
+
+@Html.DisplayFor(m => m.Rezultatai, Model.Parametrai.FormosTipas.ToString())
+
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/jquery.tooltip.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.ataskaita td.evil').tooltip({
+                bodyHandler: function () {
+                    var klaidos = $(this).attr('data-error-messages').split(';');
+
+                    var output = '<ul>';
+
+                    $.each(klaidos, function(index, klaida) {
+                        output += '<li>';
+                        output += klaida;
+                        output += '</li>';
+                    });
+
+                    output += '</ul>';
+
+                    return output;
+                },
+                showURL: false
+            });
+        });
+    </script>
+}

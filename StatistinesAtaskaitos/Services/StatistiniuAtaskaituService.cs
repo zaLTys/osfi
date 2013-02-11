@@ -15,6 +15,7 @@ namespace StatistinesAtaskaitos.Services
     public class StatistiniuAtaskaituService : IStatistiniuAtaskaituService
     {
         private static readonly Dictionary<KlaidosKodas, string> KlaiduPranesimai = new Dictionary<KlaidosKodas, string>();
+        private static readonly Dictionary<FormosTipas, FormuTipai> FormosTipasMap = new Dictionary<FormosTipas, FormuTipai>();
 
         static StatistiniuAtaskaituService()
         {
@@ -66,6 +67,17 @@ namespace StatistinesAtaskaitos.Services
             KlaiduPranesimai[KlaidosKodas.F09K03] = "Kodo 020 reikšmė negali būti mažesnė nei kodų 030, 040, 060 reikšmių sumą.";
             KlaiduPranesimai[KlaidosKodas.F09K04] = "Kodo 040 reikšmė negali būti mažesnė nei kodo 050 reikšmė.";
 
+            FormosTipasMap[FormosTipas.IlgalaikisTurtas] = FormuTipai.Forma1;
+            FormosTipasMap[FormosTipas.Darbuotojai] = FormuTipai.Forma2;
+            FormosTipasMap[FormosTipas.Sanaudos] = FormuTipai.Forma3;
+            FormosTipasMap[FormosTipas.ProduktuPardavimas] = FormuTipai.Forma41;
+            FormosTipasMap[FormosTipas.DotacijosSubsidijos] = FormuTipai.Forma42;
+            FormosTipasMap[FormosTipas.FormosPildymoLaikas] = FormuTipai.Forma42;
+            FormosTipasMap[FormosTipas.Augalininkyste] = FormuTipai.Forma5;
+            FormosTipasMap[FormosTipas.Gyvulininkyste] = FormuTipai.Forma6;
+            FormosTipasMap[FormosTipas.ProdukcijosKaita] = FormuTipai.Forma7;
+            FormosTipasMap[FormosTipas.GyvuliuSkaicius] = FormuTipai.Forma8;
+            FormosTipasMap[FormosTipas.ZemesPlotai] = FormuTipai.Forma9;
         }
 
         private readonly ISessionFactory _sessionFactory;
@@ -109,6 +121,81 @@ namespace StatistinesAtaskaitos.Services
                                  KlaidosPranesimas = KlaiduPranesimai[x.KlaidosKodas]
                              })
                 .ToList();
+        }
+
+        public AtaskaitaModel GetStatistineAtaskaita(AtaskaitosParametrai parametrai)
+        {
+            object rezultatai = null;
+
+            switch (parametrai.FormosTipas)
+            {
+                case FormuTipai.Forma1:
+                    rezultatai = GetForma1(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
+                    break;
+                case FormuTipai.Forma2:
+                    rezultatai = GetForma2(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);//////////////////////////////////////////
+                    break;
+                case FormuTipai.Forma3:
+                    rezultatai = GetForma3(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
+                    break;
+                case FormuTipai.Forma41:
+                    rezultatai = GetForma41(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
+                    break;
+                case FormuTipai.Forma42:
+                    var forma42 = GetForma42(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
+                    var pildymolaikas = GetFormosPildymoLaikas(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
+
+                    rezultatai = new Forma42IrFormuPildymoLaikas()
+                    {
+                        Forma42 = forma42,
+                        FormosPildymoLaikas = pildymolaikas,
+                    };
+                    break;
+                case FormuTipai.Forma5:
+                    rezultatai = GetForma5(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
+                    break;
+                case FormuTipai.Forma6:
+                    rezultatai = GetForma6(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
+                    break;
+                case FormuTipai.Forma7:
+                    rezultatai = GetForma7(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
+                    break;
+                case FormuTipai.Forma8:
+                    rezultatai = GetForma8(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
+                    break;
+                case FormuTipai.Forma9:
+                    rezultatai = GetForma9(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
+                    break;
+            }
+
+            return new AtaskaitaModel
+                   {
+                       Parametrai = parametrai,
+                       Rezultatai = rezultatai,
+                       KlaiduSkaicius = GetTotalKlaidos(parametrai.UploadId)
+                   };
+        }
+
+        private IDictionary<FormuTipai, int> GetTotalKlaidos(int? uploadId)
+        {
+            if (uploadId == null) return new DefaultableDictionary<FormuTipai, int>(new Dictionary<FormuTipai, int>(), 0);
+
+            using (var session = _sessionFactory.OpenSession())
+            using (var tx = session.BeginTransaction())
+            {
+                var klaidos = session.Query<KlaidosAprasas>()
+                    .Where(x => x.Upload.Id == uploadId)
+                    .GroupBy(x => x.FormosTipas)
+                    .Select(x => new
+                                 {
+                                     Forma = x.Key,
+                                     KlaiduSkaicius = x.Count()
+                                 }).AsEnumerable();
+
+                var klaidosDictionary = klaidos.ToDictionary(x => FormosTipasMap[x.Forma], x => x.KlaiduSkaicius);
+
+                return new DefaultableDictionary<FormuTipai, int>(klaidosDictionary, 0);
+            }
         }
 
         public IEnumerable<Forma1> GetForma1(int? metai, long? imonesKodas, int? uploadId)

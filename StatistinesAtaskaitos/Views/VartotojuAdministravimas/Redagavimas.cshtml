@@ -7,26 +7,26 @@
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(x => x.Id)
-    <table>
+    <table class="form-table">
         <tr>
-            <th>Vartotojo vardas</th>
+            <th>Vartotojo vardas:</th>
             <td>@Model.Username</td>
         </tr>
         <tr>
-            <th>Rolė</th>
+            <th>Rolė:</th>
             <td>@Html.EditorFor(x => x.Role)</td>
         </tr>
         <tr>
-            <th>Vardas</th>
+            <th>Vardas:</th>
             <td>@Html.EditorFor(x => x.Vardas)</td>
         </tr>
         <tr>
-            <th>Pavardė</th>
+            <th>Pavardė:</th>
             <td>@Html.EditorFor(x => x.Pavarde)</td>
         </tr>
     </table> 
     
-    <input type="submit" value="Išsaugoti">  
+    <input type="submit" value="Išsaugoti" class="button">  
 }
 
 

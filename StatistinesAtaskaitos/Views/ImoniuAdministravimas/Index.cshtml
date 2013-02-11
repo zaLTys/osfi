@@ -2,7 +2,6 @@
 @model StatistinesAtaskaitos.Models.DuomenisPateikusiosImonesModel
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,8 +10,9 @@
     @Html.LabelFor(x => x.Metai)
     @Html.EditorFor(x => x.Metai)
 }
+<hr/>
 
-<table class="Imoniu-Administravimas">
+<table class="wide Imoniu-Administravimas">
     <tr>
         <th>Asmens kodas</th>
         <th>Pavadinimas</th>

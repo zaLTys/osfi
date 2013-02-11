@@ -1,7 +1,7 @@
 ﻿@using MvcContrib.UI.Grid
 @model IEnumerable<StatistinesAtaskaitos.Models.Forma1>
 
-<table>
+<table class="ataskaita">
     <tr>
         <th rowspan="3">Turto grupė ir rūšys</th>
         <th rowspan="3">Kodas</th>
@@ -62,8 +62,8 @@
             <td class="@(imones.Klaidos[5].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[5].Select(x => x.KlaidosPranesimas)))">@imones.NurasytaIlgalaikio.ToString("0.00")</td>
             <td class="@(imones.Klaidos[6].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[6].Select(x => x.KlaidosPranesimas)))">@imones.LikviduotaIlgalaikio.ToString("0.00")</td>
             <td class="@(imones.Klaidos[7].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[7].Select(x => x.KlaidosPranesimas)))">@imones.ParduotaIlgalaikio.ToString("0.00")</td>
-            <td class="@(imones.Klaidos[8].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[8].Select(x => x.KlaidosPranesimas)))">@imones.Nukainota.ToString("0.00")</td>
-            <td class="@(imones.Klaidos[9].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[9].Select(x => x.KlaidosPranesimas)))">@imones.LikutisPabaigojeIlgalaikio.ToString("0.00")</td>
+            <td class="@(imones.Klaidos[8].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[8].Select(x => x.KlaidosPranesimas)))">@imones.Nukainota.ToString("0.00")</td>
+            <td class="@(imones.Klaidos[9].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones.Klaidos[9].Select(x => x.KlaidosPranesimas)))">@imones.LikutisPabaigojeIlgalaikio.ToString("0.00")</td>
             <td class="@(imones.Klaidos[10].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[10].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones.LikutisPradziojeNusidevejimo)</td>
             <td class="@(imones.Klaidos[11].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[11].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones.Priskaiciuota)</td>
             <td class="@(imones.Klaidos[12].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones.Klaidos[12].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones.Pasikeitimas)</td>
