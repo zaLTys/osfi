@@ -11,7 +11,7 @@
       <mvcSiteMapNode title="Statistinė ataskaita" controller="StatistineAtaskaita" action="Ataskaita" />
     </mvcSiteMapNode>
     <mvcSiteMapNode title="Įkėlimas" controller="Ikelimas" action="Index">
-      <mvcSiteMapNode title="Įkėlimo klaidos" controller="Ikelimas" action="LastUpload" />
+      <mvcSiteMapNode title="Jūsų įkelti duomenys" controller="Ikelimas" action="LastUpload" />
     </mvcSiteMapNode>
     <mvcSiteMapNode title="Vartotojų administravimas" controller="VartotojuAdministravimas" action="Index">
       <mvcSiteMapNode title="Vartotojo redagavimas" controller="VartotojuAdministravimas" action="Redagavimas" />
@@ -19,6 +19,10 @@
     </mvcSiteMapNode>
 
     <mvcSiteMapNode title="Prisijungimas" controller="Vartotojai" action="Prisijungimas" visibility="XmlSiteMapResult,!*" clickable="false">
+      
+    </mvcSiteMapNode>
+  
+    <mvcSiteMapNode title="Slaptažodžio keitimas" controller="Vartotojai" action="KeistiSlaptazodi" visibility="XmlSiteMapResult,!*" clickable="false">
       
     </mvcSiteMapNode>
   </mvcSiteMapNode>

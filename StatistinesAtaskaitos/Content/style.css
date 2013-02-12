@@ -111,20 +111,6 @@ div.top-bar {
     height: 29px;
 }
 
-div.user-zone {
-    position: absolute;
-    padding: 5px;
-    right: 5px;
-    top: 0px;
-    text-decoration: none;
-    list-style: none;
-    font-size: 12px;
-}
-
-    div.user-zone a {
-        color: #FFFFFF;
-    }
-
 div.content-wrapper {
     position: absolute;
     top: 29px;
@@ -405,4 +391,63 @@ table.vartotojai {
     height: 42px;
     line-height: 42px;
     display: inline-block;
+}
+
+.dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0px 0 0 0px;
+    display: none;
+    overflow: visible;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    background: #206227 ;
+    opacity: 0.7 /*url(img/linen-texture-small.png);*/
+}
+
+.dropdown ul li:hover {
+    background: #9FBBA2;
+}
+
+.login-link {
+    display: inline-block;
+    height: 29px;
+    line-height: 29px;
+}
+
+.dropdown a {
+    display: block;
+    height: 29px;
+    line-height: 29px;
+    margin: 0px 5px;
+}
+
+.dropdown a:hover {
+    text-decoration: none;
+}
+
+.dropdown:hover .options {
+    display: inline-block;
+}
+
+div.user-zone {
+    position: absolute;
+    right: 5px;
+    top: 0px;
+    text-decoration: none;
+    list-style: none;
+    font-size: 12px;
+}
+
+    div.user-zone a {
+        color: #FFFFFF;
+    }
+
+.field-validation-error {
+    color: #FF0000;
+    font-weight: bold;
 }

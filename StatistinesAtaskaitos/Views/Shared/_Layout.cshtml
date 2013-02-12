@@ -32,11 +32,11 @@
                 }
                 @if (user != null)
                 {
-                    <a href="@Url.Action("Atsijungti", "Vartotojai")" title="" class="user">@user.User.Name</a>
+                    @Html.Partial("VartotojoMeniu", user.User)
                 }
                 else
                 {
-                    <a href="@Url.Action("Prisijungimas", "Vartotojai")">Prisijungti</a>
+                    <a href="@Url.Action("Prisijungimas", "Vartotojai")" class="login-link">Prisijungti</a>
                 }
             </div>
         </div>

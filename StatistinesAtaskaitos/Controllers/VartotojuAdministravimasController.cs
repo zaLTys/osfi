@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using NHibernate;
 using NHibernate.Linq;
 using StatistinesAtaskaitos.Models;
+using StatistinesAtaskaitos.Security;
 using Vic.ZubStatistika.Entities;
 
 namespace StatistinesAtaskaitos.Controllers

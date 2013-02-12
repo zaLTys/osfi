@@ -1,4 +1,5 @@
-﻿@model StatistinesAtaskaitos.Models.UploadModel
+﻿@using StatistinesAtaskaitos.Security
+@model StatistinesAtaskaitos.Models.UploadModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,13 +7,14 @@
 <h2>Nuo ko pradėti?</h2>
 <ul>
     <li>
-        Parsisiųskite oficialiosios statistokos formų pildymo bylą. Ją rasite 
-        <a href="~/Content/xls/formos2012.xls"><b>čia</b></a>.
+        Parsisiųskite oficialiosios statistikos formų pildymo bylą:
+        <ul>
+            <li><a href="~/Content/xls/formos2012.xls"><b>OSFI.xls</b></a>.</li>
+        </ul> 
     </li>
     <li>Atsidarę bylą atidžiai perskaitykite pildymo instrukciją.</li>
     <li>Užpildykite formas ir bylą išsaugokite.</li>
     <li>Paspauskite žemiau esantį mygtuką "Pasirinkti ataskaitos bylą" ir pasirinkite savo išsaugotą bylą.</li>
-    <li>Pasirinkite einamuosius metus (2013), arba, jei norite pateikti duomenis už ankstesnius laikotarpius - ankstesnius metus.</li>
     <li>Paspauskite dešinėje pusėje esantį įkėlimo mygtuką.</li>
     <li>Jei sistema įkėlimo metu ras klaidų, jos bus atvaizduotos  ir pažymėtos rausvai. <br />
         Matysite klaidų atsiradimo priežastis, pataisę bylą galėsite pakartoti įkėlimo procedūrą.
@@ -28,17 +30,26 @@
     }
 }
 
-@if (uploadId != -1)
-{
-    @Html.ActionLink("Paskutinis įkėlimas", "LastUpload")
+@{
+    var user = HttpContext.Current.User as OsfiPrincipal;
 }
 
 @using (Html.BeginForm("Index", "Ikelimas", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {   
     @Html.HiddenFor(x => x.Id)
     <input type="file" name="File" class="fileUpload" value="Ataskaitos byla" />
-    @Html.LabelFor(m => m.Metai)
-    @Html.EditorFor(m => m.Metai)
+
+    if (user != null)
+    {
+        @Html.LabelFor(m => m.Metai)
+        @Html.EditorFor(m => m.Metai)
+    }
+}
+
+@if (uploadId != -1)
+{
+    <hr/>
+    @Html.ActionLink("Jūsų paskutinis įkėlimas", "LastUpload", new {}, new { @class = "button" })
 }
 
 @section Css

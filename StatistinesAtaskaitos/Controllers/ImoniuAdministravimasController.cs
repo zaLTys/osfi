@@ -31,7 +31,7 @@ namespace StatistinesAtaskaitos.Controllers
 
         public ActionResult Index(int? metai)
         {
-            metai = metai ?? DateTime.Now.Year;
+            metai = metai ?? DateTime.Now.Year - 1;
 
             var model = new DuomenisPateikusiosImonesModel
                             {

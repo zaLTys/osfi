@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using StatistikosFormos;
 using StatistinesAtaskaitos.Models;
+using StatistinesAtaskaitos.Security;
 using StatistinesAtaskaitos.Services;
 using Vic.ZubStatistika.Entities;
 
@@ -17,11 +18,13 @@ namespace StatistinesAtaskaitos.Controllers
 
         private readonly ExcelImporter _excelImporter;
         private readonly IStatistiniuAtaskaituService _statistiniuAtaskaituService;
+        private readonly UserInformation _loggedInUser;
 
-        public IkelimasController(ExcelImporter excelImporter, IStatistiniuAtaskaituService statistiniuAtaskaituService)
+        public IkelimasController(ExcelImporter excelImporter, IStatistiniuAtaskaituService statistiniuAtaskaituService, [LoggedIn] UserInformation loggedInUser)
         {
             _excelImporter = excelImporter;
             _statistiniuAtaskaituService = statistiniuAtaskaituService;
+            _loggedInUser = loggedInUser;
         }
 
         [HttpGet]
@@ -29,7 +32,7 @@ namespace StatistinesAtaskaitos.Controllers
         {
             return View(new UploadModel
                             {
-                                Metai = DateTime.Now.Year,
+                                Metai = DateTime.Now.Year - 1,
                             });
         }
 
@@ -38,6 +41,8 @@ namespace StatistinesAtaskaitos.Controllers
         {
             try
             {
+                if (_loggedInUser == null) model.Metai = DateTime.Now.Year - 1;
+
                 // Verify that the user selected a file
                 if (model.File != null && model.File.ContentLength > 0)
                 {

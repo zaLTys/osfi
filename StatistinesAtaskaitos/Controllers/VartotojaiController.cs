@@ -1,20 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
+using NHibernate;
+using NHibernate.Linq;
 using StatistinesAtaskaitos.Models;
 using StatistinesAtaskaitos.Security;
+using Vic.ZubStatistika.Entities;
 
 namespace StatistinesAtaskaitos.Controllers
 {
     public class VartotojaiController : Controller
     {
         private readonly IAuthenticationProvider _authenticationProvider;
+        private readonly ISessionFactory _sessionFactory;
+        private readonly UserInformation _loggedInUser;
+        private readonly HashAlgorithm _hashAlgorithm;
 
-        public VartotojaiController(IAuthenticationProvider authenticationProvider)
+        public VartotojaiController(IAuthenticationProvider authenticationProvider, ISessionFactory sessionFactory, [LoggedIn] UserInformation loggedInUser, HashAlgorithm hashAlgorithm)
         {
             _authenticationProvider = authenticationProvider;
+            _sessionFactory = sessionFactory;
+            _loggedInUser = loggedInUser;
+            _hashAlgorithm = hashAlgorithm;
         }
 
         //
@@ -50,6 +60,30 @@ namespace StatistinesAtaskaitos.Controllers
         {
             _authenticationProvider.LogOut();
             return this.Redirect("~/");
+        }
+
+        [HttpGet]
+        public ActionResult KeistiSlaptazodi()
+        {
+            return View(new SlaptazodzioKeitimasModel());
+        }
+
+        [HttpPost]
+        public ActionResult KeistiSlaptazodi(SlaptazodzioKeitimasModel forma)
+        {
+            if (!ModelState.IsValid) return View(new SlaptazodzioKeitimasModel());
+
+            using (var session = _sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                var user = session.Query<User>().First(x => x.Id == _loggedInUser.Id);
+                user.Password = _hashAlgorithm.GetHashedString(forma.NaujasSlaptazodis);
+
+                session.Update(user);
+                transaction.Commit();
+
+                return Redirect("~/");
+            }
         }
     }
 }

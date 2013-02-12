@@ -109,6 +109,7 @@ namespace StatistinesAtaskaitos.App_Start
             FluentValidationModelValidatorProvider.Configure(x => x.ValidatorFactory = new NinjectValidatorFactory(kernel));
 
             kernel.Bind<IValidator<UserCreateModel>>().To<UserCreateValidator>();
+            kernel.Bind<IValidator<SlaptazodzioKeitimasModel>>().To<PasswordChangeValidator>();
             kernel.Bind<IUploadValidator>().To<UploadValidator>();
         }
     }

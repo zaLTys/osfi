@@ -188,6 +188,7 @@
     <Compile Include="Models\AtaskaitosParametrai.cs" />
     <Compile Include="Models\PrisijungimoForma.cs" />
     <Compile Include="Models\RoliuTipai.cs" />
+    <Compile Include="Models\SlaptazodzioKeitimasModel.cs" />
     <Compile Include="Models\UploadModel.cs" />
     <Compile Include="Models\UserDetailsModel.cs" />
     <Compile Include="Models\UserCreateModel.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Services\ImoniuService.cs" />
     <Compile Include="Services\StatistiniuAtaskaituService.cs" />
     <Compile Include="Services\TheRealStatistiniuAtaskaituService.cs" />
+    <Compile Include="Validators\PasswordChangeValidator.cs" />
     <Compile Include="Validators\UserCreateValidator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -539,6 +541,8 @@
     <Content Include="Views\Ikelimas\LastUpload.cshtml" />
     <Content Include="Views\Ikelimas\UploadSuccess.cshtml" />
     <Content Include="Views\Ikelimas\UploadError.cshtml" />
+    <Content Include="Views\Vartotojai\KeistiSlaptazodi.cshtml" />
+    <Content Include="Views\Shared\VartotojoMeniu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

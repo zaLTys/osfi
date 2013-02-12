@@ -1,0 +1,28 @@
+﻿@model StatistinesAtaskaitos.Models.SlaptazodzioKeitimasModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using(Html.BeginForm())
+{
+    <table class="form-table">
+        <tr>
+            <th>@Html.LabelFor(x => x.DabartinisSlaptazodis)</th>
+            <td>@Html.EditorFor(x => x.DabartinisSlaptazodis)</td>
+            <td>@Html.ValidationMessageFor(x => x.DabartinisSlaptazodis)</td>
+        </tr>
+        <tr>
+            <th>@Html.LabelFor(x => x.NaujasSlaptazodis)</th>
+            <td>@Html.EditorFor(x => x.NaujasSlaptazodis)</td>
+            <td>@Html.ValidationMessageFor(x => x.NaujasSlaptazodis)</td>
+        </tr>
+        <tr>
+            <th>@Html.LabelFor(x => x.PakartotasSlaptazodis)</th>
+            <td>@Html.EditorFor(x => x.PakartotasSlaptazodis)</td>
+            <td>@Html.ValidationMessageFor(x => x.PakartotasSlaptazodis)</td>
+        </tr>
+    </table>
+
+    <input type="submit" value="Pakeisti" class="button" />
+}

@@ -1,0 +1,10 @@
+﻿@model StatistinesAtaskaitos.Security.UserInformation
+
+<div class="dropdown">
+    <a href="#" title="">@Model.Name</a>
+    <ul class="options">
+        <li><a href="#" title="">@Model.Name</a></li>
+        <li><a href="@Url.Action("KeistiSlaptazodi", "Vartotojai")">Keisti slaptažodį</a></li>
+        <li><a href="@Url.Action("Atsijungti", "Vartotojai")">Atsijungti</a></li>
+    </ul>
+</div>
