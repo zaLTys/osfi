@@ -191,7 +191,8 @@ table {
 }
 
 tr.good {
-    background-color: #FFFFFF;
+
+    background-color: #e4f7e6;
 }
 
 .evil {
@@ -297,7 +298,7 @@ ul.formu-tipai span.error-count {
 
 ul.formu-tipai li a {
     width: 85px;
-    height: 32px;
+    height: 52px;
     padding: 4px 8px;
     display: inline-block;
     text-align: center;

@@ -90,7 +90,7 @@ namespace StatistikosFormos.FormuValidavimas
                 }
                 else if (produktuPardavimas.Rusis.Kodas == "340")
                 {
-                    if (produktuPardavimas.ParduotaNatura >= produktuPardavimas.ParduotaIskaitomuojuSvoriu) yield return new KlaidosAprasas(FormosTipas.ProduktuPardavimas, upload, produktuPardavimas.Rusis.Kodas, 1, KlaidosKodas.F41K06);
+                    if (produktuPardavimas.ParduotaNatura > produktuPardavimas.ParduotaIskaitomuojuSvoriu) yield return new KlaidosAprasas(FormosTipas.ProduktuPardavimas, upload, produktuPardavimas.Rusis.Kodas, 1, KlaidosKodas.F41K06);
                 }
                 else
                 {

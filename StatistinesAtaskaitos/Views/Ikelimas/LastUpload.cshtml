@@ -7,25 +7,29 @@
 
 @{
     var formuPavadinimai = new Dictionary<FormuTipai, string>();
-    formuPavadinimai[FormuTipai.Forma1] = "Ilgalaikis turtas";
-    formuPavadinimai[FormuTipai.Forma2] = "Darbuotojai";
-    formuPavadinimai[FormuTipai.Forma3] = "Sąnaudos";
-    formuPavadinimai[FormuTipai.Forma41] = "Produktų pardavimas";
-    formuPavadinimai[FormuTipai.Forma42] = "Dotacijos / subsidijos";
-    formuPavadinimai[FormuTipai.Forma5] = "Augalininkystė";
-    formuPavadinimai[FormuTipai.Forma6] = "Gyvulininkystė";
-    formuPavadinimai[FormuTipai.Forma7] = "Produkcijos kaita";
-    formuPavadinimai[FormuTipai.Forma8] = "Gyvulių skaičius";
-    formuPavadinimai[FormuTipai.Forma9] = "Žemės plotai";
+    formuPavadinimai[FormuTipai.Forma1] = "Ilgalaikis turtas [F1]";
+    formuPavadinimai[FormuTipai.Forma2] = "Darbuotojai [F2]";
+    formuPavadinimai[FormuTipai.Forma3] = "Sąnaudos [F3]";
+    formuPavadinimai[FormuTipai.Forma41] = "Produktų pardavimas [F4.1]";
+    formuPavadinimai[FormuTipai.Forma42] = "Dotacijos / subsidijos [F4.2]";
+    formuPavadinimai[FormuTipai.Forma5] = "Augalininkystė [F5]";
+    formuPavadinimai[FormuTipai.Forma6] = "Gyvulininkystė [F6]";
+    formuPavadinimai[FormuTipai.Forma7] = "Produkcijos kaita [F7]";
+    formuPavadinimai[FormuTipai.Forma8] = "Gyvulių skaičius [F8]";
+    formuPavadinimai[FormuTipai.Forma9] = "Žemės plotai [F9]";
 }
 
 @if (Model.KlaiduSkaicius.Sum(x => x.Value) == 0)
 {
     <p>Įkėlimas sėkmingas - klaidų nerasta.</p>
 }
+ else
+{
+   <p>Jūsų duomenys atmesti! Įkėlimas nesėkmingas. Surastos klaidos:</p> 
+}
 
 <ul class="formu-tipai">
-    @foreach(var forma in Enum.GetValues(typeof(FormuTipai)).Cast<FormuTipai>())
+    @foreach (var forma in Enum.GetValues(typeof(FormuTipai)).Cast<FormuTipai>())
     {
         var classes = "";
         if (Model.Parametrai.FormosTipas == forma)
