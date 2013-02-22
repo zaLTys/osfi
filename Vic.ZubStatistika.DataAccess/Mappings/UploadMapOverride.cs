@@ -13,6 +13,14 @@ namespace Vic.ZubStatistika.DataAccess.Mappings
         }
     }
 
+    public class UploadStatusMapOverride : IAutoMappingOverride<UploadStatus>
+    {
+        public void Override(AutoMapping<UploadStatus> mapping)
+        {
+            mapping.Map(x => x.DataNuo).Column("DATA_NUO");
+            mapping.Map(x => x.DataIki).Column("DATA_IKI");
+        }
+    }
 
     public class UploadMapOverride : IAutoMappingOverride<Upload>
     {

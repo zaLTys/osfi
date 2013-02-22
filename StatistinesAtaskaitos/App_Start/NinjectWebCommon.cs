@@ -75,6 +75,7 @@ namespace StatistinesAtaskaitos.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             var connString = ConfigurationManager.ConnectionStrings["OSFI"].ConnectionString;
+            var schemaName = ConfigurationManager.AppSettings["SchemaName"];
 
             kernel.Bind<Database>().ToConstructor(x => new Database(connString, new OracleClientFactory()));
             kernel.Bind<IStatistiniuAtaskaituService>().To<StatistiniuAtaskaituService>();
@@ -86,7 +87,7 @@ namespace StatistinesAtaskaitos.App_Start
                                                             var config = Fluently.Configure()
                                                                 .Database(OracleDataClientConfiguration.Oracle10
                                                                               .ConnectionString(connString).
-                                                                              DefaultSchema("OSFI"))
+                                                                              DefaultSchema(schemaName))
                                                                 .Mappings(m => m.AutoMappings.Add(
                                                                     AutoMap.AssemblyOf<Augalininkyste>()
                                                                         .Conventions.Add(
