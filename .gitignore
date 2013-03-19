@@ -1,6 +1,7 @@
 */App_Data/Uploads/*
 packages/*
 !packages/repositories.config
+*.log.*
 
 #ignore thumbnails created by windows
 Thumbs.db
