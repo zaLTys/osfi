@@ -1,3 +1,5 @@
+.svn
+
 */App_Data/Uploads/*
 packages/*
 !packages/repositories.config
