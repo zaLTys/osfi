@@ -23,9 +23,9 @@
         <tr>
             <th>@imones3.Pavadinimas</th>
             <th>@imones3.Kodas</th>
-            <td class="@(imones3.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones3.IsViso</td>
-            <td class="@(imones3.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@imones3.Augalininkyste</td>
-            <td class="@(imones3.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@imones3.Gyvulininkyste</td>
+            <td class="@(imones3.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones3.IsViso.ToString("0.00")</td>
+            <td class="@(imones3.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@imones3.Augalininkyste.ToString("0.00")</td>
+            <td class="@(imones3.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@imones3.Gyvulininkyste.ToString("0.00")</td>
         </tr>       
     }
 </table>
