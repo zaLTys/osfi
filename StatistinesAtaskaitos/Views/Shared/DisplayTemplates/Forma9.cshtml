@@ -23,9 +23,9 @@
         <tr>
             <th>@imones9.Pavadinimas</th>
             <th>@imones9.Kodas</th>
-            <td class="@(imones9.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones9.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones9.NuomaIsValstybes)</td>
-            <td class="@(imones9.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones9.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones9.NuomaIsFiziniu)</td>
-            <td class="@(imones9.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones9.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones9.NuosavaZeme)</td>
+            <td class="@(imones9.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones9.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones9.NuomaIsValstybes.ToString("0.00")</td>
+            <td class="@(imones9.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones9.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@imones9.NuomaIsFiziniu.ToString("0.00")</td>
+            <td class="@(imones9.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones9.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@imones9.NuosavaZeme.ToString("0.00")</td>
 
 
 

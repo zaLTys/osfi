@@ -16,7 +16,7 @@
         <tr>
             <th>@imones42.Pavadinimas</th>
             <th>@imones42.Kodas</th>
-            <td class="@(imones42.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones42.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones42.Suma)</td>
+            <td class="@(imones42.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones42.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones42.Suma.ToString("0.00")</td>
 
         </tr>       
     }

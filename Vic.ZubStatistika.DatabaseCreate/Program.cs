@@ -181,7 +181,7 @@ namespace Vic.ZubStatistika.DatabaseCreate
                 //    session.Save(new DarbuotojuRusis()
                 //    {
                 //        Kodas = "040",
-                //        Pavadinimas = "Apskaičiuota darbo apmokėjimo suma visiems darbuotojams Lt"
+                //        Pavadinimas = "Apskaičiuota darbo apmokėjimo suma visiems darbuotojams, tūkst. Lt"
                 //    });
                 //    session.Save(new DarbuotojuRusis()
                 //    {

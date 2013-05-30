@@ -32,11 +32,11 @@
             <th>@imones41.Pavadinimas</th>
             <th>@imones41.Kodas</th>
 
-            <td class="@(imones41.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones41.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones41.ParduotaNatura</td>
-            <td class="@(imones41.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones41.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@imones41.ParduotaEksportui</td>
-            <td class="@(imones41.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones41.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@imones41.ParduotaIskaitomuojuSvoriu</td>
-            <td class="@(imones41.Klaidos[4].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones41.Klaidos[4].Select(x => x.KlaidosPranesimas)))">@imones41.ProdukcijosSavikaina</td>
-            <td class="@(imones41.Klaidos[5].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones41.Klaidos[5].Select(x => x.KlaidosPranesimas)))">@imones41.PardavimuPajamos</td>
+            <td class="@(imones41.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones41.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones41.ParduotaNatura.ToString("0.00")</td>
+            <td class="@(imones41.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones41.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@imones41.ParduotaEksportui.ToString("0.00")</td>
+            <td class="@(imones41.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones41.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@imones41.ParduotaIskaitomuojuSvoriu.ToString("0.00")</td>
+            <td class="@(imones41.Klaidos[4].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones41.Klaidos[4].Select(x => x.KlaidosPranesimas)))">@imones41.ProdukcijosSavikaina.ToString("0.00")</td>
+            <td class="@(imones41.Klaidos[5].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones41.Klaidos[5].Select(x => x.KlaidosPranesimas)))">@imones41.PardavimuPajamos.ToString("0.00")</td>
         </tr>       
     }
 </table>

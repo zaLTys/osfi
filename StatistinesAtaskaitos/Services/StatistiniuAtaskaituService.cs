@@ -425,7 +425,7 @@ namespace StatistinesAtaskaitos.Services
                         IslaidosTrasos = groupResults.Sum(x => x.IslaidosTrasos) / 1000,
                         IslaidosNafta = groupResults.Sum(x => x.IslaidosNafta) / 1000,
                         IslaidosElektra = groupResults.Sum(x => x.IslaidosElektra) / 1000,
-                        IslaidosKitos = groupResults.Sum(x => x.IslaidosElektra) / 1000,
+                        IslaidosKitos = groupResults.Sum(x => x.IslaidosKitos) / 1000,
                         IslaidosVisos = groupResults.Sum(x => x.IslaidosDarboApmokejimas + x.IslaidosSeklos + x.IslaidosTrasos + x.IslaidosNafta + x.IslaidosElektra + x.IslaidosKitos) / 1000,
                         IslaidosPagrindinei = groupResults.Sum(x => x.IslaidosPagrindinei) / 1000,
                     }).ToList();
@@ -443,6 +443,7 @@ namespace StatistinesAtaskaitos.Services
 
                     irasas.ProdukcijosSavikaina = irasas.ProdukcijosKiekis == 0 ? 0 : irasas.IslaidosPagrindinei/irasas.ProdukcijosKiekis*1000; //---------!!!!!!!!!!!
                     irasas.Derlingumas = irasas.Plotas == 0 ? 0 : irasas.ProdukcijosKiekis/irasas.Plotas*10;
+                    if (irasas.Kodas == "100") irasas.Derlingumas = irasas.Plotas == 0 ? 0 : irasas.ProdukcijosKiekis / (irasas.Plotas/10000) * 10 /100;
                 }
 
                 return augalininkyste.ToList().OrderBy(x => x.Kodas);
@@ -558,6 +559,16 @@ namespace StatistinesAtaskaitos.Services
 
                     irasas.Klaidos = new DefaultableDictionary<int, List<FormosKlaida>>(eilutesKlaidos.GroupBy(x => x.Stulpelis)
                         .ToDictionary(x => x.Key, x => x.ToList()), new List<FormosKlaida>());
+                    if (irasas.Kodas == "040")
+                    {
+                        irasas.MetuPradzioje = irasas.MetuPradzioje / 1000;
+                        irasas.MetuPabaigojeVnt = irasas.MetuPabaigojeVnt / 1000;
+                    }
+                    if (irasas.Kodas == "041")
+                    {
+                        irasas.MetuPradzioje = irasas.MetuPradzioje / 1000;
+                        irasas.MetuPabaigojeVnt = irasas.MetuPabaigojeVnt / 1000;
+                    }
                 }
 
                 return gyvuliuskaicius.ToList().OrderBy(x => x.Kodas);
