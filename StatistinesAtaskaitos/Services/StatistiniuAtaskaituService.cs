@@ -210,21 +210,21 @@ namespace StatistinesAtaskaitos.Services
                     {
                         Pavadinimas = key.Pavadinimas,
                         Kodas = key.Kodas,
-                        LikutisPradziojeIlgalaikio = groupResults.Sum(x => x.LikutisPradziojeIlgalaikio),
-                        Gauta = groupResults.Sum(x => x.Gauta),
-                        IsJuNauju = groupResults.Sum(x => x.IsJuNauju),
-                        VertesPadidejimas = groupResults.Sum(x => x.VertesPadidejimas),
-                        NurasytaIlgalaikio = groupResults.Sum(x => x.NurasytaIlgalaikio),
-                        LikviduotaIlgalaikio = groupResults.Sum(x => x.LikviduotaIlgalaikio),
-                        ParduotaIlgalaikio = groupResults.Sum(x => x.ParduotaIlgalaikio),
-                        Nukainota = groupResults.Sum(x => x.Nukainota),
-                        LikutisPabaigojeIlgalaikio = groupResults.Sum(x => x.LikutisPabaigojeIlgalaikio),
-                        LikutisPradziojeNusidevejimo = groupResults.Sum(x => x.LikutisPradziojeNusidevejimo),
-                        Priskaiciuota = groupResults.Sum(x => x.Priskaiciuota),
-                        Pasikeitimas = groupResults.Sum(x => x.Pasikeitimas),
-                        NurasytaNusidevejimo = groupResults.Sum(x => x.NurasytaNusidevejimo),
-                        LikviduotaNusidevejimo = groupResults.Sum(x => x.LikviduotaNusidevejimo),
-                        LikutisPabaigojeNusidevejimo = groupResults.Sum(x => x.LikutisPabaigojeNusidevejimo)
+                        LikutisPradziojeIlgalaikio = groupResults.Sum(x => x.LikutisPradziojeIlgalaikio) / 1000,
+                        Gauta = groupResults.Sum(x => x.Gauta) / 1000,
+                        IsJuNauju = groupResults.Sum(x => x.IsJuNauju) / 1000,
+                        VertesPadidejimas = groupResults.Sum(x => x.VertesPadidejimas) / 1000,
+                        NurasytaIlgalaikio = groupResults.Sum(x => x.NurasytaIlgalaikio) / 1000,
+                        LikviduotaIlgalaikio = groupResults.Sum(x => x.LikviduotaIlgalaikio) / 1000,
+                        ParduotaIlgalaikio = groupResults.Sum(x => x.ParduotaIlgalaikio) / 1000,
+                        Nukainota = groupResults.Sum(x => x.Nukainota) / 1000,
+                        LikutisPabaigojeIlgalaikio = groupResults.Sum(x => x.LikutisPabaigojeIlgalaikio) / 1000,
+                        LikutisPradziojeNusidevejimo = groupResults.Sum(x => x.LikutisPradziojeNusidevejimo) / 1000,
+                        Priskaiciuota = groupResults.Sum(x => x.Priskaiciuota) / 1000,
+                        Pasikeitimas = groupResults.Sum(x => x.Pasikeitimas) / 1000,
+                        NurasytaNusidevejimo = groupResults.Sum(x => x.NurasytaNusidevejimo) / 1000,
+                        LikviduotaNusidevejimo = groupResults.Sum(x => x.LikviduotaNusidevejimo) / 1000,
+                        LikutisPabaigojeNusidevejimo = groupResults.Sum(x => x.LikutisPabaigojeNusidevejimo) / 1000
                     }).ToList();
 
                 var indexedKlaidos = klaidos.GroupBy(x => x.IrasoKodas)
@@ -237,6 +237,25 @@ namespace StatistinesAtaskaitos.Services
 
                     irasas.Klaidos = new DefaultableDictionary<int, List<FormosKlaida>>(eilutesKlaidos.GroupBy(x => x.Stulpelis)
                         .ToDictionary(x => x.Key, x => x.ToList()), new List<FormosKlaida>());
+
+                    //if (imonesKodas == null && uploadId == null)
+                    //{
+                    //    irasas.LikutisPradziojeIlgalaikio = irasas.LikutisPabaigojeIlgalaikio / 1000;
+                    //    irasas.Gauta = irasas.Gauta / 1000;
+                    //    irasas.IsJuNauju = irasas.IsJuNauju/1000;
+                    //    irasas.VertesPadidejimas = irasas.VertesPadidejimas / 1000;
+                    //    irasas.NurasytaIlgalaikio = irasas.NurasytaIlgalaikio / 1000;
+                    //    irasas.LikviduotaIlgalaikio = irasas.LikviduotaIlgalaikio / 1000;
+                    //    irasas.ParduotaIlgalaikio = irasas.ParduotaIlgalaikio / 1000;
+                    //    irasas.Nukainota = irasas.Nukainota / 1000;
+                    //    irasas.LikutisPabaigojeIlgalaikio = irasas.LikutisPabaigojeIlgalaikio / 1000;
+                    //    irasas.LikutisPradziojeNusidevejimo = irasas.LikutisPradziojeNusidevejimo / 1000;
+                    //    irasas.Priskaiciuota = irasas.Priskaiciuota / 1000;
+                    //    irasas.Pasikeitimas = irasas.Pasikeitimas / 1000;
+                    //    irasas.NurasytaNusidevejimo = irasas.NurasytaNusidevejimo / 1000;
+                    //    irasas.LikviduotaNusidevejimo = irasas.LikviduotaNusidevejimo / 1000;
+                    //    irasas.LikutisPabaigojeNusidevejimo = irasas.LikutisPabaigojeNusidevejimo / 1000;
+                    //}
                 }
 
                 return turtoIrasai.ToList().OrderBy(x => x.Kodas);
@@ -268,6 +287,11 @@ namespace StatistinesAtaskaitos.Services
 
                     irasas.Klaidos = new DefaultableDictionary<int, List<FormosKlaida>>(eilutesKlaidos.GroupBy(x => x.Stulpelis)
                         .ToDictionary(x => x.Key, x => x.ToList()), new List<FormosKlaida>());
+                    if (irasas.Kodas == "040") irasas.Kiekis = irasas.Kiekis / 1000;
+                    if (irasas.Kodas == "041") irasas.Kiekis = irasas.Kiekis / 1000;
+                    if (irasas.Kodas == "042") irasas.Kiekis = irasas.Kiekis / 1000;
+                    if (irasas.Kodas == "043") irasas.Kiekis = irasas.Kiekis / 1000;
+                    if (irasas.Kodas == "044") irasas.Kiekis = irasas.Kiekis / 1000;
                 }
 
                 return darbuotojai.ToList().OrderBy(x => x.Kodas);
@@ -286,9 +310,9 @@ namespace StatistinesAtaskaitos.Services
                     {
                         Pavadinimas = key.Pavadinimas,
                         Kodas = key.Kodas,
-                        IsViso = groupResults.Sum(x => x.IsViso),
-                        Augalininkyste = groupResults.Sum(x => x.Augalininkyste),
-                        Gyvulininkyste = groupResults.Sum(x => x.Gyvulininkyste),
+                        IsViso = groupResults.Sum(x => x.IsViso) / 1000,
+                        Augalininkyste = groupResults.Sum(x => x.Augalininkyste) / 1000,
+                        Gyvulininkyste = groupResults.Sum(x => x.Gyvulininkyste) / 1000,
                     }).ToList();
 
                 var indexedKlaidos = klaidos.GroupBy(x => x.IrasoKodas)
@@ -301,6 +325,13 @@ namespace StatistinesAtaskaitos.Services
 
                     irasas.Klaidos = new DefaultableDictionary<int, List<FormosKlaida>>(eilutesKlaidos.GroupBy(x => x.Stulpelis)
                         .ToDictionary(x => x.Key, x => x.ToList()), new List<FormosKlaida>());
+
+                    //if (imonesKodas == null && uploadId == null)
+                    //{
+                    //    irasas.IsViso = irasas.IsViso / 1000;
+                    //    irasas.Augalininkyste = irasas.Augalininkyste / 1000;
+                    //    irasas.Gyvulininkyste = irasas.Gyvulininkyste / 1000;
+                    //}
                 }
 
                 return sanaudos.ToList().OrderBy(x => x.Kodas);
@@ -322,7 +353,8 @@ namespace StatistinesAtaskaitos.Services
                         ParduotaNatura =  groupResults.Sum(x => x.ParduotaNatura),
                         ParduotaEksportui = groupResults.Sum(x => x.ParduotaEksportui),
                         ParduotaIskaitomuojuSvoriu = groupResults.Sum(x => x.ParduotaIskaitomuojuSvoriu),
-                        PardavimuPajamos = groupResults.Sum(x => x.PardavimuPajamos),
+                        ProdukcijosSavikaina = groupResults.Sum(x => x.ProdukcijosSavikaina)/1000,
+                        PardavimuPajamos = groupResults.Sum(x => x.PardavimuPajamos)/1000,
                     }).ToList();
 
                 var indexedKlaidos = klaidos.GroupBy(x => x.IrasoKodas)
@@ -333,8 +365,10 @@ namespace StatistinesAtaskaitos.Services
                     List<FormosKlaida> eilutesKlaidos;
                     if (!indexedKlaidos.TryGetValue(irasas.Kodas, out eilutesKlaidos)) eilutesKlaidos = new List<FormosKlaida>();
 
+                    
                     irasas.Klaidos = new DefaultableDictionary<int, List<FormosKlaida>>(eilutesKlaidos.GroupBy(x => x.Stulpelis)
                         .ToDictionary(x => x.Key, x => x.ToList()), new List<FormosKlaida>());
+
                 }
 
                 return produktupardavimas.ToList().OrderBy(x => x.Kodas);
@@ -353,7 +387,7 @@ namespace StatistinesAtaskaitos.Services
                     {
                         Pavadinimas = key.Pavadinimas,
                         Kodas = key.Kodas,
-                        Suma = groupResults.Sum(x => x.Suma),
+                        Suma = groupResults.Sum(x => x.Suma)/1000,
                     }).ToList();
 
                 var indexedKlaidos = klaidos.GroupBy(x => x.IrasoKodas)
@@ -386,14 +420,14 @@ namespace StatistinesAtaskaitos.Services
                         Kodas = key.Kodas,
                         Plotas = groupResults.Sum(x => x.Plotas),
                         ProdukcijosKiekis = groupResults.Sum(x => x.ProdukcijosKiekis),
-                        IslaidosDarboApmokejimas =  groupResults.Sum(x => x.IslaidosDarboApmokejimas),
-                        IslaidosSeklos =  groupResults.Sum(x => x.IslaidosSeklos),
-                        IslaidosTrasos =  groupResults.Sum(x => x.IslaidosTrasos),
-                        IslaidosNafta = groupResults.Sum(x => x.IslaidosNafta),
-                        IslaidosElektra = groupResults.Sum(x => x.IslaidosElektra),
-                        IslaidosKitos = groupResults.Sum(x => x.IslaidosElektra),
-                        IslaidosVisos = groupResults.Sum(x => x.IslaidosDarboApmokejimas + x.IslaidosSeklos + x.IslaidosTrasos+ x.IslaidosNafta +x.IslaidosElektra + x.IslaidosKitos),
-                        IslaidosPagrindinei = groupResults.Sum(x => x.IslaidosPagrindinei),
+                        IslaidosDarboApmokejimas =  groupResults.Sum(x => x.IslaidosDarboApmokejimas)/1000,
+                        IslaidosSeklos = groupResults.Sum(x => x.IslaidosSeklos) / 1000,
+                        IslaidosTrasos = groupResults.Sum(x => x.IslaidosTrasos) / 1000,
+                        IslaidosNafta = groupResults.Sum(x => x.IslaidosNafta) / 1000,
+                        IslaidosElektra = groupResults.Sum(x => x.IslaidosElektra) / 1000,
+                        IslaidosKitos = groupResults.Sum(x => x.IslaidosKitos) / 1000,
+                        IslaidosVisos = groupResults.Sum(x => x.IslaidosDarboApmokejimas + x.IslaidosSeklos + x.IslaidosTrasos + x.IslaidosNafta + x.IslaidosElektra + x.IslaidosKitos) / 1000,
+                        IslaidosPagrindinei = groupResults.Sum(x => x.IslaidosPagrindinei) / 1000,
                     }).ToList();
 
                 var indexedKlaidos = klaidos.GroupBy(x => x.IrasoKodas)
@@ -407,8 +441,9 @@ namespace StatistinesAtaskaitos.Services
                     irasas.Klaidos = new DefaultableDictionary<int, List<FormosKlaida>>(eilutesKlaidos.GroupBy(x => x.Stulpelis)
                         .ToDictionary(x => x.Key, x => x.ToList()), new List<FormosKlaida>());
 
-                    irasas.ProdukcijosSavikaina = irasas.ProdukcijosKiekis == 0 ? 0 : irasas.IslaidosPagrindinei/irasas.ProdukcijosKiekis;
+                    irasas.ProdukcijosSavikaina = irasas.ProdukcijosKiekis == 0 ? 0 : irasas.IslaidosPagrindinei/irasas.ProdukcijosKiekis*1000; //---------!!!!!!!!!!!
                     irasas.Derlingumas = irasas.Plotas == 0 ? 0 : irasas.ProdukcijosKiekis/irasas.Plotas*10;
+                    if (irasas.Kodas == "100") irasas.Derlingumas = irasas.Plotas == 0 ? 0 : irasas.ProdukcijosKiekis / (irasas.Plotas/10000) * 10 /100;
                 }
 
                 return augalininkyste.ToList().OrderBy(x => x.Kodas);
@@ -429,14 +464,13 @@ namespace StatistinesAtaskaitos.Services
                         Kodas = key.Kodas,
                         VidutinisGyvuliuSk = groupResults.Sum(x => x.VidutinisGyvuliuSk),
                         ProdukcijosKiekis = groupResults.Sum(x => x.ProdukcijosKiekis),
-                        IslaidosDarboApmokejimas = groupResults.Sum(x => x.IslaidosDarboApmokejimas),
-                        IslaidosPasarai = groupResults.Sum(x => x.IslaidosPasarai),
-                        IslaidosNafta = groupResults.Sum(x => x.IslaidosNafta),
-                        IslaidosElektra = groupResults.Sum(x => x.IslaidosElektra),
-                        IslaidosKitos = groupResults.Sum(x => x.IslaidosKitos),
-                        IslaidosVisos = groupResults.Sum(x => x.IslaidosVisos),
-                        IslaidosPagrindinei = groupResults.Sum(x => x.IslaidosPagrindinei),
-                        ProdukcijosSavikaina = groupResults.Sum(x => x.ProdukcijosSavikaina),
+                        IslaidosDarboApmokejimas = groupResults.Sum(x => x.IslaidosDarboApmokejimas)/1000,
+                        IslaidosPasarai = groupResults.Sum(x => x.IslaidosPasarai) / 1000,
+                        IslaidosNafta = groupResults.Sum(x => x.IslaidosNafta) / 1000,
+                        IslaidosElektra = groupResults.Sum(x => x.IslaidosElektra) / 1000,
+                        IslaidosKitos = groupResults.Sum(x => x.IslaidosKitos) / 1000,
+                        IslaidosVisos = groupResults.Sum(x => x.IslaidosVisos) / 1000,
+                        IslaidosPagrindinei = groupResults.Sum(x => x.IslaidosPagrindinei) / 1000,
                     }).ToList();
 
                 var indexedKlaidos = klaidos.GroupBy(x => x.IrasoKodas)
@@ -449,6 +483,7 @@ namespace StatistinesAtaskaitos.Services
 
                     irasas.Klaidos = new DefaultableDictionary<int, List<FormosKlaida>>(eilutesKlaidos.GroupBy(x => x.Stulpelis)
                         .ToDictionary(x => x.Key, x => x.ToList()), new List<FormosKlaida>());
+                    irasas.ProdukcijosSavikaina = irasas.ProdukcijosKiekis == 0 ? 0 : irasas.IslaidosPagrindinei / irasas.ProdukcijosKiekis*1000;
                 }
 
                 return gyvulininkyste.ToList().OrderBy(x => x.Kodas);
@@ -511,7 +546,7 @@ namespace StatistinesAtaskaitos.Services
                         Kodas = key.Kodas,
                         MetuPradzioje = groupResults.Sum(x => x.MetuPradzioje),
                         MetuPabaigojeVnt = groupResults.Sum(x => x.MetuPabaigojeVnt),
-                        MetuPabaigojeVerte = groupResults.Sum(x => x.MetuPabaigojeVerte),
+                        MetuPabaigojeVerte = groupResults.Sum(x => x.MetuPabaigojeVerte)/1000,
                     }).ToList();
 
                 var indexedKlaidos = klaidos.GroupBy(x => x.IrasoKodas)
@@ -524,6 +559,16 @@ namespace StatistinesAtaskaitos.Services
 
                     irasas.Klaidos = new DefaultableDictionary<int, List<FormosKlaida>>(eilutesKlaidos.GroupBy(x => x.Stulpelis)
                         .ToDictionary(x => x.Key, x => x.ToList()), new List<FormosKlaida>());
+                    if (irasas.Kodas == "040")
+                    {
+                        irasas.MetuPradzioje = irasas.MetuPradzioje / 1000;
+                        irasas.MetuPabaigojeVnt = irasas.MetuPabaigojeVnt / 1000;
+                    }
+                    if (irasas.Kodas == "041")
+                    {
+                        irasas.MetuPradzioje = irasas.MetuPradzioje / 1000;
+                        irasas.MetuPabaigojeVnt = irasas.MetuPabaigojeVnt / 1000;
+                    }
                 }
 
                 return gyvuliuskaicius.ToList().OrderBy(x => x.Kodas);

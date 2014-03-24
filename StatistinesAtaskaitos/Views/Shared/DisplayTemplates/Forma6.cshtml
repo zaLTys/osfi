@@ -40,16 +40,16 @@
         <tr>
             <th>@imones6.Pavadinimas</th>
             <th>@imones6.Kodas</th>
-            <td class="@(imones6.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.VidutinisGyvuliuSk)</td>
-            <td class="@(imones6.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.ProdukcijosKiekis)</td>
-            <td class="@(imones6.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosDarboApmokejimas)</td>
-            <td class="@(imones6.Klaidos[4].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[4].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosPasarai)</td>
-            <td class="@(imones6.Klaidos[5].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[5].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosNafta)</td>
-            <td class="@(imones6.Klaidos[6].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[6].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosElektra)</td>
-            <td class="@(imones6.Klaidos[7].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[7].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosKitos)</td>
-            <td class="@(imones6.Klaidos[8].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[8].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosVisos)</td>
-            <td class="@(imones6.Klaidos[9].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[9].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.IslaidosPagrindinei)</td>
-            <td class="@(imones6.Klaidos[10].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[10].Select(x => x.KlaidosPranesimas)))">@Html.DisplayFor(x => imones6.ProdukcijosSavikaina)</td>
+            <td class="@(imones6.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones6.VidutinisGyvuliuSk.ToString("0.00")</td>
+            <td class="@(imones6.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@imones6.ProdukcijosKiekis.ToString("0.00")</td>
+            <td class="@(imones6.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@imones6.IslaidosDarboApmokejimas.ToString("0.00")</td>
+            <td class="@(imones6.Klaidos[4].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[4].Select(x => x.KlaidosPranesimas)))">@imones6.IslaidosPasarai.ToString("0.00")</td>
+            <td class="@(imones6.Klaidos[5].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[5].Select(x => x.KlaidosPranesimas)))">@imones6.IslaidosNafta.ToString("0.00")</td>
+            <td class="@(imones6.Klaidos[6].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[6].Select(x => x.KlaidosPranesimas)))">@imones6.IslaidosElektra.ToString("0.00")</td>
+            <td class="@(imones6.Klaidos[7].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[7].Select(x => x.KlaidosPranesimas)))">@imones6.IslaidosKitos.ToString("0.00")</td>
+            <td class="@(imones6.Klaidos[8].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[8].Select(x => x.KlaidosPranesimas)))">@imones6.IslaidosVisos.ToString("0.00")</td>
+            <td class="@(imones6.Klaidos[9].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[9].Select(x => x.KlaidosPranesimas)))">@imones6.IslaidosPagrindinei.ToString("0.00")</td>
+            <td class="@(imones6.Klaidos[10].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones6.Klaidos[10].Select(x => x.KlaidosPranesimas)))">@imones6.ProdukcijosSavikaina.ToString("0.00")</td>
 
 
         </tr>       
