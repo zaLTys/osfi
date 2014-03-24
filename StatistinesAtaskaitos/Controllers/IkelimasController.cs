@@ -56,10 +56,19 @@ namespace StatistinesAtaskaitos.Controllers
                     var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
                     model.File.SaveAs(path);
 
-                    var upload = _excelImporter.Import(path, model.Metai, model.Id);
-                    Session["lastUpload"] = upload.Id;
 
-                    return View("UploadSuccess");
+                    try
+                    {
+                        var upload = _excelImporter.Import(path, model.Metai, model.Id);
+                        Session["lastUpload"] = upload.Id;
+
+                        return View("UploadSuccess");
+                    }
+                    catch
+                    {
+                        System.IO.File.Delete(path);
+                        throw;
+                    }
                 }
 
                 return View("UploadError", model: "Klaida įkeliant bylą");
