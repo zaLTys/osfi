@@ -1,0 +1,17 @@
+﻿@using StatistinesAtaskaitos.Models
+@using MvcContrib.UI.Grid
+@model StatistinesAtaskaitos.Models.IndexModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+    
+    <h2>Index</h2>
+    @using (Html.BeginForm("Results", "StatistineAtaskaita", FormMethod.Get))
+    {
+        @Html.EditorFor(m => m.Metai)
+        @Html.EditorFor(m => m.FormosTipas)
+
+        <input type="submit" value="Rodyti ataskaitą" />
+    }

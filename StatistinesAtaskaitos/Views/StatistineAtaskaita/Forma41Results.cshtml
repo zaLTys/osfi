@@ -1,0 +1,42 @@
+﻿@using MvcContrib.UI.Grid
+@model StatistinesAtaskaitos.Models.Forma41IrFormuPildymoLaikas
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+<table>
+    <tr>
+        <th>Pavadinimas</th>
+        <th>Kodas</th>
+        <th>Parduota Natura</th>
+        <th>Parduota Eksportui</th>
+        <th>Parduota Iskaitomuoju Svoriu</th>
+        <th>Produkcijos Savikaina</th>
+        <th>Pardavimu Pajamos</th>
+    </tr>
+    @foreach (var imones41 in Model.Forma41)
+    {
+        <tr>
+            <td>@imones41.Pavadinimas</td>
+            <td>@imones41.Kodas</td>
+            <td>@imones41.ParduotaNatura</td>
+            <td>@imones41.ParduotaEksportui</td>
+            <td>@imones41.ParduotaIskaitomuojuSvoriu</td>
+            <td>@imones41.ProdukcijosSavikaina</td>
+            <td>@imones41.PardavimuPajamos</td>
+        </tr>       
+    }
+</table>
+<table>
+    <tr>
+        <th>Valandos</th>
+        <th>Minutės</th>
+    </tr>
+
+    <tr>
+        <td>@Model.FormosPildymoLaikas.Valandos</td>
+        <td>@Model.FormosPildymoLaikas.Minutes</td>
+    </tr>
+
+</table>
+
