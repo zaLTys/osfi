@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Vic.ZubStatistika.Entities
 {
-    public class DotacijuSubsidijuRusis : IKlasifikatorius
+    public class KapitaloRusis : IKlasifikatorius
     {
         public virtual int Id { get; set; }
         public virtual string Kodas { get; set; }
@@ -14,7 +14,7 @@ namespace Vic.ZubStatistika.Entities
 
         public override string ToString()
         {
-            return string.Format("DotacijuSubsidijuRusis[Id={0}, Kodas={1}, Pavadinimas={2}]", Id, Kodas, Pavadinimas);
+            return string.Format("KapitaloRusis[Id={0}, Kodas={1}, Pavadinimas={2}]", Id, Kodas, Pavadinimas);
         }
     }
 }

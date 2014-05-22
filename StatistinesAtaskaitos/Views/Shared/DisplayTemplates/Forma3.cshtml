@@ -2,14 +2,12 @@
 
 <table class="ataskaita">
     <tr>
-        <th rowspan="2"></th>
-        <th rowspan="2">Kodas</th>
-        <th rowspan="2">Iš viso</th>
-        <th colspan="2">iš jų</th>
-    </tr>
-    <tr>
+        <th>Rodikliai</th>
+        <th>Kodas</th>
         <th>augalininkystė</th>
         <th>gyvulininkystė</th>
+        <th>kita</th>
+        <th>Iš viso</th>
     </tr>
     <tr>
         <th>A</th>
@@ -17,15 +15,17 @@
         <th>1</th>
         <th>2</th>
         <th>3</th>
+        <th>4</th>
     </tr>
     @foreach (var imones3 in Model)
     {
         <tr>
             <th>@imones3.Pavadinimas</th>
             <th>@imones3.Kodas</th>
-            <td class="@(imones3.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones3.IsViso.ToString("0.00")</td>
-            <td class="@(imones3.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@imones3.Augalininkyste.ToString("0.00")</td>
-            <td class="@(imones3.Klaidos[3].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@imones3.Gyvulininkyste.ToString("0.00")</td>
+            <td class="@(imones3.Klaidos[1].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones3.Augalininkyste.ToString("0.00")</td>
+            <td class="@(imones3.Klaidos[2].Any() ? "evil" : "")"  data-error-messages="@(string.Join(";", imones3.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@imones3.Gyvulininkyste.ToString("0.00")</td>
+            <td class="@(imones3.Klaidos[3].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones3.Klaidos[3].Select(x => x.KlaidosPranesimas)))">@imones3.Kita.ToString("0.00")</td>
+            <td class="@(imones3.Klaidos[4].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones3.Klaidos[4].Select(x => x.KlaidosPranesimas)))">@imones3.IsViso.ToString("0.00")</td>
         </tr>       
     }
 </table>

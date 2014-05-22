@@ -12,7 +12,7 @@ namespace Vic.ZubStatistika.Entities
         public virtual IlgalaikioTurtoRusis Rusis { get; set; }
         public virtual decimal LikutisPradziojeIlgalaikio { get; set; }
         public virtual decimal Gauta { get; set; }
-        public virtual decimal IsJuNauju { get; set; }
+        public virtual decimal? IsJuNauju { get; set; }
         public virtual decimal VertesPadidejimas { get; set; }
         public virtual decimal NurasytaIlgalaikio { get; set; }
         public virtual decimal LikviduotaIlgalaikio { get; set; }

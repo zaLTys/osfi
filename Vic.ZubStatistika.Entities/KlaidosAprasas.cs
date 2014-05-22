@@ -93,6 +93,7 @@ namespace Vic.ZubStatistika.Entities
         ProdukcijosKaita,
         ProduktuPardavimas,
         Sanaudos,
-        ZemesPlotai
+        ZemesPlotai,
+        Kapitalas
     }
 }

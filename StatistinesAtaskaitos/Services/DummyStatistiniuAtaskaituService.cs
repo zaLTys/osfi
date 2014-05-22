@@ -8,11 +8,11 @@ namespace StatistinesAtaskaitos.Services
 {
     //public class DummyStatistiniuAtaskaituService : IStatistiniuAtaskaituService
     //{
-    //    private List<Forma1> _dummyAtaskaita = new List<Forma1>();
+    //    private List<Forma11> _dummyAtaskaita = new List<Forma11>();
 
     //    public DummyStatistiniuAtaskaituService()
     //    {
-    //        _dummyAtaskaita.Add(new Forma1
+    //        _dummyAtaskaita.Add(new Forma11
     //            {
     //                ImonesKodas = 123,
     //                Kodas = 010.ToString(),
@@ -20,7 +20,7 @@ namespace StatistinesAtaskaitos.Services
     //                LikutisPradziojeIlgalaikio = 38,
 
     //            });
-    //        _dummyAtaskaita.Add(new Forma1
+    //        _dummyAtaskaita.Add(new Forma11
     //            {
     //                ImonesKodas = 123,
     //                Kodas = 011.ToString(),
@@ -29,7 +29,7 @@ namespace StatistinesAtaskaitos.Services
     //            });
     //    }
         
-    //    public IEnumerable<Forma1> GetForma1(long imonesKodas)
+    //    public IEnumerable<Forma11> GetForma1(long imonesKodas)
     //    {
     //        yield return _dummyAtaskaita.FirstOrDefault(x => x.ImonesKodas == imonesKodas);
     //    }

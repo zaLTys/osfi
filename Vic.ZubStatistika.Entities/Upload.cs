@@ -27,6 +27,7 @@ namespace Vic.ZubStatistika.Entities
         public virtual ICollection<ProduktuPardavimas> ProduktuPardavimas { get; set; }
         public virtual ICollection<Sanaudos> Sanaudos { get; set; }
         public virtual ICollection<ZemesPlotai> ZemesPlotai { get; set; }
+        public virtual ICollection<Kapitalas> Kapitalas { get; set; } 
         public virtual ICollection<KlaidosAprasas> Klaidos { get; set; }
 
         protected virtual void CreateStatus(User user, string bukle, DateTime dataNuo)

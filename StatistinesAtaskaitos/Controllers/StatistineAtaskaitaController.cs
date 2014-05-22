@@ -27,7 +27,7 @@ namespace StatistinesAtaskaitos.Controllers
         {
             return RedirectToAction("Ataskaita", new AtaskaitosParametrai
                                                      {
-                                                         FormosTipas = FormuTipai.Forma1,
+                                                         FormosTipas = FormuTipai.Forma11,
                                                          Metai = DateTime.Now.Year - 1
                                                      });
         }

@@ -82,7 +82,7 @@ namespace StatistinesAtaskaitos.Controllers
 
         public ActionResult LastUpload(FormuTipai? formosTipas)
         {
-            formosTipas = formosTipas ?? FormuTipai.Forma1;
+            formosTipas = formosTipas ?? FormuTipai.Forma11;
             var lastUpload = Session["lastUpload"];
             int uploadId;
             if (lastUpload != null && int.TryParse(lastUpload.ToString(), out uploadId))

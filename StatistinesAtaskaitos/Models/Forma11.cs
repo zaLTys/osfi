@@ -6,14 +6,14 @@ using System.Web;
 
 namespace StatistinesAtaskaitos.Models
 {
-    public class Forma1
+    public class Forma11
     {
         public long ImonesKodas { get; set; }
         public string Pavadinimas { get; set; }
         public string Kodas { get; set; }
         public decimal LikutisPradziojeIlgalaikio { get; set; }
         public decimal Gauta { get; set; }
-        public decimal IsJuNauju { get; set; }
+        public decimal? IsJuNauju { get; set; }
         public decimal VertesPadidejimas { get; set; }
         public decimal NurasytaIlgalaikio { get; set; }
         public decimal LikviduotaIlgalaikio { get; set; }

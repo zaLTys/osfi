@@ -13,6 +13,7 @@ namespace StatistinesAtaskaitos.Models
        public decimal IsViso { get; set; }
        public decimal? Augalininkyste { get; set; }
        public decimal? Gyvulininkyste { get; set; }
+       public decimal? Kita { get; set; }
 
        public IDictionary<int, List<FormosKlaida>> Klaidos { get; set; }
     }

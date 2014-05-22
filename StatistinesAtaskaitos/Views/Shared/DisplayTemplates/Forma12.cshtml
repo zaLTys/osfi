@@ -1,0 +1,28 @@
+﻿@using MvcContrib.UI.Grid
+@model IEnumerable<StatistinesAtaskaitos.Models.Forma12>
+
+<table class="ataskaita">
+    <tr>
+        <th>Rodikliai</th>
+        <th>Kodas</th>
+        <th>Finansiniai metai, Lt</th>
+        <th>Praeje finansiniai metai,Lt</th>
+    </tr>
+    
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>1</th>
+        <th>2</th>
+    </tr>
+
+    @foreach (var imones12 in Model)
+    {
+        <tr>
+            <th>@imones12.Pavadinimas</th>
+            <th>@imones12.Kodas</th>
+            <td class="@(imones12.Klaidos[1].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones12.Klaidos[1].Select(x => x.KlaidosPranesimas)))">@imones12.FinansiniaiMetai.ToString("0.00")</td>
+            <td class="@(imones12.Klaidos[2].Any() ? "evil" : "")" data-error-messages="@(string.Join(";", imones12.Klaidos[2].Select(x => x.KlaidosPranesimas)))">@imones12.PraejeFinansiniaiMetai.ToString("0.00")</td>
+        </tr>
+    }
+</table>

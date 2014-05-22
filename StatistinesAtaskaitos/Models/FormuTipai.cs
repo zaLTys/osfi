@@ -7,7 +7,8 @@ namespace StatistinesAtaskaitos.Models
 {
     public enum FormuTipai
     {
-        Forma1,
+        Forma11,
+        Forma12,
         Forma2,
         Forma3,
         Forma41,

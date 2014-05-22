@@ -84,7 +84,7 @@ namespace StatistikosFormos
                         {
                             turtas.LikutisPradziojeIlgalaikio = stulpelis[i++].AsDecimal();
                             turtas.Gauta = stulpelis[i++].AsDecimal();
-                            turtas.IsJuNauju = stulpelis[i++].AsDecimal();
+                            turtas.IsJuNauju = stulpelis[i++].AsDecimalX();
                             turtas.VertesPadidejimas = stulpelis[i++].AsDecimal();
                             turtas.NurasytaIlgalaikio = stulpelis[i++].AsDecimal();
                             turtas.LikviduotaIlgalaikio = stulpelis[i++].AsDecimal();
@@ -102,7 +102,7 @@ namespace StatistikosFormos
                         {
                             throw new ImportException("Nepavyko įkelti lentelės \"F1\". Patikrinkite, ar šios lentelės duomenys įvesti teisingai.", ex);
                         }
-                    }, "Forma1");
+                    }, "Forma11");
 
                     var augalininkyste = ImportExcelioLentele<Augalininkyste, AugalininkystesRusis>(session, excelConnection, imone, (stulpelis, augal) =>
                     {
@@ -141,14 +141,31 @@ namespace StatistikosFormos
                         }
                     }, "Forma2");
 
-                    var sanaudos = ImportExcelioLentele<Sanaudos, SanauduRusis>(session, excelConnection, imone, (stulpelis, sanaud) =>
+                    var kapitalas = ImportExcelioLentele<Kapitalas, KapitaloRusis>(session, excelConnection, imone, (stulpelis, kapital) =>
                     {
                         try
                         {
                             int i = 1;
-                            sanaud.IsViso = stulpelis[i++].AsDecimal();
+                            kapital.FinMetai = stulpelis[i++].AsDecimal();
+                            kapital.PraejeFinMetai = stulpelis[i++].AsDecimal();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new ImportException("Nepavyko įkelti lentelės \"F1.2\". Patikrinkite, ar šios lentelės duomenys įvesti teisingai.", ex);
+                        }
+                    }, "Forma12");
+
+                    var sanaudos = ImportExcelioLentele<Sanaudos, SanauduRusis>(session, excelConnection, imone, (stulpelis, sanaud) =>
+                    {
+                        try
+                        {
+                            int i = 1;//ciabuvo bp
                             sanaud.Augalininkyste = stulpelis[i++].AsDecimalX();
                             sanaud.Gyvulininkyste = stulpelis[i++].AsDecimalX();
+                            sanaud.Kita = stulpelis[i++].AsDecimalX();
+                            sanaud.IsViso = stulpelis[i++].AsDecimal();
+                            
                         }
                         catch (Exception ex)
                         {
@@ -160,7 +177,7 @@ namespace StatistikosFormos
                     {
                         try
                         {
-                            int i = 1;
+                            int i = 1;//ciaciaciaiciaicaiciai buvo breakpointas
                             prodpard.ParduotaNatura = stulpelis[i++].AsDecimalX();
                             prodpard.ParduotaEksportui = stulpelis[i++].AsDecimalX();
                             prodpard.ParduotaIskaitomuojuSvoriu = stulpelis[i++].AsDecimalX();
@@ -172,7 +189,8 @@ namespace StatistikosFormos
                             throw new ImportException("Nepavyko įkelti lentelės \"F4.1\". Patikrinkite, ar šios lentelės duomenys įvesti teisingai.", ex);
                         }
 
-                    }, "Forma41augalai", "Forma41Gyvunai", "Forma41Kita");
+                    }, "Forma41visa"//,"Forma41augalai", "Forma41Gyvunai", "Forma41Kita"
+                    );
 
                     var dotacijosSubsidijos = ImportExcelioLentele<DotacijosSubsidijos, DotacijuSubsidijuRusis>(session, excelConnection, imone, (stulpelis, dota) =>
                     {
@@ -186,7 +204,7 @@ namespace StatistikosFormos
                             throw new ImportException("Nepavyko įkelti lentelės \"F4.2\". Patikrinkite, ar šios lentelės duomenys įvesti teisingai.", ex);
                         }
 
-                    }, "Forma42straipsniai");
+                    }, "Forma42");
 
                     var gyvulininkyste = ImportExcelioLentele<Gyvulininkyste, GyvulininkystesRusis>(session, excelConnection, imone, (stulpelis, gyvul) =>
                     {
@@ -262,11 +280,11 @@ namespace StatistikosFormos
                         {
                             throw new ImportException("Nepavyko įkelti lentelės \"F9\". Patikrinkite, ar šios lentelės duomenys įvesti teisingai.", ex);
                         }
-                    }, "Forma9");
+                    }, "Forma9plotai");
 
                     var formosPildymoLaikas = ImportLaikai(session, excelConnection, imone);
 
-                    var upload = imone.CreateUpload(metai, fileId, now, ilgalaikisTurtas, imonesDuomenys, augalininkyste, darbuotojai, dotacijosSubsidijos, formosPildymoLaikas, gyvulininkyste, gyvuliuSkaicius, produkcijosKaita, produktuPardavimas, sanaudos, zemesPlotai, _uploadValidator);
+                    var upload = imone.CreateUpload(metai, fileId, now, ilgalaikisTurtas, imonesDuomenys, augalininkyste, darbuotojai, dotacijosSubsidijos, formosPildymoLaikas, gyvulininkyste, gyvuliuSkaicius, produkcijosKaita, produktuPardavimas, sanaudos, zemesPlotai,kapitalas, _uploadValidator);
                     session.SaveOrUpdate(imone);
 
                     try
@@ -287,7 +305,7 @@ namespace StatistikosFormos
         {
             try
             {
-                var dataAdapter = new OleDbDataAdapter("SELECT * FROM Rekvizitai2", excelConnection);
+                var dataAdapter = new OleDbDataAdapter("SELECT * FROM Rekvizitai", excelConnection);
                 var dataTable = new DataTable();
                 dataAdapter.Fill(dataTable);
 
@@ -316,11 +334,11 @@ namespace StatistikosFormos
         {
             foreach (var namedBlock in namedBlocks)
             {
-                var dataAdapter = new OleDbDataAdapter(string.Format("SELECT * FROM {0}", namedBlock), excelConnection);
+                var dataAdapter = new OleDbDataAdapter(string.Format("SELECT * FROM {0}", namedBlock), excelConnection);/////////CIABP
                 var dataTable = new DataTable();
                 dataAdapter.Fill(dataTable);
 
-                var irasuTipai = session.Query<TKlasifikatorius>().ToList();
+                var irasuTipai = session.Query<TKlasifikatorius>().Where(x => x.Metai == 2013).ToList();
 
                 foreach (DataRow dataRow in dataTable.Rows)
                 {
@@ -334,8 +352,6 @@ namespace StatistikosFormos
                         Imone = imone,
                     };
 
-                    int i = 1;
-
                     importoVeiksmas(dataRow, irasas);
 
                     yield return irasas;
@@ -347,7 +363,7 @@ namespace StatistikosFormos
         {
             try
             {
-                var dataAdapter = new OleDbDataAdapter("SELECT * FROM Forma42laikas", excelConnection);
+                var dataAdapter = new OleDbDataAdapter("SELECT * FROM Forma9laikas", excelConnection);
                 var dataTable = new DataTable();
                 dataAdapter.Fill(dataTable);
 
@@ -362,7 +378,7 @@ namespace StatistikosFormos
             }
             catch (Exception ex)
             {
-                throw new ImportException("Nepavyko įkelti lentelės \"F4.2\". Patikrinkite, ar šios lentelės duomenys įvesti teisingai.", ex);
+                throw new ImportException("Nepavyko įkelti lentelės \"F9laikas\". Patikrinkite, ar šios lentelės duomenys įvesti teisingai.", ex);
             }
         }
     }

@@ -9,7 +9,8 @@ namespace StatistinesAtaskaitos.Services
     public interface IStatistiniuAtaskaituService
     {
         AtaskaitaModel GetStatistineAtaskaita(AtaskaitosParametrai parametrai);
-        IEnumerable<Forma1> GetForma1(int? metai, long? imonesKodas, int? uploadId);
+        IEnumerable<Forma11> GetForma11(int? metai, long? imonesKodas, int? uploadId);
+        IEnumerable<Forma12> GetForma12(int? metai, long? imonesKodas, int? uploadId);
         IEnumerable<Forma2> GetForma2(int? metai, long? imonesKodas, int? uploadId);
         IEnumerable<Forma3> GetForma3(int? metai, long? imonesKodas, int? uploadId);
         IEnumerable<Forma41> GetForma41(int? metai, long? imonesKodas, int? uploadId);

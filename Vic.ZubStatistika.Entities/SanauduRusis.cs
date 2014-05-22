@@ -10,6 +10,7 @@ namespace Vic.ZubStatistika.Entities
         public virtual int Id { get; set; }
         public virtual string Kodas { get; set; }
         public virtual string Pavadinimas { get; set; }
+        public virtual int Metai { get; set; }
 
         public override string ToString()
         {

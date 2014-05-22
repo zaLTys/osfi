@@ -19,7 +19,8 @@ namespace StatistikosFormos.FormuValidavimas
                 .Concat(ValidateProdukcijosKaita(upload))
                 .Concat(ValidateProduktuPardavimas(upload))
                 .Concat(ValidateSanaudos(upload))
-                .Concat(ValidateZemesPlotai(upload));
+                .Concat(ValidateZemesPlotai(upload))
+                .Concat(ValidateKapitalas(upload));
             //.Union(...)
         }
 
@@ -36,6 +37,18 @@ namespace StatistikosFormos.FormuValidavimas
             foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
             blogosSumos = ValidateZemesPlotaiVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "040", new[] { "050" }, KlaidosKodas.F09K04));
             foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
+        }
+
+        private IEnumerable<KlaidosAprasas> ValidateKapitalas(Upload upload)
+        {
+            var neneigiamosKlaidos = ValidateKapitalasVertikaliai(upload, (stulpelis, reiksmeSuKodais) => IrasaiTuriButiNeneigiami(stulpelis, reiksmeSuKodais, new int[0], KlaidosKodas.F09K01));//pakeisti dar
+            foreach (var neneigiamaKlaida in neneigiamosKlaidos) yield return neneigiamaKlaida;
+
+            var blogosSumos = ValidateKapitalasVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "050", new[] { "051" }, KlaidosKodas.F09K02));
+            foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
+            blogosSumos = ValidateKapitalasVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "060", new[] { "061" }, KlaidosKodas.F09K03));
+            foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
+
         }
 
         private IEnumerable<KlaidosAprasas> ValidateSanaudos(Upload upload)
@@ -60,9 +73,7 @@ namespace StatistikosFormos.FormuValidavimas
             foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
             blogosSumos = ValidateSanaudosVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "024", new[] { "024.1" }, KlaidosKodas.F03K07));
             foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
-            blogosSumos = ValidateSanaudosVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "050", new[] { "052", "053", "054", "055", "056", "057", "058" }, KlaidosKodas.F03K08));
-            foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
-            blogosSumos = ValidateSanaudosVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "057", new[] { "057.1", "057.2", "057.3" }, KlaidosKodas.F03K09));
+            blogosSumos = ValidateSanaudosVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "050", new[] { "050.1", "050.2", "050.3", "050.4", "050.5", "050.6", "050.7", "050.8", "050.9", "050.10" }, KlaidosKodas.F03K08));
             foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
         }
 
@@ -110,7 +121,7 @@ namespace StatistikosFormos.FormuValidavimas
             var neneigiamosKlaidos = ValidateProdukcijosKaitaVertikaliai(upload, (stulpelis, reiksmeSuKodais) => IrasaiTuriButiNeneigiami(stulpelis, reiksmeSuKodais, new int[0], KlaidosKodas.F07K01));
             foreach (var neneigiamaKlaida in neneigiamosKlaidos) yield return neneigiamaKlaida;
 
-            var blogosSumos = ValidateProdukcijosKaitaVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "010", new[] { "011", "012", "013", "014", "015", "016", "017", "018", "019", "020", "021", "022" }, KlaidosKodas.F07K02));
+            var blogosSumos = ValidateProdukcijosKaitaVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "010", new[] { "011", "012", "013", "014", "015", "016", "017", "018", "019", "020", "021", "022","023" }, KlaidosKodas.F07K02));
             foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
         }
 
@@ -120,15 +131,15 @@ namespace StatistikosFormos.FormuValidavimas
             var neneigiamosKlaidos = ValidateGyvuliuSkaiciusVertikaliai(upload, (stulpelis, reiksmeSuKodais) => IrasaiTuriButiNeneigiami(stulpelis, reiksmeSuKodais, new int[0], KlaidosKodas.F08K01));
             foreach (var neneigiamaKlaida in neneigiamosKlaidos) yield return neneigiamaKlaida;
 
-            var blogosSumos = ValidateGyvuliuSkaiciusVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "010", new[] { "011", "012", "013" }, KlaidosKodas.F08K02));
+            var blogosSumos = ValidateGyvuliuSkaiciusVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "010", new[] { "011", "012" }, KlaidosKodas.F08K02));
             foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
             blogosSumos = ValidateGyvuliuSkaiciusVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "020", new[] { "021" }, KlaidosKodas.F08K03));
             foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
             blogosSumos = ValidateGyvuliuSkaiciusVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "030", new[] { "031" }, KlaidosKodas.F08K04));
             foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
-            blogosSumos = ValidateGyvuliuSkaiciusVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "040", new[] { "041" }, KlaidosKodas.F08K05));
+            blogosSumos = ValidateGyvuliuSkaiciusVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "040", new[] { "041","042" }, KlaidosKodas.F08K05));
             foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
-            blogosSumos = ValidateGyvuliuSkaiciusVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "050", new[] { "051" }, KlaidosKodas.F08K06));
+            blogosSumos = ValidateGyvuliuSkaiciusVertikaliai(upload, (stulpelis, reiksmesSuKodais) => EiluciuSumaTuriButiNemazesne(stulpelis, reiksmesSuKodais, "050", new[] { "051", "052" }, KlaidosKodas.F08K06));
             foreach (var blogaSuma in blogosSumos) yield return blogaSuma;
         }
 
@@ -357,6 +368,13 @@ namespace StatistikosFormos.FormuValidavimas
             foreach (var klaida in test(1, irasai.Select(x => new ReiksmeSuKodu(x.Rusis.Kodas, x.NuomaIsValstybes)))) yield return new KlaidosAprasas(FormosTipas.ZemesPlotai, upload, klaida.RusiesKodas, 1, klaida.Kodas);
             foreach (var klaida in test(2, irasai.Select(x => new ReiksmeSuKodu(x.Rusis.Kodas, x.NuomaIsFiziniu)))) yield return new KlaidosAprasas(FormosTipas.ZemesPlotai, upload, klaida.RusiesKodas, 2, klaida.Kodas);
             foreach (var klaida in test(3, irasai.Select(x => new ReiksmeSuKodu(x.Rusis.Kodas, x.NuosavaZeme)))) yield return new KlaidosAprasas(FormosTipas.ZemesPlotai, upload, klaida.RusiesKodas, 3, klaida.Kodas);
+        }
+
+        private IEnumerable<KlaidosAprasas> ValidateKapitalasVertikaliai(Upload upload, Func<int, IEnumerable<ReiksmeSuKodu>, IEnumerable<KlaidaSuRusiesKodu>> test)
+        {
+            var irasai = upload.Kapitalas;
+            foreach (var klaida in test(1, irasai.Select(x => new ReiksmeSuKodu(x.Rusis.Kodas, x.FinMetai)))) yield return new KlaidosAprasas(FormosTipas.ZemesPlotai, upload, klaida.RusiesKodas, 1, klaida.Kodas);
+            foreach (var klaida in test(2, irasai.Select(x => new ReiksmeSuKodu(x.Rusis.Kodas, x.PraejeFinMetai)))) yield return new KlaidosAprasas(FormosTipas.ZemesPlotai, upload, klaida.RusiesKodas, 2, klaida.Kodas);
         }
 
     }

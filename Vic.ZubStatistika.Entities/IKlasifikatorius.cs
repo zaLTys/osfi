@@ -10,5 +10,6 @@ namespace Vic.ZubStatistika.Entities
         int Id { get; set; }
         string Kodas { get; set; }
         string Pavadinimas { get; set; }
+        int Metai { get; set; }
     }
 }

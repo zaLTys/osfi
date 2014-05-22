@@ -157,7 +157,8 @@
     <Compile Include="Models\AtaskaitaModel.cs" />
     <Compile Include="Models\DefaultableDictionary.cs" />
     <Compile Include="Models\DuomenisPateikusiosImonesModel.cs" />
-    <Compile Include="Models\Forma1.cs" />
+    <Compile Include="Models\Forma11.cs" />
+    <Compile Include="Models\Forma12.cs" />
     <Compile Include="Models\Forma2.cs" />
     <Compile Include="Models\Forma3.cs" />
     <Compile Include="Models\Forma41.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Services\ImoniuService.cs" />
     <Compile Include="Services\StatistiniuAtaskaituService.cs" />
     <Compile Include="Services\TheRealStatistiniuAtaskaituService.cs" />
+    <Compile Include="Services\WTFException.cs" />
     <Compile Include="Validators\PasswordChangeValidator.cs" />
     <Compile Include="Validators\UserCreateValidator.cs" />
   </ItemGroup>
@@ -533,6 +535,8 @@
     <Content Include="Views\Ikelimas\UploadError.cshtml" />
     <Content Include="Views\Vartotojai\KeistiSlaptazodi.cshtml" />
     <Content Include="Views\Shared\VartotojoMeniu.cshtml" />
+    <Content Include="Views\StatistineAtaskaita\EditorTemplates\ImoniuSarasas.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Forma12.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -541,7 +545,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\DisplayTemplates\Forma1.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Forma11.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\DisplayTemplates\Forma2.cshtml" />

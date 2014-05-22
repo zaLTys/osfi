@@ -13,6 +13,7 @@ namespace Vic.ZubStatistika.Entities
         public virtual decimal IsViso { get; set; }
         public virtual decimal? Augalininkyste { get; set; }
         public virtual decimal? Gyvulininkyste { get; set; }
+        public virtual decimal? Kita { get; set; }
         public virtual Upload Upload { get; set; }
     }
 }

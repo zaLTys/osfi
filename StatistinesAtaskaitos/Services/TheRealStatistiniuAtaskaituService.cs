@@ -11,7 +11,7 @@ namespace StatistinesAtaskaitos.Services
 {
 //    public class TheRealStatistiniuAtaskaituService : IStatistiniuAtaskaituService
 //    {
-//        public IEnumerable<Forma1> GetForma1(long imonesKodas)
+//        public IEnumerable<Forma11> GetForma1(long imonesKodas)
 //        {
 //            const string oradb = @"Data Source=(DESCRIPTION=(ADDRESS_LIST=
 //                                  (ADDRESS=(PROTOCOL=TCP)(HOST=vld.vic.lt)(PORT=1521)))
@@ -63,7 +63,7 @@ namespace StatistinesAtaskaitos.Services
 //                    {
 //                        while (dr.Read())
 //                        {
-//                            var imone = new Forma1();
+//                            var imone = new Forma11();
 //                            imone.Pavadinimas = dr.ReadValue<string>("pavadinimas"); //dr["pavadinimas"].ToString();
 //                            imone.Kodas = dr.ReadValue<string>("kodas"); // dr["kodas"].ToString();
 //                            imone.LikutisPradziojeIlgalaikio = dr.ReadValue<decimal>("likutispradziojeilgalaikio"); //Convert.Todecimal(dr["likutispradziojeilgalaikio"]);

@@ -35,6 +35,7 @@ namespace Vic.ZubStatistika.Entities
             IEnumerable<ProduktuPardavimas> produktuPardavimas,
             IEnumerable<Sanaudos> sanaudos,
             IEnumerable<ZemesPlotai> zemesPlotai,
+            IEnumerable<Kapitalas> kapitalas,
             IUploadValidator validator)
         {
             Duomenys.Add(imonesDuomenys);
@@ -57,7 +58,8 @@ namespace Vic.ZubStatistika.Entities
                              ProdukcijosKaita = produkcijosKaita.ToList(),
                              ProduktuPardavimas = produktuPardavimas.ToList(),
                              Sanaudos = sanaudos.ToList(),
-                             ZemesPlotai = zemesPlotai.ToList()
+                             ZemesPlotai = zemesPlotai.ToList(),
+                             Kapitalas = kapitalas.ToList()
                          };
 
             foreach (var irasas in upload.IlgalaikisTurtas) irasas.Upload = upload;
@@ -72,6 +74,7 @@ namespace Vic.ZubStatistika.Entities
             foreach (var irasas in upload.ProduktuPardavimas) irasas.Upload = upload;
             foreach (var irasas in upload.Sanaudos) irasas.Upload = upload;
             foreach (var irasas in upload.ZemesPlotai) irasas.Upload = upload;
+            foreach (var irasas in upload.Kapitalas) irasas.Upload = upload;
 
             var klaidos = validator.Validate(upload).ToArray();
 

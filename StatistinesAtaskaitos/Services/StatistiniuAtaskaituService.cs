@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using NHibernate;
@@ -67,7 +66,7 @@ namespace StatistinesAtaskaitos.Services
             KlaiduPranesimai[KlaidosKodas.F09K03] = "Kodo 020 reikšmė negali būti mažesnė nei kodų 030, 040, 060 reikšmių sumą.";
             KlaiduPranesimai[KlaidosKodas.F09K04] = "Kodo 040 reikšmė negali būti mažesnė nei kodo 050 reikšmė.";
 
-            FormosTipasMap[FormosTipas.IlgalaikisTurtas] = FormuTipai.Forma1;
+            FormosTipasMap[FormosTipas.IlgalaikisTurtas] = FormuTipai.Forma11;
             FormosTipasMap[FormosTipas.Darbuotojai] = FormuTipai.Forma2;
             FormosTipasMap[FormosTipas.Sanaudos] = FormuTipai.Forma3;
             FormosTipasMap[FormosTipas.ProduktuPardavimas] = FormuTipai.Forma41;
@@ -129,8 +128,11 @@ namespace StatistinesAtaskaitos.Services
 
             switch (parametrai.FormosTipas)
             {
-                case FormuTipai.Forma1:
-                    rezultatai = GetForma1(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
+                case FormuTipai.Forma11:
+                    rezultatai = GetForma11(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
+                    break;
+                case FormuTipai.Forma12:
+                    rezultatai = GetForma12(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);///yes
                     break;
                 case FormuTipai.Forma2:
                     rezultatai = GetForma2(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);//////////////////////////////////////////
@@ -166,6 +168,8 @@ namespace StatistinesAtaskaitos.Services
                 case FormuTipai.Forma9:
                     rezultatai = GetForma9(parametrai.Metai, parametrai.ImonesKodas, parametrai.UploadId);
                     break;
+                default:
+                    throw new WTFException(string.Format("Nezinoma forma: {0}", parametrai.FormosTipas)); 
             }
 
             return new AtaskaitaModel
@@ -198,7 +202,7 @@ namespace StatistinesAtaskaitos.Services
             }
         }
 
-        public IEnumerable<Forma1> GetForma1(int? metai, long? imonesKodas, int? uploadId)
+        public IEnumerable<Forma11> GetForma11(int? metai, long? imonesKodas, int? uploadId)
         {
             using (var session = _sessionFactory.OpenSession())
             using (var tx = session.BeginTransaction())
@@ -206,7 +210,7 @@ namespace StatistinesAtaskaitos.Services
                 var klaidos = GetKlaidos(session, uploadId, FormosTipas.IlgalaikisTurtas);
 
                 var turtoIrasai = GetStatistineAtaskaita<IlgalaikisTurtas>(session, metai, imonesKodas, uploadId)
-                    .GroupBy(x => new { x.Rusis.Kodas, x.Rusis.Pavadinimas }, (key, groupResults) => new Forma1
+                    .GroupBy(x => new { x.Rusis.Kodas, x.Rusis.Pavadinimas }, (key, groupResults) => new Forma11
                     {
                         Pavadinimas = key.Pavadinimas,
                         Kodas = key.Kodas,
@@ -261,6 +265,44 @@ namespace StatistinesAtaskaitos.Services
                 return turtoIrasai.ToList().OrderBy(x => x.Kodas);
             }
         }
+        public IEnumerable<Forma12> GetForma12(int? metai, long? imonesKodas, int? uploadId)
+        {
+            using (var session = _sessionFactory.OpenSession())
+            using (var tx = session.BeginTransaction())
+            {
+                var klaidos = GetKlaidos(session, uploadId, FormosTipas.Kapitalas);
+
+                var kapitalas = GetStatistineAtaskaita<Kapitalas>(session, metai, imonesKodas, uploadId)
+                    .GroupBy(x => new { x.Rusis.Kodas, x.Rusis.Pavadinimas }, (key, groupResults) => new Forma12
+                    {
+                        Pavadinimas = key.Pavadinimas,
+                        Kodas = key.Kodas,
+                        FinansiniaiMetai = groupResults.Sum(x => x.FinMetai) / 1000,
+                        PraejeFinansiniaiMetai = groupResults.Sum(x => x.PraejeFinMetai) / 1000,
+                    }).ToList();
+
+                var indexedKlaidos = klaidos.GroupBy(x => x.IrasoKodas)
+                    .ToDictionary(x => x.Key, x => x.ToList());
+
+                foreach (var irasas in kapitalas)
+                {
+                    List<FormosKlaida> eilutesKlaidos;
+                    if (!indexedKlaidos.TryGetValue(irasas.Kodas, out eilutesKlaidos)) eilutesKlaidos = new List<FormosKlaida>();
+
+                    irasas.Klaidos = new DefaultableDictionary<int, List<FormosKlaida>>(eilutesKlaidos.GroupBy(x => x.Stulpelis)
+                        .ToDictionary(x => x.Key, x => x.ToList()), new List<FormosKlaida>());
+
+                    //if (imonesKodas == null && uploadId == null)
+                    //{
+                    //    irasas.IsViso = irasas.IsViso / 1000;
+                    //    irasas.Augalininkyste = irasas.Augalininkyste / 1000;
+                    //    irasas.Gyvulininkyste = irasas.Gyvulininkyste / 1000;
+                    //}
+                }
+
+                return kapitalas.ToList().OrderBy(x => x.Kodas);
+            }
+        }
 
         public IEnumerable<Forma2> GetForma2(int? metai, long? imonesKodas, int? uploadId)
         {
@@ -310,9 +352,10 @@ namespace StatistinesAtaskaitos.Services
                     {
                         Pavadinimas = key.Pavadinimas,
                         Kodas = key.Kodas,
-                        IsViso = groupResults.Sum(x => x.IsViso) / 1000,
                         Augalininkyste = groupResults.Sum(x => x.Augalininkyste) / 1000,
                         Gyvulininkyste = groupResults.Sum(x => x.Gyvulininkyste) / 1000,
+                        Kita = groupResults.Sum(x=> x.Kita) / 1000,
+                        IsViso = groupResults.Sum(x => x.IsViso) / 1000,
                     }).ToList();
 
                 var indexedKlaidos = klaidos.GroupBy(x => x.IrasoKodas)
